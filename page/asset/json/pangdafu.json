@@ -1,0 +1,133 @@
+{
+  "title":"胖大福第一次睁开眼睛",
+  "language": [
+      "中文",
+      "英文"
+  ],
+  "text": [
+    {
+      "ch": "都",
+      "pinyin": "dōu",
+      "en": "all",
+      "speak": "0",
+      "mp3": "./asset/audio/都.mp3"
+    },
+    {
+      "ch": "开始",
+      "pinyin": "kāishǐ",
+      "en": "start",
+      "speak": "1",
+      "mp3": "./asset/audio/开始.mp3"
+    },
+    {
+      "ch": "美",
+      "pinyin": "měi",
+      "en": "beautiful",
+      "speak": "2",
+      "mp3": "./asset/audio/美.mp3"
+    },
+    {
+      "ch": "先",
+      "pinyin": "xiān",
+      "en": "first",
+      "speak": "3",
+      "mp3": "./asset/audio/先.mp3"
+    },
+    {
+      "ch": "现在",
+      "pinyin": "xiànzài",
+      "en": "now",
+      "speak": "4",
+      "mp3": "./asset/audio/现在.mp3"
+    },
+    {
+      "ch": "消息",
+      "pinyin": "xiāoxi",
+      "en": "news",
+      "speak": "5",
+      "mp3": "./asset/audio/消息.mp3"
+    },
+    {
+      "ch": "月",
+      "pinyin": "yuè",
+      "en": "month",
+      "speak": "6",
+      "mp3": "./asset/audio/月.mp3"
+    },
+    {
+      "ch": "终于",
+      "pinyin": "zhōngyú",
+      "en": "finally",
+      "speak": "7",
+      "mp3": "./asset/audio/终于.mp3"
+    },
+    {
+      "ch": "做",
+      "pinyin": "zuò",
+      "en": "to be",
+      "speak": "8",
+      "mp3": "./asset/audio/做.mp3"
+    }
+  ],
+  "readTitle": {
+    "ch": "胖大福第一次睁开眼睛",
+    "en": "chubby Dafu opens his eyes for the first time"
+  },
+  "readTexts": [
+    {
+      "ch": "我叫胖大福。1个月大了。",
+      "en": "My name is chubby Dafu and I am 1 month old.",
+      "currentTime": 0
+    },
+    {
+      "ch": "终于能睁开眼睛了！",
+      "en": "Finally, I can open my eyes!",
+      "currentTime": 2.9
+    },
+    {
+      "ch": "我们熊猫宝宝出生的1个月之内，眼睛是没有办法睁开的。",
+      "en": "We panda babies are not able to open our eyes within 1 month since birth.",
+      "currentTime": 5.9
+    },
+    {
+      "ch": "啊，妈妈你真好看！",
+      "en": "Ah, you are so pretty, mommy!",
+      "currentTime": 12.1
+    },
+    {
+      "ch": "啊，森林真美！",
+      "en": "Ah, the forest is so beautiful!",
+      "currentTime": 15.9
+    },
+    {
+      "ch": "对了，还有一个好消息，我开始长牙齿了……",
+      "en": "Eh, good news, I’m starting to grow teeth ......",
+      "currentTime": 18.8
+    },
+    {
+      "ch": "妈妈说，要到半岁，我才能学着吃竹子，",
+      "en": "Mommy says that I won’t learn to eat bamboo until I’m half a year old,",
+      "currentTime": 25.5
+    },
+    {
+      "ch": "一岁半，才能全部靠竹子生活。",
+      "en": "and when I am a year and a half, I can live all on bamboo.",
+      "currentTime": 30.5
+    },
+    {
+      "ch": "不管未来会成为什么样，",
+      "en": "No matter what the future will be like,",
+      "currentTime": 34.8
+    },
+    {
+      "ch": "现在，我都只能先做一个乖乖喝奶的宝宝。",
+      "en": "for now, I can only be a good milk-drinking baby first.",
+      "currentTime": 37.6
+    }
+  ],
+  "readAudio":"./asset/audio/课文.mp3",
+  "backgroundAndVideo":{
+    "background":"https://lz06-1301325388.cos.ap-chengdu.myqcloud.com/temp/bg.jpg",
+    "video":"https://vod-xhpfm.xinhuaxmt.com/NewsVideo/202012/06bcf08b1bf24c2d8b2028c3f095d378.mp4"
+  }
+}

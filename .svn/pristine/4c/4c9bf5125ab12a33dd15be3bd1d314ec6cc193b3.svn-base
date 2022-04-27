@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <link rel="shortcut icon" href="./CommonAsset/img/网页icon.png" />
+    <link rel="stylesheet" href="./CommonAsset/css/default.css" />
+    <!-- 导入样式 -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <!-- 导入 Vue 3 -->
+    <script src="./CommonAsset/js/Vue.js"></script>
+    <!-- 导入组件库 -->
+    <script src="//unpkg.com/element-plus"></script>
+    <title>熊猫绘本</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      #app {
+        background-image: url("./CommonAsset/img/BG.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      .header {
+        width: 100vw;
+        height: 10vh;
+      }
+      .languageChange {
+        position: absolute;
+        right: 2%;
+        top: 3%;
+      }
+      .contentBox {
+        width: 85vw;
+        height: 80vh;
+        margin: 0 auto;
+        background-image: url("./CommonAsset/img/关于本书底板.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      .contentHeader {
+        width: 100%;
+        height: 13vh;
+      }
+      .contentMiddle {
+        display: flex;
+        width: 98%;
+        height: 50vh;
+        margin: 0 auto;
+      }
+      .contentTextBox {
+        width: 33%;
+        height: 100%;
+        background-color: #f8e6d0;
+      }
+      .contentText {
+        width: 85%;
+        height: 99%;
+        margin: 0 auto;
+        color: white;
+        text-indent: 24px;
+        line-height: 25px;
+        background-color: #f8e6d0;
+        overflow: hidden;
+        overflow: scroll;
+      }
+      .goContent {
+        position: relative;
+        top: 2%;
+        left: 80%;
+        width: 15vw;
+      }
+      .contentImg {
+        width: 67%;
+        height: 100%;
+        background-image: url("./CommonAsset/img/封面.png"); 
+         background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      .footer {
+        width: 100vw;
+        height: 10vh;
+        line-height: 10vh;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-clock>
+      <!-- 头部 -->
+      <div class="header">
+        <!-- 语言修改 -->
+        <div class="languageChange">
+          <el-dropdown @command="handleCommand" size="small">
+            <el-button type="primary" size="small"
+              >{{changeLanguage}}&nbsp;
+              <el-icon class="el-icon--right"
+                ><svg
+                  t="1641818630955"
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2112"
+                  width="16"
+                  height="16"
+                >
+                  <path
+                    d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
+                    p-id="2113"
+                    fill="#ffffff"
+                  ></path></svg></el-icon>
+            </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  v-for="(item,key) in dataItem.language "
+                  :command="key"
+                >
+                  {{item}}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </div>
+      <!-- 主体区域 -->
+      <div class="contentBox">
+        <!-- 上部头部隐藏 -->
+        <div class="contentHeader"></div>
+        <!-- 中部展示区 -->
+        <div class="contentMiddle">
+          <!-- 左边区域 -->
+          <div class="contentTextBox">
+            <div class="contentText">
+              子曰：“学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？
+              有子曰:“其为人也孝弟而好犯上者，鲜矣；不好犯上而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与!”
+              子曰:“巧言令色，鲜矣仁！”
+              曾子曰“吾日三省吾身:为人谋而不忠乎?与朋友交而不信乎?传不习乎?”
+              子曰:“道千乘之国,敬事而信，节用而爱人，使民以时。”
+              子曰：“弟子入则孝，出则弟，谨而信，泛爱众，而亲仁。行有余力，则以学文。”
+              子夏曰：“贤贤易色；事父母，能竭其力；事君，能致其身；与朋友交，言而有信。虽曰未学，吾必谓之学矣。”
+              子曰：“君子不重则不威，学则不固。主忠信，无友不如己者，过则勿惮改。”
+              曾子曰：“慎终追远，民德归厚矣。”
+              子禽问于子贡曰：“夫子至于是邦也，必闻其政，求之与，抑与之与？”子贡曰：“夫子温、良、恭、俭、让以得之。夫子之求之也，其诸异乎人之求之与？”
+              子曰：“父在，观其志。父没，观其行；三年无改于父之道，可谓孝矣。”
+              有子曰：“礼之用，和为贵。先王之道，斯为美，小大由之。有所不行，知和而和，不以礼节之，亦不可行也。”
+              有子曰：“信近于义，言可复也。恭近于礼，远耻辱也。因不失其亲，亦可宗也。”
+              子曰：“君子食无求饱，居无求安，敏于事而慎于言，就有道而正焉。可谓好学也已。”
+              子贡曰：“贫而无谄，富而无骄，何如？”子曰：“可也。未若贫而乐，富而好礼者也。”子贡曰：“《诗》云：‘如切如磋，如琢如磨’，其斯之谓与？”子曰：“赐也，始可与言《诗》已矣，告诸往而知来者。”
+              子曰：“不患人之不己知，患不知人也。
+            </div>
+          </div>
+          <!-- 右边区域 -->
+          <div class="contentImg"></div>
+        </div>
+        <!-- 下部按钮 -->
+        <div class="goContent" @click="goContent">
+          <img style="width: 90%" src="./CommonAsset/img/点击进入目录.png" />
+        </div>
+      </div>
+      <!-- 底部区域 -->
+      <div class="footer">{{sponsor_china}}</div>
+    </div>
+    <script src="./CommonAsset/js/HtmlRotate.js"></script>
+    <script src="./CommonAsset/js/axios.js"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            // 语言数据
+            dataItem: "",
+            // 语言切换
+            language: "",
+            sponsor_china: "",
+            changeLanguage: "",
+          };
+        },
+        created() {
+          this.getData();
+        },
+        mounted() {},
+        methods: {
+          // 获取数据
+          getData() {
+            axios.get("./CommonAsset/json/changeLanguage.json").then((res) => {
+              this.language = res.data.language;
+              this.dataItem = res.data;
+              let lang = sessionStorage.getItem("lang");
+              if (lang == null || lang == "null") {
+                lang = "zh";
+              }
+              this.handleCommand(lang);
+            });
+          },
+          // 语言切换
+          handleCommand(lang) {
+            sessionStorage.setItem("lang", lang);
+            this.changeLanguage = this.language[lang];
+            this.sponsor_china = this.dataItem[lang].title;
+          },
+          // 进入目录
+          goContent() {
+            window.location.href = "./page/content.html";
+          },
+        },
+      };
+      const app = Vue.createApp(App);
+      app.use(ElementPlus);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

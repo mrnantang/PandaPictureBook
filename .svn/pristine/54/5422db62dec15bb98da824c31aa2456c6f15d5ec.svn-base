@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="user-scalable=no" />
+  <title></title>
+  <link rel="stylesheet" href="../CommonAsset/css/default.css">
+  <style>
+    canvas {
+      border: 1px solid black;
+      background-image: url("./asset/img/draw-back-01.jpg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    .father {
+      display: flex;
+      width: 95vw;
+      margin-left: 4%;
+    }
+
+    #sel_col li {
+      display: inline-block;
+      position: relative;
+      top: 10%;
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+      border-radius: 3px;
+      z-index: 9;
+    }
+
+
+    .sel_all {
+      width: 12vw;
+      height: 100vh;
+      background-color: #2b2b2b;
+    }
+
+    .sel_col {
+      display: none;
+      position: relative;
+      top: -35%;
+      right: 384%;
+      width: 46vw;
+      height: 10vh;
+      line-height: 13vh;
+      background-color: grey;
+    }
+
+    .sel_btn {
+      width: 100%;
+      height: 36vh;
+
+    }
+
+    .common {
+      width: 50px;
+      height: 17vh;
+      margin: 10% auto 10%;
+    }
+
+    .sel_color {
+      margin-top: 15%;
+      background: url("./asset/img/yanse.png") no-repeat;
+      background-size: 100%;
+    }
+
+    .sel_pencil {
+      background: url("./asset/img/huabidaxiao.png") no-repeat;
+      background-size: 100%;
+    }
+
+    .clears {
+      background: url("./asset/img/xiangpi.png") no-repeat;
+      background-size: 100%;
+    }
+
+    .chonghua {
+      background: url("./asset/img/chonghua.png") no-repeat;
+      background-size: 100%;
+    }
+
+    .save {
+      background: url("./asset/img/xiazaibaocun.png") no-repeat;
+      background-size: 100%;
+    }
+
+    #sel_wid {
+      display: none;
+      position: relative;
+      right: 125%;
+      top: -16%;
+      width: 15vw;
+      height: 10vh;
+      background-color: grey;
+    }
+
+    #sel_wid li {
+      margin-top: 10%;
+      background: black;
+      float: left;
+      margin-left: 18px;
+    }
+
+    .sanjiao {
+      width: 3vw;
+      position: relative;
+      top: -131%;
+      left: 99.5%;
+      border: 2.3vw solid #000;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: grey;
+      border-right-color: transparent;
+    }
+
+    .sanjiao1 {
+      width: 3vw;
+      position: relative;
+      left: 99%;
+      border: 2.3vw solid #000;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: grey;
+      border-right-color: transparent;
+
+    }
+  </style>
+</head>
+
+<body style="overflow-y:hidden">
+  <div class="father" style="overflow-y:hidden">
+    <canvas width="760" height="427" id="canvas1" style="overflow-y: hidden;"></canvas>
+    <div class="sel_all">
+      <div class="sel_btn">
+        <div id="sel_color" class="sel_color common"></div>
+        <div id="sel_pencil" class="sel_pencil common"></div>
+        <ul id="list" class="list">
+          <li id="a1" style="display: none">画笔</li>
+          <li id="a2" style="display: none">直线</li>
+          <li id="clear" style="display: none;">橡皮</li>
+          <li id="clears" class="clears common"></li>
+        </ul>
+        <div id="chonghua" class="chonghua common">
+        </div>
+        <div id="save" class="save common"></div>
+      </div>
+      <!-- 颜色选项 -->
+      <ul id="sel_col" class="sel_col">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <div class="sanjiao"></div>
+      </ul>
+      <!-- 画笔粗细 -->
+      <ul id="sel_wid">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <div class="sanjiao1"></div>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  var v_canvas = document.getElementById("canvas1");
+  var a1 = document.getElementById("a1");
+  var a2 = document.getElementById("a2");
+  var clear = document.getElementById("clear");
+  var clears = document.getElementById("clears");
+  var context = v_canvas.getContext("2d");
+
+  console.log(window.screen.width + " window.screen.width " + window.screen.height + " window.screen.height  =" + (window.screen.height * 2.54));
+
+  let isDrawing = true;
+
+  clears.ontouchend = function () {
+    isDrawing = false;
+  };
+
+  var cha = {
+    col: "red",
+    wid: 5,
+    last: "red"
+  };
+  let save = document.getElementById("save");
+
+  //手指点击监听（手机端）
+  v_canvas.ontouchstart = function (e) {
+    if (
+      a1.style.backgroundColor == "red" ||
+      clear.style.backgroundColor == "red"
+    ) {
+      e = e || window.e;
+      let touch = e.touches[0];
+      context.fillRect(touch.clientX - v_canvas.offsetLeft, touch.clientY, 5, 5);
+      console.log("x=" + touch.clientX + " y=" + touch.clientY + "  this.canvas.getBoundingClientRect().top =" + v_canvas.getBoundingClientRect().top);
+      context.beginPath();
+      context.moveTo(touch.clientX - v_canvas.offsetLeft, touch.clientY);
+
+    }
+  };
+
+  //手指按住移动监听（手机端）
+  v_canvas.ontouchmove = function (e) {
+    let touch = e.touches[0];
+
+    if (isDrawing) {
+      context.fillRect(0, 0, 5, 5);
+      context.lineTo(touch.clientX - v_canvas.offsetLeft, touch.clientY - v_canvas.offsetTop);
+      console.log("x=" + touch.clientX + " y=" + touch.clientY + "  offsetLeft=" + v_canvas.offsetLeft + " offsetHeight=" + v_canvas.offsetHeight);
+      context.strokeStyle = cha.col;
+      context.lineWidth = cha.wid;
+      context.stroke();
+    } else {
+      context.clearRect(touch.clientX - v_canvas.offsetLeft, touch.clientY, cha.wid, cha.wid);
+    }
+  };
+
+  //手指画图结束（手机端）
+  v_canvas.ontouchend = function () {
+    context.closePath();
+  };
+
+  //鼠标点击监听（PC端）
+  document.onmousedown = function (e) {
+    if (
+      a1.style.backgroundColor == "red" ||
+      clear.style.backgroundColor == "red"
+    ) {
+      e = e || window.e;
+      if (e.button == 0) {
+        context.beginPath();
+        context.moveTo(e.pageX, e.pageY);
+        document.onmousemove = function (e) {
+          context.lineTo(e.pageX, e.pageY);
+          context.strokeStyle = cha.col;
+          context.lineWidth = cha.wid;
+          context.stroke();
+        };
+        document.onmouseup = function () {
+          context.closePath();
+          document.onmousemove = function () {
+            return false;
+          };
+        };
+      }
+    }
+  };
+  var sel_col = document.getElementById("sel_col").children;    //颜色横条按钮
+  var sel_cols = document.getElementById("sel_col");            //颜色按钮
+  var sel_wid = document.getElementById("sel_wid").children;
+  var sel_wids = document.getElementById("sel_wid");
+  var list = document.getElementById("list").children;
+  var sel_color = document.getElementById("sel_color");
+  var sel_pencil = document.getElementById("sel_pencil");
+  // 点击颜色
+  sel_color.onclick = function () {
+    isDrawing = true;
+    if (sel_cols.style.display == "" || sel_cols.style.display == "none") {
+      sel_cols.style.display = "block";
+      sel_wids.style.display = "none";
+    }
+    else {
+      sel_cols.style.display = "none";
+    }
+  };
+  // 点击画笔选项
+  sel_pencil.onclick = function () {
+    if (sel_wids.style.display == "" || sel_wids.style.display == "none") {
+      sel_wids.style.display = "block";
+      sel_cols.style.display = "none";
+
+    } else {
+      sel_wids.style.display = "none";
+    }
+  };
+  list[0].style.backgroundColor = "red";
+  for (var k = 0; k < list.length; k++) {
+    list[k].c = k;
+    list[k].onclick = function () {
+      if (this.c == 3) {
+        cha.last = cha.col;
+        cha.col = "white";
+      }
+      for (var s = 0; s < list.length; s++) {
+        if (this.c != 3) {
+          cha.col = cha.last;
+        }
+      }
+      list[0].style.backgroundColor = "red";
+    };
+  }
+
+  // 画线颜色列表
+  var arr = [
+    "blue",
+    "green",
+    "red",
+    "orange",
+    "pink",
+    "#cccccc",
+    "#999999",
+    "#666666",
+    "#333333",
+    "#000000",
+  ];
+
+
+  // 给li加上颜色
+  for (var i = 0; i < arr.length; i++) {
+    sel_col[i].a = i;
+    sel_col[i].style.backgroundColor = arr[i];
+  }
+  // 给li加上粗细
+  for (let i = 0; i < sel_col.length; i++) {
+    sel_col[i].onclick = function () {
+      isDrawing = true;
+      clearActive()
+      if (sel_col[i] !== sel_col[10]) {
+        sel_col[i].style.border = "4px solid white";
+      }
+      if (clear.style.backgroundColor != "red") {
+        cha.col = arr[this.a];
+      }
+    };
+  }
+  sel_col[2].style.border = "4px solid white";
+
+  //清空状态函数
+  function clearActive() {
+    for (let i = 0; i < sel_col.length; i++) {
+      sel_col[i].style.border = ""
+    }
+  }
+
+  // 画笔粗细点的坐标
+  var arr1 = [8, 13, 18, 23];
+  // 点击画笔粗细
+  for (var j = 0; j < arr1.length; j++) {
+    sel_wid[j].b = j;
+    sel_wid[j].style.width = arr1[j] + "px";
+    sel_wid[j].style.height = arr1[j] + "px";
+    sel_wid[j].style.borderRadius = arr1[j] + "px";
+  }
+
+  for (let i = 0; i < sel_wid.length; i++) {
+    sel_wid[i].onclick = function () {
+      clearyuanquan()
+      cha.wid = arr1[this.b];
+      if (sel_wid[i] !== sel_wid[4]) {
+        sel_wid[i].style.border = "2px solid white";
+      }
+    };
+  }
+
+  //清空状态函数
+  function clearyuanquan() {
+    for (let i = 0; i < sel_wid.length; i++) {
+      sel_wid[i].style.border = ""
+    }
+  }
+
+  sel_wid[0].style.border = "2px solid white";
+
+  // 清除
+  chonghua.onclick = function () {
+    context.clearRect(0, 0, v_canvas.width, v_canvas.height);
+  };
+
+  // 下载图片
+  save.onclick = function () {
+    let imgUrl = v_canvas.toDataURL("image/png");
+    let saveA = document.createElement("a");
+    document.body.appendChild(saveA);
+    saveA.href = imgUrl;
+    saveA.download = "mypic" + new Date().getTime();
+    saveA.target = "_blank";
+    saveA.click();
+  };
+</script>

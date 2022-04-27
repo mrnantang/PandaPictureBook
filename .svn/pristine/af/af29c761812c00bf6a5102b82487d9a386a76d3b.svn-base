@@ -1,0 +1,10 @@
+{
+    "web": {
+        "port": ":3000"
+    },
+    "cloud": {
+        "apiKey": "72eb856a82141cee8e10be887bcfb20b",
+        "apiSecret": "2f0c3d08e9099bbe9302f7abd34f8c595840cbc197fad8b6b24af623e9b0877a",
+        "crsAppId": "6940d3889f2b6cc0710fd4e00f4506b1"
+    }
+}

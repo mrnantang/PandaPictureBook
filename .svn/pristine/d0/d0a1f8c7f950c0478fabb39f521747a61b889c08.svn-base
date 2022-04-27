@@ -1,0 +1,25 @@
+const dataItem = {
+    language:{
+        zh:"中文",
+        en:"English",
+        jp:"日本語",
+        kr:"한국어",
+        al:"عرب",
+    },
+    zh:{
+        title:"更改语言",
+    },
+    en:{
+        title:"Change Language",
+    },
+    jp:{
+        title:"言語を変更",
+    },
+    kr:{
+        title:"언어 변경",
+    },
+    al:{
+        title:"اسمي بانغ دافو. وعمري شهر واحد. أخيرًا باستطاعتي فتح عيني"
+    },
+}
+export default dataItem;

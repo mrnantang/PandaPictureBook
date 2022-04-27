@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="../../CommonAsset/css/default.css" />
+    <link rel="stylesheet" href="../../CommonAsset/css/element.css" />
+    <link rel="shortcut icon" href="#" />
+    <script src="../../CommonAsset/js/Vue.js"></script>
+    <script src="../../CommonAsset/js/elementUI.js"></script>
+    <script src="../../CommonAsset/js/axios.js"></script>
+    <style>
+      #app {
+        display: none;
+      }
+      .father {
+        width: 100vw;
+        height: 100vh;
+        background-size: 100% 100%;
+        z-index: -999;
+      }
+      #loadings {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #update {
+        width: 96px;
+        height: 96px;
+        background: url("https://lz06-1301325388.cos.ap-chengdu.myqcloud.com/storiesinmusic/asset/model/loading.png");
+        animation: move 0.9s steps(12, end) infinite;
+      }
+      #models {
+        position: absolute;
+        z-index: 1;
+      }
+      .clickModel {
+        position: fixed;
+        top: 50%;
+        left: 20%;
+        width: 57vw;
+        height: 40vh;
+        z-index: 9;
+        background-color: #3e9fff;
+        opacity: .4;
+      }
+      .quiet {
+        width: 8vw;
+        height: 4vh;
+      }
+      .main {
+        width: 90vw;
+        height: 100vh;
+        margin: 0 auto;
+        z-index: 99;
+      }
+      .header {
+        width: 100%;
+        height: 15vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .TheBody {
+        position: absolute;
+        left: 5%;
+        width: 20vw;
+        height: 30vh;
+        z-index: 99;
+      }
+
+      .TheBody > div {
+        width: 30vw;
+        margin-top: 5vh;
+      }
+      .show1 {
+        position: absolute;
+        top: 2%;
+        width: 90vw;
+        height: 92vh;
+        background-color: white;
+        opacity: 0.9;
+        z-index: 999;
+      }
+      .show2 {
+        position: absolute;
+        top: 2%;
+        width: 90vw;
+        height: 92vh;
+        background-color: white;
+        opacity: 0.9;
+        z-index: 999;
+      }
+      .showHeader {
+        position: relative;
+        width: 100%;
+        height: 5vh;
+        background-color: #3e9fff;
+      }
+      .closeShow1 {
+        position: absolute;
+        right: 0;
+        width: 10vw;
+        height: 5vh;
+        background: url("./asset/img/叉叉.png");
+        background-size: 100% 100%;
+      }
+      .chineseContent {
+        width: 95%;
+        height: 85vh;
+        margin: 0 auto;
+        overflow-y: scroll;
+      }
+      .newWord {
+        width: 90%;
+        height: 85vh;
+        margin: 0 auto;
+        overflow-y: scroll;
+      }
+      .readTexts {
+        font-size: 20px;
+        margin-top: 2vh;
+        text-align: center;
+      }
+      .text {
+        display: flex;
+        font-size: 20px;
+        margin-top: 5vh;
+      }
+      .text:focus {
+        color: red;
+      }
+      .TextTitle {
+        font-size: 20px;
+        font-weight: 800;
+        text-align: center;
+      }
+      .laba {
+        width: 7vw;
+        margin-right: 15px;
+      }
+   
+      .changeLanguage {
+        position: absolute;
+        top: 3%;
+        right: 3%;
+        z-index: 9;
+      }
+      @keyframes move {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: -1152px 0;
+        }
+      }
+      [v-cloak]{
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <div>
+      <!-- 加载动画 -->
+      <div id="loadings">
+        <div id="update"></div>
+      </div>
+      <!-- 模型 -->
+      <div id="models"></div>
+      <!-- 功能区 -->
+      <div id="app" v-cloak>
+        <div
+          class="father"
+          :style="{backgroundImage:`url(${backgroundImage})`}"
+        >
+          <div class="main">
+            <!-- 头部静音与语言切换 -->
+            <div class="header">
+              <div class="quiet"></div>
+              <!-- 选择语言 -->
+              <div class="changeLanguage">
+                <el-dropdown size="large">
+                  <el-button type="primary">
+                    {{changeLanguage}} &nbsp;
+                    <svg
+                      t="1641818630955"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2112"
+                      width="16"
+                      height="16"
+                    >
+                      <path
+                        d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
+                        p-id="2113"
+                        fill="#ffffff"
+                      ></path>
+                    </svg>
+                  </el-button>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item
+                        v-for="(item,key) in language"
+                        :command="key"
+                      >
+                        {{item}}
+                      </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown>
+              </div>
+            </div>
+            <!-- 功能按钮 -->
+            <div class="TheBody">
+              <div @click="jumpUrl">
+                <img
+                  src="../../CommonAsset/img/videoplay.png"
+                  style="width: 100%"
+                />
+              </div>
+              <div @click="showBtn1">
+                <img src="../../CommonAsset/img/阅读.png" style="width: 100%" />
+              </div>
+              <div @click="showBtn2">
+                <img src="../../CommonAsset/img/生词.png" style="width: 100%" />
+              </div>
+            </div>
+            <!-- 展示按钮1 -->
+            <div class="show1" v-show="show1">
+              <div class="showHeader">
+                <!-- close -->
+                <div class="closeShow1" @click="closeShow1"></div>
+              </div>
+              <!-- 阅读文本 -->
+              <div class="chineseContent" ref="ul">
+                <!-- 文本标题 -->
+                <div class="TextTitle">
+                  {{readTitle.ch}}<br />
+                  {{readTitle.en}} <br />
+                </div>
+                <!-- 文本内容 -->
+                <div
+                  ref="TextDiv"
+                  v-for="(item, index) in readTexts"
+                  :key="index"
+                >
+                  <div
+                    class="readTexts"
+                    @click="readText(item.currentTime,index)"
+                  >
+                    {{item.ch}}<br />{{item.en}}
+                  </div>
+                </div>
+                <audio ref="readTextAudio" :src="readAudio"></audio>
+              </div>
+            </div>
+            <!-- 展示按钮2 -->
+            <div class="show2" v-show="show2">
+              <div class="showHeader">
+                <!-- close -->
+                <div class="closeShow1" @click="closeShow2"></div>
+              </div>
+              <!-- 生词 -->
+              <div class="newWord">
+                <div v-for="(item, index) in text" :key="index">
+                  <div class="text">
+                    <div
+                      class="laba"
+                      ref="labaImg"
+                      @click="readWord(item.speak,item.pinyin)"
+                    >
+                      <img  src="./asset/img/喇叭.png"  style="width: 100%" />
+                    </div>
+                    <div ref="laba">
+                      {{item.ch}}【{{item.pinyin}}】:{{item.en}}
+                    </div>
+                    <audio ref="readWordAudios" :src="item.mp3"></audio>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 点击随机切换动画动作 -->
+        <div class="clickModel" @click="changeActions" v-show="frank"></div>
+      </div>
+    </div>
+    <script type="module">
+      import {
+        init,
+        animate,
+        actions,
+        asd,
+        camera
+      } from "../../CommonAsset/js/common.js";
+      init();
+      animate();
+      const App = {
+        data() {
+          return {
+            changeLanguage: "选择语言",
+            language: "",
+            show1: false,
+            show2: false,
+            frank: true,
+            // "读"文本
+            readTexts: "",
+            readTitle: "",
+            readAudio: "",
+            backgroundImage: "",
+            file: "",
+            // "词"文本
+            text: "",
+            // 当前行
+            lineNo: 0,
+            // 开始滚动行
+            Cpos: 1,
+            offset: 80,
+          };
+        },
+        created() {
+          this.getData();
+        },
+        mounted() {
+          
+          // 音乐结束后返回顶部
+          const readTextAudio = this.$refs.readTextAudio;
+          const list = this.$refs.ul;
+          readTextAudio.addEventListener("ended", () => {
+            list.scrollTop = 0;
+          });
+
+   
+        },
+        // =============================方法
+        methods: {
+          // 请求数据
+          getData() {
+            let lesson = this.getQueryVariable("lesson");
+            this.file = lesson;
+            let baseUrl = "./asset/json/";
+            if (this.file == "" || this.file == undefined) {
+              this.file = "pangdafu";
+            }
+            axios.get(baseUrl + this.file + ".json").then((res) => {
+              this.text = res.data.text;
+              this.readTexts = res.data.readTexts;
+              this.readTitle = res.data.readTitle;
+              this.language = res.data.language;
+              this.readAudio = res.data.readAudio;
+              this.backgroundImage = res.data.backgroundAndVideo.background;
+              document.title = res.data.title;
+            });
+          },
+          // 分解URL
+          getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+              var pair = vars[i].split("=");
+              if (pair[0] == variable) {
+                return pair[1];
+              }
+            }
+            return false;
+          },
+          changeActions() {
+            camera.position.set(0, 100, 400);
+            let dongzuo = Math.floor(Math.random() * 2);
+            
+            // switch (dongzuo) {
+            //   case 0:
+            //     actions[0].stop();
+            //     actions[1].time = asd[1];
+            //     actions[1].play();
+            //     break;
+            //   case 1:
+            //     actions[1].stop();
+            //     actions[0].play();
+            //     break;
+            // }
+          },
+          jumpUrl() {
+            location.href = "video.html?lesson=" + this.file;
+          },
+          // 展示按钮
+          showBtn1() {
+            this.show1 = true;
+            this.frank = false;
+            const readTextAudio = this.$refs.readTextAudio;
+            readTextAudio.play();
+            readTextAudio.addEventListener("timeupdate", () => {
+              if (this.lineNo == this.readTexts.length) return;
+              const curTime = readTextAudio.currentTime;
+              if (
+                parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime
+              ) {
+                this.lineHigh(); //高亮当前行
+                this.lineNo++;
+              }
+            });
+          },
+          showBtn2() {
+            this.show2 = true;
+            this.frank = false;
+          },
+          // 关闭按钮
+          closeShow1() {
+            this.show1 = false;
+            this.frank = true;
+            this.$refs.readTextAudio.load();
+            const list = this.$refs.ul;
+            list.scrollTop = 0;
+            this.lineNo = 0;
+            let TextDiv = this.$refs.TextDiv;
+            for (let i = 0; i < TextDiv.length; i++) {
+              TextDiv[i].style.color = "black";
+            }
+          },
+          closeShow2() {
+            this.show2 = false;
+            this.frank = true;
+            // 取消所有音频
+            for (let i = 0; i < this.$refs.readWordAudios.length; i++) {
+              this.$refs.readWordAudios[i].load();
+            }
+            this.disable = false;
+            for (let i = 0; i < this.$refs.laba.length; i++) {
+              this.$refs.laba[i].style.color = "black";
+            }
+          },
+          // 读文本
+          readText(current, index) {
+            // 音频
+            let readTextAudio = this.$refs.readTextAudio;
+            let TextDiv = this.$refs.TextDiv;
+            readTextAudio.load();
+            readTextAudio.play();
+            readTextAudio.currentTime = current;
+            for (let i = 0; i < TextDiv.length; i++) {
+              const allDiv = TextDiv[i];
+              allDiv.style.color = "black";
+            }
+            this.lineNo = index;
+          },
+
+          // 高亮歌词滚动
+          lineHigh() {
+            const list = this.$refs.ul;
+            const TextDiv = this.$refs.TextDiv;
+            if (this.lineNo > 0) {
+              TextDiv[this.lineNo - 1].style.color = "black";
+            }
+            TextDiv[this.lineNo].style.color = "red";
+            // 文字滚动
+            if (this.lineNo > this.Cpos) {
+              list.scrollTop = (this.lineNo - this.Cpos) * this.offset;
+            }
+          },
+
+          // 读生词
+          readWord(speak) {
+            const laba = this.$refs.laba[speak];
+            // 所有音频重新加载
+            for (let i = 0; i < this.$refs.readWordAudios.length; i++) {
+              this.$refs.readWordAudios[i].load();
+            }
+            for (let i = 0; i < this.$refs.laba.length; i++) {
+              this.$refs.laba[i].style.color = "black";
+            }
+            // 播放当前音频
+            this.$refs.readWordAudios[speak].currentTime = 0;
+            this.$refs.readWordAudios[speak].play();
+            laba.style.color = "red";
+            this.$refs.labaImg[speak].style.pointerEvents  = "none";
+            setTimeout(() => {
+              this.$refs.labaImg[speak].style.pointerEvents  = "auto";
+            }, 1000);
+            // 音乐结束后
+            this.$refs.readWordAudios[speak].addEventListener("ended", () => {
+              laba.style.color = "black";
+              this.$refs.labaImg[speak].style.pointerEvents  = "auto";
+            });
+          },
+        },
+      };
+      const app = Vue.createApp(App);
+      app.use(ElementPlus);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

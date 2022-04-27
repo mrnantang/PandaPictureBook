@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="shortcut icon" href="#"/>
+    <script src="../../CommonAsset/js/axios.js"></script>
+    <script src="../../CommonAsset/js/Vue.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .father {
+        position: relative;
+      }
+      .backImage {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .backImage > img {
+        width: 100%;
+        height: 100%;
+      }
+      #next {
+        width: 100vw;
+        height: 26vh;
+        position: absolute;
+        top: 35%;
+        
+      }
+      #next > video {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="father">
+      <div class="backImage">
+        <img src="./asset/img/播放页bg.jpg" >
+      </div>
+      <div id="next"> 
+        <video
+          id="flash"
+          :src="move"
+          controls
+        ></video>
+      </div>
+    </div>
+    <script>
+      const App = {
+        data() {
+          return {
+            move:""
+          }
+        },
+        created() {
+          this.getData()
+        },
+        methods: {
+          getData(){
+            let lesson = this.getQueryVariable("lesson");
+            let file = lesson+".json";
+            let baseUrl = "./asset/json/"
+            if (file == "" || file == undefined) {
+              file = "pangdafu.json";
+            }
+            axios.get( baseUrl + file).then(res =>{
+              this.move = res.data.backgroundAndVideo.video;
+              document.title =  res.data.title;
+            })
+          },
+             // 分解URL
+        getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i = 0; i < vars.length; i++) {
+                  var pair = vars[i].split("=");
+                  if (pair[0] == variable) {
+                    return pair[1];
+                  }
+                }
+                return false;
+            },
+        },
+     
+      }
+      const app = Vue.createApp(App).mount("#app")
+    </script>
+  </body>
+</html>

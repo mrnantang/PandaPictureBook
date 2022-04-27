@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>熊猫绘本</title>
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png">
+    <link rel="stylesheet" href="../CommonAsset/css/default.css" />
+    <style>
+      #app {
+        width: 100vw;
+        height: 100vh;
+        background: url("../CommonAsset/img/background.png");
+        background-size: 100%;
+      }
+      .header {
+        width: 92vw;
+        height: 12vh;
+        margin: 0 auto;
+        background-color: pink;
+      }
+      .goback {
+        width: 4vw;
+        position: relative;
+        left: 95%;
+        top: 14%;
+      }
+      .content {
+        width: 92vw;
+        height: 35vh;
+        margin: 0 auto;
+        background-color: #f5f5f5;
+      }
+      /* 录音盒子 */
+      .audioBox {
+        display: flex;
+        width: 60vw;
+        height: 37vh;
+        margin: 0 auto;
+        margin-top: 1%;
+        background-color: #fffffe;
+        border-radius: 10px;
+        box-shadow: 0 1px 1px #ccc;
+      }
+      .pinyinBox {
+        width: 50%;
+        height: 100%;
+      }
+      .pinyin {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .pinyinIco {
+        width: 100%;
+        height: 50%;
+      }
+      .pinyinIcoTitle {
+        width: 100%;
+        height: 40%;
+      }
+      .pinyinContent{
+        width: 100%;
+        height: 50%;
+        font-size: 20px;
+        text-align: center;
+        line-height: 33px;
+        background-color: #f8f8f8;
+        border-top: 1px solid #ccc;
+      }
+      .luyinBox {
+        width: 50%;
+        height: 100%;
+        background-color: aqua;
+      }
+      .luyin{
+        width: 50%;
+        height: 100%;
+        margin: 0 auto;
+        background-color: pink;
+      }
+      /* 底部 */
+      .footer {
+        display: flex;
+        width: 88vw;
+        height: 10vh;
+        margin: 1% auto 0;
+        background-color: #fffffe;
+        border: #f4f8e3 solid 1px;
+        border-radius: 10px;
+      }
+      .leftIco {
+        width: 3.5vw;
+        padding-top: 0.5%;
+        margin-left: 1%;
+      }
+      .textContent {
+        width: 75vw;
+        height: 10vh;
+        margin-left: 4%;
+        line-height: 10vh;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 头部 -->
+      <div class="header">
+        <div class="goback">
+          <img style="width: 100%" src="../CommonAsset/img/叉叉.png" />
+        </div>
+      </div>
+      <!-- 文字框 -->
+      <div class="content"></div>
+      <!-- 语音框 -->
+      <div class="audioBox">
+        <!--拼音盒子  -->
+        <div class="pinyinBox">
+          <!-- 拼音 -->
+          <div class="pinyin">
+            <!-- 拼音ico -->
+            <div class="pinyinIco">
+              <div class="pinyinIcoTitle">
+                <img
+                  style="width: 25%"
+                  src="../CommonAsset/img/拼音icon.png"
+                  alt=""
+                />
+              </div>
+              <!-- 拼音内容 -->
+              <div class="pinyinContent">
+                <span>拼音</span>
+              </div>
+            </div>
+            <!-- 拼音ico -->
+            <div class="pinyinIco">
+              <div class="pinyinIcoTitle">
+                <img
+                  style="width: 25%"
+                  src="../CommonAsset/img/译文icon.png"
+                  alt=""
+                />
+              </div>
+              <!-- 拼音内容 -->
+              <div class="pinyinContent">
+                <span>moon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 录音按钮 -->
+        <div class="luyinBox">
+            <div class="luyin">
+                <img style="width: 80%" src="../CommonAsset/img/录音键常态.png" />
+            </div>
+        </div>
+      </div>
+      <!-- 底部 -->
+      <div class="footer">
+        <div class="leftIco">
+          <img style="width: 100%" src="../CommonAsset/img/录音icon.png" />
+        </div>
+        <div class="textContent">123456789</div>
+      </div>
+    </div>
+    <!-- 导入 Vue 3 -->
+    <script src="../CommonAsset/js/Vue.js"></script>
+    <script src="../CommonAsset/js/axios.js"></script>
+    <script src="../CommonAsset/js/HtmlRotate.js"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            test: "123",
+          };
+        },
+      };
+      const app = Vue.createApp(App);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

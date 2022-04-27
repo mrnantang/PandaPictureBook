@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>熊猫绘本</title>
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png" />
+    <link rel="stylesheet" href="../CommonAsset/css/default.css" />
+    <style>
+      #app {
+        width: 100vw;
+        height: 100vh;
+        background: url("../CommonAsset/img/background.png");
+        background-size: 100%;
+      }
+      .header {
+        width: 92vw;
+        height: 12vh;
+        margin: 0 auto;
+      }
+      .goback {
+        width: 4vw;
+        position: relative;
+        left: 95%;
+        top: 14%;
+      }
+      /* 内容区域 */
+      .contentBox {
+        white-space: nowrap;
+        overflow-y: scroll;
+        width: 92vw;
+        height: 38vh;
+        margin: 0 auto;
+      }
+      .content {
+        display: inline-block;
+        width: 25%;
+        height: 100%;
+      }
+      .fayinbutton {
+        width: 33px;
+        height: 33px;
+        margin: 0 auto;
+        background: url("../CommonAsset/img/读音动画.png") no-repeat;
+      }
+      @keyframes fayin {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -100px 0;
+        }
+      }
+      .textWord {
+        width: 23vw;
+        height: 25vh;
+        text-align: center;
+      }
+      .activeImg {
+        display: inline-block;
+        position: relative;
+        top: 0%;
+        left: 0%;
+      }
+      .textWordImg{
+        display: inline-block;
+      }
+      /* 录音盒子 */
+      .audioBox {
+        display: flex;
+        width: 60vw;
+        height: 35vh;
+        margin: 0 auto;
+        margin-top: 1%;
+        background-color: #fffffe;
+        border-radius: 10px;
+        box-shadow: 0 1px 1px #ccc;
+      }
+      .pinyinBox {
+        width: 50%;
+        height: 100%;
+      }
+      .pinyin {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .pinyinIco {
+        width: 100%;
+        height: 50%;
+      }
+      .pinyinIcoTitle {
+        width: 100%;
+        height: 40%;
+      }
+      .pinyinContent {
+        width: 100%;
+        height: 50%;
+        font-size: 20px;
+        text-align: center;
+        line-height: 33px;
+        background-color: #f8f8f8;
+        border-top: 1px solid #ccc;
+      }
+      .luyinBox {
+        width: 50%;
+        height: 100%;
+      }
+      .luyin {
+        width: 100px;
+        height: 105px;
+        margin: 8% auto 0;
+        text-align: center;
+      }
+      @keyframes luyin {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -500px 0;
+        }
+      }
+      /* 底部 */
+      .footer {
+        display: flex;
+        width: 88vw;
+        height: 10vh;
+        margin: 1% auto 0;
+        background-color: #fffffe;
+        border: #f4f8e3 solid 1px;
+        border-radius: 10px;
+      }
+      .leftIco {
+        width: 3.5vw;
+        padding-top: 0.5%;
+        margin-left: 1%;
+      }
+      .textContent {
+        width: 75vw;
+        height: 10vh;
+        margin-left: 4%;
+        line-height: 10vh;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 头部 -->
+      <div class="header">
+        <div class="goback">
+          <img style="width: 100%" src="../CommonAsset/img/叉叉.png" />
+        </div>
+      </div>
+      <!-- 文字框 -->
+      <div class="contentBox">
+        <div class="content">
+          <!-- 发音按钮 -->
+          <div class="fayinbutton" ref="fayinbutton" @click="fayinBtn">
+            <img ref="fayinchangtai" src="../CommonAsset/img/读音.png" />
+          </div>
+          <!-- 文字文本 -->
+          <div class="textWord">
+              <img ref="textWordImg" class="textWordImg" src="../CommonAsset/img/第一课生词/都.png" @click="activeText"/>
+          </div>
+        </div>
+        <div class="content">
+          <div class="fayinbutton" ref="fayinbutton" @click="fayinBtn">
+            <img ref="fayinchangtai" src="../CommonAsset/img/读音.png" />
+          </div>
+          <div class="textWord">
+            <img ref="textWordImg1"  class="textWordImg" src="../CommonAsset/img/第一课生词/开始.png"   @click="activeText1"/>
+          </div>
+        </div>
+      </div>
+      <!-- 语音框 -->
+      <div class="audioBox">
+        <!--拼音盒子  -->
+        <div class="pinyinBox">
+          <!-- 拼音 -->
+          <div class="pinyin">
+            <!-- 拼音ico -->
+            <div class="pinyinIco">
+              <div class="pinyinIcoTitle">
+                <img
+                  style="width: 25%"
+                  src="../CommonAsset/img/拼音icon.png"
+                  alt=""
+                />
+              </div>
+              <!-- 拼音内容 -->
+              <div class="pinyinContent">
+                <span>拼音</span>
+              </div>
+            </div>
+            <!-- 拼音ico -->
+            <div class="pinyinIco">
+              <div class="pinyinIcoTitle">
+                <img
+                  style="width: 25%"
+                  src="../CommonAsset/img/译文icon.png"
+                  alt=""
+                />
+              </div>
+              <!-- 拼音内容 -->
+              <div class="pinyinContent">
+                <span>moon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 录音按钮 -->
+        <div class="luyinBox">
+          <div class="luyin" @click="luyinBtn" ref="luyinbutton">
+            <img ref="luyinchangtai" src="../CommonAsset/img/录音键常态.png" />
+          </div>
+        </div>
+      </div>
+      <!-- 底部 -->
+      <div class="footer">
+        <div class="leftIco">
+          <img style="width: 100%" src="../CommonAsset/img/录音icon.png" />
+        </div>
+        <div class="textContent">123456789</div>
+      </div>
+    </div>
+    <!-- 导入 Vue 3 -->
+    <script src="../CommonAsset/js/Vue.js"></script>
+    <script src="../CommonAsset/js/axios.js"></script>
+    <script src="../CommonAsset/js/HtmlRotate.js"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            test: "123",
+          };
+        },
+        methods: {
+          // 发音按钮
+          fayinBtn() {
+            this.$refs.fayinchangtai.style.display = "none";
+            this.$refs.fayinbutton.style.animation = "fayin 1s steps(3,end) 1";
+            setTimeout(() => {
+              this.$refs.fayinchangtai.style.display = "block";
+              this.$refs.fayinbutton.style.animation = "";
+            }, 1000);
+          },
+          // 录音按钮
+          luyinBtn() {
+            if (
+              this.$refs.luyinchangtai.style.display == "" ||
+              this.$refs.luyinchangtai.style.display == "block"
+            ) {
+              this.$refs.luyinchangtai.style.display = "none";
+              this.$refs.luyinbutton.style.background =
+                "url(../CommonAsset/img/正在录音动画.png) no-repeat";
+              this.$refs.luyinbutton.style.animation =
+                "luyin 1s steps(5,end) infinite";
+            } else {
+              this.$refs.luyinchangtai.style.display = "block";
+              this.$refs.luyinbutton.style.background = "";
+              this.$refs.luyinbutton.style.animation = "";
+            }
+          },
+          activeText(){
+            this.$refs.textWordImg.style.background = "url("+ "../CommonAsset/img/一字选中背景.png" +")";
+          },
+          activeText1(){
+            this.$refs.textWordImg1.style.background = "url("+ "../CommonAsset/img/二字选中背景.png" +")";
+            setTimeout(() => {
+              this.$refs.textWordImg1.style.background = ""
+            }, 1000);
+          },
+        },
+      };
+      const app = Vue.createApp(App);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

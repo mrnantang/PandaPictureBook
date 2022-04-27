@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      [v-cloak]{
+        display: none;
+      }
+    </style>
+    <!-- 导入样式 -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <!-- 导入 Vue 3 -->
+    <script src="//unpkg.com/vue@next"></script>
+    <!-- 导入组件库 -->
+    <script src="//unpkg.com/element-plus"></script>
+  </head>
+  <body>
+    <div id="app" v-clock>
+      <el-dropdown @command="handleCommand">
+        <el-button type="primary">{{titleText}}&nbsp;
+         <el-icon class="el-icon--right"><svg
+          t="1641818630955"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="2112"
+          width="16"
+          height="16"
+        >
+          <path
+            d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
+            p-id="2113"
+            fill="#ffffff"
+          ></path>
+        </svg></el-icon>
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="(item,key) in dataItem.language " :command="key">
+                {{item}}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <div>{{sponsor_china}}</div>
+    </div>
+    <script type="module">
+      import dataItem from './changeLanguage.js';
+      const App = {
+        data() {
+          return {
+            dataItem:dataItem,
+            titleText:"",
+            sponsor_china:""
+          };
+        },
+        mounted() {
+          let lang = "";
+          if (lang == null || lang == '') {
+              lang ='zh'
+            }
+          this.handleCommand(lang)
+        },
+        methods: {
+          handleCommand(lang){
+            this.titleText = this.dataItem.language[lang];
+            this.sponsor_china = this.dataItem[lang].title;
+          }
+        },
+      };
+      const app = Vue.createApp(App);
+      app.use(ElementPlus);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

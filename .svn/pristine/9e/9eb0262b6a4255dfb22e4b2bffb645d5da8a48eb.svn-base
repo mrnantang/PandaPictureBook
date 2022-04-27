@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png">
+    <link rel="stylesheet" href="../CommonAsset/css/default.css" />
+    <style>
+      #app {
+        display: flex;
+      }
+      .left {
+        width: 50vw;
+        height: 100vh;
+        background: url("../CommonAsset/img/图一.png") no-repeat;
+        background-size: 100% 100%;
+      }
+
+      .right {
+        width: 50vw;
+        height: 100vh;
+        background: url("../CommonAsset/img/字幕板.png") no-repeat;
+        background-size: 100% 100%;
+      }
+      .goContentBox {
+        width: 43vw;
+        margin: 0 auto;
+        height: 13vh;
+      }
+      .backIcon {
+        position: relative;
+        left: 90%;
+        width: 4vw;
+        height: 100%;
+      }
+      .playBtn {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5vw;
+        height: 100%;
+      }
+      .lyricsBox {
+        width: 43vw;
+        margin: 0 auto;
+        height: 73vh;
+      }
+      .playBox {
+        width: 43vw;
+        margin: 0 auto;
+        height: 14vh;
+      }
+      .lyrics {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        overflow-y: scroll;
+      }
+      .readTexts {
+        margin-top: 3vh;
+      }
+      [v-clock] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 左边图片区 -->
+      <div class="left"></div>
+      <!-- 右边播放区 -->
+      <div class="right">
+        <!-- 返回按钮 -->
+        <div class="goContentBox">
+          <div class="backIcon">
+            <img
+              style="width: 100%; margin-top: 20%"
+              src="../CommonAsset/img/叉叉.png"
+              @click="goContent"
+            />
+          </div>
+        </div>
+        <!-- 歌词框 -->
+        <div class="lyricsBox">
+          <div class="lyrics" ref="ul">
+            <div ref="TextDiv" v-for="(item,index) in readTexts" :key="index">
+              <div class="readTexts" @click="readText(item.currentTime,index)">
+                {{item.ch}}<br />{{item.en}}
+              </div>
+            </div>
+          </div>
+          <audio ref="readTextAudio" :src="readAudio"></audio>
+        </div>
+        <!-- 播放按钮 -->
+        <div class="playBox">
+          <div class="playBtn" @click="playMusic">
+            <img
+              ref="playMusic"
+              style="width: 100%; margin-top: 20%"
+              src="../CommonAsset/img/播放.png"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../CommonAsset/js/Vue.js"></script>
+    <script src="../CommonAsset/js/axios.js"></script>
+    <script src="../CommonAsset/js/HtmlRotate.js"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            data: "",
+            readTexts: "",
+            readAudio: "",
+            // 当前行
+            lineNo: 0,
+            // 开始滚动行
+            Cpos: 1,
+            offset: 40,
+          };
+        },
+        created() {
+          this.getData();
+        },
+        mounted() {
+          // 音乐结束后返回顶部
+          const readTextAudio = this.$refs.readTextAudio;
+          const list = this.$refs.ul;
+          readTextAudio.addEventListener("ended", () => {
+            //刷新页面
+            window.location.reload();
+          });
+        },
+        methods: {
+          getData() {
+            axios
+              .get("./asset/json/pangdafu.json")
+              .then((res) => {
+                this.readTexts = res.data.readTexts;
+                this.readAudio = res.data.readAudio;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+          goContent() {
+            // 返回上一页
+            history.go(-1);
+          },
+          // 读文本
+          readText(current, index) {
+            // 音频
+            let readTextAudio = this.$refs.readTextAudio;
+            let TextDiv = this.$refs.TextDiv;
+            readTextAudio.load();
+            readTextAudio.play();
+            this.$refs.playMusic.src = "../CommonAsset/img/暂停.png";
+            readTextAudio.currentTime = current;
+            for (let i = 0; i < TextDiv.length; i++) {
+              const allDiv = TextDiv[i];
+              allDiv.style.color = "black";
+            }
+            readTextAudio.addEventListener("timeupdate", () => {
+              if (this.lineNo == this.readTexts.length) return;
+              const curTime = readTextAudio.currentTime;
+              if (parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime) {
+                this.lineHigh(); //高亮当前行
+                this.lineNo++;
+              }
+            });
+            this.lineNo = index;
+          },
+          // 播放音乐
+          playMusic() {
+            let readTextAudio = this.$refs.readTextAudio;
+            if (readTextAudio.paused) {
+              readTextAudio.play();
+              this.$refs.playMusic.src = "../CommonAsset/img/暂停.png";
+            } else {
+              readTextAudio.pause();
+              this.$refs.playMusic.src = "../CommonAsset/img/播放.png";
+            }
+
+            readTextAudio.addEventListener("timeupdate", () => {
+              if (this.lineNo == this.readTexts.length) return;
+              const curTime = readTextAudio.currentTime;
+              if (parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime) {
+                this.lineHigh(); //高亮当前行
+                this.lineNo++;
+              }
+            });
+          },
+          // 高亮歌词滚动
+          lineHigh() {
+            const list = this.$refs.ul;
+            const TextDiv = this.$refs.TextDiv;
+            if (this.lineNo > 0) {
+              TextDiv[this.lineNo - 1].style.color = "black";
+            }
+            TextDiv[this.lineNo].style.color = "red";
+          },
+        },
+      };
+      const app = Vue.createApp(App);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

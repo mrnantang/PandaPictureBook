@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		canvas {
+			border: 1px solid grey;
+		}
+
+		#sel_col {
+			position: absolute;
+			left: 63%;
+			top: 10%;
+		}
+
+		#sel_col li {
+			list-style: none;
+			width: 30px;
+			height: 30px;
+			border-radius: 30px;
+			float: left;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+
+		#sel_wid {
+			position: absolute;
+			left: 80%;
+			top: 30%;
+		}
+
+		#sel_wid li {
+			list-style: none;
+			background: black;
+			float: left;
+			margin-left: 10px;
+			cursor: pointer;
+
+		}
+
+		#list {
+			position: absolute;
+			left: 60%;
+			top: 50%;
+		}
+
+		#list li {
+			list-style: none;
+			float: left;
+			width: 100px;
+			height: 30px;
+			border-radius: 5px;
+			background: grey;
+			margin-left: 10px;
+			color: white;
+			line-height: 30px;
+			text-align: center;
+		}
+
+		/* .controller{
+			position: relative;
+			width: 30vw;
+			height: 20vh;
+			background-color: ;
+		} */
+		#list li:hover {
+			cursor: pointer;
+			background: orangered;
+		}
+		#screen-change {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			overflow: hidden;
+			z-index: 10;
+		}
+
+		#screen-change.w {
+			height: 100vw;
+			width: 100vh;
+			transform: translate(-50%, -50%) rotate(90deg);
+			-webkit-transform: translate(-50%, -50%) rotate(90deg);
+		}
+
+		#screen-change.h {
+			height: 100vh;
+			width: 100vw;
+			transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+		}
+		#canvas1{
+			background-image: url(./page/asset/img/播放页bg.jpg);
+		}
+	</style>
+</head>
+
+<body id="screen-change" class="h">
+	<canvas id="canvas1"></canvas>
+	<div class="controller">
+		<ul id="sel_col">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul id="sel_wid">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul id="list">
+			<li id='a1'>画笔</li>
+			<!-- <li id='a2'>直线</li> -->
+			<li id='a3'>清空</li>
+			<li id="clear">橡皮</li>
+		</ul>
+	</div>
+</body>
+
+
+<script>
+
+		var v_canvas = document.getElementById("canvas1");
+		var a1 = document.getElementById("a1");
+		// var a2 = document.getElementById("a2");
+		var clear = document.getElementById("clear");
+		var context = v_canvas.getContext("2d");
+		var cha = {
+			col: 'red',
+			wid: 5,
+			last: 'red'
+		};
+		let width = document.body.offsetWidth
+		let height = document.body.offsetHeight ;
+		document.getElementById("canvas1").width = width*0.9;
+		document.getElementById("canvas1").height = height;
+
+		document.ontouchstart = function (e) {
+			console.log(window.screen.width + " :window.screen.width");
+			console.log(document.body.scrollHeight + " document.body.scrollHeight");
+			let height = document.body.scrollHeight;
+			
+			if (a1.style.backgroundColor == 'red' || clear.style.backgroundColor == 'red') {
+				e = e || window.e;
+				let touch = e.touches[0];
+				context.beginPath();
+				// context.moveTo(touch.clientX, touch.clientY);
+				context.lineTo(touch.clientY, height - touch.clientX);
+				// context.lineTo(touch.clientX, touch.clientY);
+				document.ontouchmove = function (e) {
+					let touch = e.touches[0];
+					console.log(touch.clientX + " fixed=" + (height - touch.clientX) + " y= " + touch.clientY);
+					// context.lineTo(touch.clientX, touch.clientY);
+					// context.lineTo(touch.clientX, touch.clientY);
+					context.lineTo(touch.clientY, height - touch.clientX);
+					context.strokeStyle = cha.col;
+					context.lineWidth = cha.wid;
+					context.stroke();
+				};
+				document.ontouchend = function () {
+					context.closePath();
+					document.ontouchmove = function () {
+						return false;
+					}
+				}
+			}
+		}
+
+		document.onmousedown = function (e) {
+			if (a1.style.backgroundColor == 'red' || clear.style.backgroundColor == 'red') {
+				e = e || window.e;
+				if (e.button == 0) {
+					context.beginPath();
+					context.moveTo(e.pageX, e.pageY);
+					document.onmousemove = function (e) {
+						context.lineTo(e.pageX, e.pageY);
+						context.strokeStyle = cha.col;
+						context.lineWidth = cha.wid;
+						context.stroke();
+					};
+					document.onmouseup = function () {
+						context.closePath();
+						document.onmousemove = function () {
+							return false;
+						}
+					}
+				}
+			}
+			/*
+			else if (a2.style.backgroundColor == 'red') {
+				e = e || window.e;
+				if (e.button == 0) {
+					context.beginPath();
+					context.moveTo(e.pageX, e.pageY);
+					document.onmousemove = function (e) {
+					};
+					document.onmouseup = function (e) {
+						context.lineTo(e.pageX, e.pageY);
+						context.strokeStyle = cha.col;
+						context.lineWidth = cha.wid;
+						context.stroke();
+						context.closePath();
+						document.onmousemove = function () {
+
+							return false;
+						}
+					}
+				}
+			}*/
+		};
+		var sel_col = document.getElementById('sel_col').children;
+		var sel_wid = document.getElementById('sel_wid').children;
+		var list = document.getElementById('list').children;
+		for (var k = 0; k < list.length; k++) {
+			list[k].c = k;
+			list[k].onclick = function () {
+				list[this.c].style.backgroundColor = 'red';
+				if (this.c == 1) {
+					var v_canvas = document.getElementById("canvas1");
+					var a1 = document.getElementById("a1");
+					var context = v_canvas.getContext("2d");
+					context.clearRect(0, 0, 800, 600);
+				}
+				if (this.c == 2) {
+					cha.last = cha.col;
+					cha.col = 'white';
+				}
+				for (var s = 0; s < list.length; s++) {
+					if (this.c != s) {
+						list[s].style.backgroundColor = 'grey';
+					}
+					if (this.c != 2) {
+						cha.col = cha.last;
+					}
+				}
+			}
+		}
+		var arr = ['red', 'orange', 'yellow', 'green', 'black', 'blue', 'purple'];
+		var arr1 = [5, 10, 15, 20];
+		for (var i = 0; i < arr.length; i++) {
+			sel_col[i].a = i;
+			sel_col[i].style.backgroundColor = arr[i];
+			sel_col[i].onclick = function () {
+				if (clear.style.backgroundColor != 'red') {
+					cha.col = arr[this.a];
+				}
+
+			}
+		}
+		for (var j = 0; j < arr1.length; j++) {
+			sel_wid[j].b = j;
+			sel_wid[j].style.width = arr1[j] + 'px';
+			sel_wid[j].style.height = arr1[j] + 'px';
+			sel_wid[j].style.borderRadius = arr1[j] + 'px';
+			sel_wid[j].onclick = function () {
+				cha.wid = arr1[this.b];
+			}
+		}
+	
+
+	// !function () {
+	// 	var viewport = document.getElementById("viewport");
+	// 	var dw = null;
+	// 	var screenChange = document.getElementById("screen-change");
+	// 	function a() {
+	// 		if (document.body.clientHeight > document.body.clientWidth) {
+	// 			dw = 750;
+	// 			screenChange.classList.remove("h");
+	// 			screenChange.classList.add("w");
+	// 		} else if (document.body.clientHeight < document.body.clientWidth) {
+	// 			dw = 1334;
+	// 		}
+	// 		viewport.setAttribute('content', 'width=' + dw + ',user-scalable=no');
+	// 	}
+	// 	a();
+	// 	window.addEventListener('orientationchange', function () {
+	// 		if (window.orientation == 0) {
+	// 			screenChange.classList.remove('h');
+	// 			screenChange.classList.add('w');
+	// 			dw = 750;
+	// 			viewport.setAttribute('content', 'width=' + dw + ',user-scalable=no');
+	// 		} else if (window.orientation == 90) {
+	// 			screenChange.classList.remove('w');
+	// 			screenChange.classList.add('h');
+	// 			dw = 1334;
+	// 			viewport.setAttribute('content', 'width=' + dw + ',user-scalable=no');
+	// 		}
+	// 	}, false);
+	// }(window);
+</script>
+
+</html>

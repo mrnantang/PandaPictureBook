@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../CommonAsset/css/default.css" />
+    <!-- 导入 Vue 3 -->
+    <script src="//unpkg.com/vue@next"></script>
+    <script src="../CommonAsset/js/axios.js"></script>
+    <style>
+        .header {
+            width: 100vw;
+            height: 15vh;
+        }
+        .content{
+            width: 100vw;
+        }
+        .contentBox{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; 
+            width: 90vw;
+            margin: 0 auto;
+        }
+        .BoxItem{
+            width: 20vw;
+            height: 25vw;
+        }
+        .pandaImg{
+            width: 100%;
+            height: 43vh;
+        }
+        .numbers{
+            width: 100%;
+            height: 10vh;
+            text-align: center;
+        }
+        .AR{
+            position: relative;
+            left: 82%;
+            width: 17vw;
+            height: 15vh;
+        }
+        .father{
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: -9;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+        <div class="father">
+            <img style="width: 100%;" src="../CommonAsset/img/绘图游戏勾线-1.jpg">
+        </div>
+        <!-- 头部 -->
+        <div class="header">
+            <div class="AR">
+                <img style="width: 100%;" :src="AR.img">
+            </div>
+        </div>
+        <!-- 目录区 -->
+        <div class="content">
+            <div class="contentBox" >
+                <!-- 可点击的图块 -->
+                <div class="BoxItem" v-for="(item, index) in content" :key="index">
+                    <div class="pandaImg" @click="test(item.msg)">
+                        <img style="width: 100%;" :src="item.pandaImg">
+                    </div>
+                    <div class="numbers">
+                            <img style="width: 20%;"  :src="item.pandaNumber2" >
+                            <img style="width: 20%;"  :src="item.pandaNumber1" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../CommonAsset/js/HtmlRotate.js"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            AR:"",
+            content:[],
+          };
+        },
+        created() {
+            this.getData()
+        },
+        methods: {
+            getData() {  
+                axios.get('/CommonAsset/json/content.json').then(res => {
+                    this.AR = res.data.AR;
+                    this.content = res.data.content;
+                });
+            },
+            test(msg) {
+            }
+        },
+      };
+      const app = Vue.createApp(App);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
