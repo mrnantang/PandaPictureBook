@@ -101,7 +101,7 @@
         width: 50%;
         height: 50%;
       }
-      .back {
+      .back{
         position: absolute;
         width: 38px;
         height: 38px;
@@ -209,16 +209,11 @@
                   img: "../CommonAsset/img/bt_04.png",
                 },
               ],
-              UrlSearch:""
             };
-          },
-          mounted() {
-            this.GetRequest();
-            this.UrlSearch = this.GetRequest()
           },
           methods: {
             goHref(url) {
-              window.location.href = url+"?id="+this.UrlSearch.id;
+              window.location.href = url;
             },
             changeActions() {
               if (this.dialog) {
@@ -231,26 +226,10 @@
                 actions[1].time = asd[1];
                 actions[1].play();
               }
-              console.log(this.UrlSearch.id);
             },
-            back() {
+            back(){
               window.location.href = "./content.html";
-            },
-            // 获取url参数
-            GetRequest() {
-              var url = location.search; //获取url中"?"符后的字串
-              var theRequest = new Object();
-              if (url.indexOf("?") != -1) {
-                var str = url.substr(1);
-                let strs = str.split("&");
-                for (var i = 0; i < strs.length; i++) {
-                  theRequest[strs[i].split("=")[0]] = unescape(
-                    strs[i].split("=")[1]
-                  );
-                }
-              }
-              return theRequest;
-            },
+            }
           },
         };
         Vue.createApp(App).mount("#app");

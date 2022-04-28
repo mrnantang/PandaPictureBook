@@ -45,6 +45,7 @@
         {
             "id":"6",
             "luying":"../CommonAsset/img/读音常态.png",
+            "luyingActive":"../CommonAsset/img/读音动画.png",
             "playLuyin":"../CommonAsset/audio/第一课/消息.mp3",
             "word":"../CommonAsset/img/第一课生词/消息.png",
             "wordActive":"../CommonAsset/img/二字选中背景.png"

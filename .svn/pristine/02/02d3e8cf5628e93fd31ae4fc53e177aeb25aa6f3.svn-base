@@ -285,47 +285,27 @@
     <script src="./asset/js/jquery.js"></script>
     <script src="./asset/js/speechrecognizer.js"></script>
     <script type="module" src="./asset/js/index.js"></script>
-    <script type="module">
-      import { baseUrl } from './asset/js/config.js';
-
+    <script>
       const App = {
         data() {
           return {
             Data: "",
             pinyin:"",
-            yiwen:'',
-            UrlSearch:""
+            yiwen:''
           };
         },
         created() {
-          window.addEventListener("scroll", this.getScrollTop,true);
-          this.UrlSearch = this.GetRequest()
           this.getData();
         },
         mounted() {
-        
+          window.addEventListener("scroll", this.getScrollTop,true);
         },
         methods: {
           getData() {
-            axios.get(baseUrl+ "server/api/data.php?action=getWordData&contentId="+this.UrlSearch.id).then((res) => {
-              this.Data = res.data.word;
+            axios.get("../CommonAsset/json/word.json").then((res) => {
+              this.Data = res.data.wordData;
             });
           },
-            // 获取url参数
-            GetRequest() {
-              var url = location.search; //获取url中"?"符后的字串
-              var theRequest = new Object();
-              if (url.indexOf("?") != -1) {
-                var str = url.substr(1);
-                let strs = str.split("&");
-                for (var i = 0; i < strs.length; i++) {
-                  theRequest[strs[i].split("=")[0]] = unescape(
-                    strs[i].split("=")[1]
-                  );
-                }
-              }
-              return theRequest;
-            },
           // 发音按钮
           fayinBtn(index,playLuyin) {
             this.$refs.fayinchangtai[index].style.display = "none";

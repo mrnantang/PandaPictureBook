@@ -125,7 +125,7 @@
       "currentTime": 37.6
     }
   ],
-  "readAudio":"./asset/audio/课文.mp3",
+  "readAudio":"../CommonAsset/audio/第一课/课文.mp3",
   "backgroundAndVideo":{
     "background":"https://lz06-1301325388.cos.ap-chengdu.myqcloud.com/temp/bg.jpg",
     "video":"https://vod-xhpfm.xinhuaxmt.com/NewsVideo/202012/06bcf08b1bf24c2d8b2028c3f095d378.mp4"
