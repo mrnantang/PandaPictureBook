@@ -14,7 +14,7 @@
       .left {
         width: 50vw;
         height: 100vh;
-        /* background: url("../CommonAsset/img/图一.png") no-repeat; */
+        background: url("../CommonAsset/img/图一.png") no-repeat;
         background-size: 100% 100%;
       }
 
@@ -70,7 +70,7 @@
   <body>
     <div id="app" v-cloak>
       <!-- 左边图片区 -->
-      <div class="left" :style="{background: url(readImage"}></div>
+      <div class="left"></div>
       <!-- 右边播放区 -->
       <div class="right">
         <!-- 返回按钮 -->
@@ -87,10 +87,9 @@
         <div class="lyricsBox">
           <div class="lyrics" ref="ul">
             <div ref="TextDiv" v-for="(item,index) in readTexts" :key="index">
-                <div class="readTexts" @click="readText(item.currentTime,index)">
-                  <span v-for="(a) in item.lang">{{a}}<br/></span> 
-                </div>
-              
+              <div class="readTexts" @click="readText(item.currentTime,index)">
+                {{item.ch}}<br />{{item.en}}
+              </div>
             </div>
           </div>
           <audio ref="readTextAudio" :src="readAudio"></audio>
@@ -110,15 +109,13 @@
     <script src="./asset/js/Vue.js"></script>
     <script src="./asset/js/axios.js"></script>
     <script src="./asset/js/HtmlRotate.js"></script>
-    <script type="module">
-    import {baseUrl} from './asset/js/config.js'; 
+    <script>
       const App = {
         data() {
           return {
             data: "",
             readTexts: "",
             readAudio: "",
-            readImage:"",
             // 当前行
             lineNo: 0,
             // 开始滚动行
@@ -140,12 +137,13 @@
         },
         methods: {
           getData() {
-            let lang = sessionStorage.getItem("lang");
-            axios.get(baseUrl+"server/api/data.php?action=getTextData&contentId=1&lang="+lang).then((res) => {
+            axios
+              .get("../CommonAsset/json/pangdafu.json")
+              .then((res) => {
                 this.readTexts = res.data.readTexts;
                 this.readAudio = res.data.readAudio;
-                this.readImage = res.data.readImage;
-              }).catch((err) => {
+              })
+              .catch((err) => {
                 console.log(err);
               });
           },

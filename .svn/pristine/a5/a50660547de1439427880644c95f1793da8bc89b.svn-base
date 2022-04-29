@@ -1,74 +1,4 @@
 {
-  "title":"胖大福第一次睁开眼睛",
-  "language": [
-      "中文",
-      "英文"
-  ],
-  "text": [
-    {
-      "ch": "都",
-      "pinyin": "dōu",
-      "en": "all",
-      "speak": "0",
-      "mp3": "./asset/audio/都.mp3"
-    },
-    {
-      "ch": "开始",
-      "pinyin": "kāishǐ",
-      "en": "start",
-      "speak": "1",
-      "mp3": "./asset/audio/开始.mp3"
-    },
-    {
-      "ch": "美",
-      "pinyin": "měi",
-      "en": "beautiful",
-      "speak": "2",
-      "mp3": "./asset/audio/美.mp3"
-    },
-    {
-      "ch": "先",
-      "pinyin": "xiān",
-      "en": "first",
-      "speak": "3",
-      "mp3": "./asset/audio/先.mp3"
-    },
-    {
-      "ch": "现在",
-      "pinyin": "xiànzài",
-      "en": "now",
-      "speak": "4",
-      "mp3": "./asset/audio/现在.mp3"
-    },
-    {
-      "ch": "消息",
-      "pinyin": "xiāoxi",
-      "en": "news",
-      "speak": "5",
-      "mp3": "./asset/audio/消息.mp3"
-    },
-    {
-      "ch": "月",
-      "pinyin": "yuè",
-      "en": "month",
-      "speak": "6",
-      "mp3": "./asset/audio/月.mp3"
-    },
-    {
-      "ch": "终于",
-      "pinyin": "zhōngyú",
-      "en": "finally",
-      "speak": "7",
-      "mp3": "./asset/audio/终于.mp3"
-    },
-    {
-      "ch": "做",
-      "pinyin": "zuò",
-      "en": "to be",
-      "speak": "8",
-      "mp3": "./asset/audio/做.mp3"
-    }
-  ],
   "readTitle": {
     "ch": "胖大福第一次睁开眼睛",
     "en": "chubby Dafu opens his eyes for the first time"
@@ -125,9 +55,5 @@
       "currentTime": 37.6
     }
   ],
-  "readAudio":"../CommonAsset/audio/第一课/课文.mp3",
-  "backgroundAndVideo":{
-    "background":"https://lz06-1301325388.cos.ap-chengdu.myqcloud.com/temp/bg.jpg",
-    "video":"https://vod-xhpfm.xinhuaxmt.com/NewsVideo/202012/06bcf08b1bf24c2d8b2028c3f095d378.mp4"
-  }
+  "readAudio":"../CommonAsset/audio/第一课/课文.mp3"
 }
