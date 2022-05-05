@@ -145,10 +145,10 @@
               <div class="image" @click="video">
                 <img src="../CommonAsset/img/听一遍课文.png" />
               </div>
-              <div class="image">
+              <!-- <div class="image">
                 <img src="../CommonAsset/img/听一遍课文.png" />
               </div>
-              <!-- <div class="image">
+              <div class="image">
                 <img src="../CommonAsset/img/听一遍课文.png" />
               </div>
               <div class="image">
