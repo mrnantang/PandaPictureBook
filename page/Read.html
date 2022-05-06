@@ -76,7 +76,7 @@
           <div class="backIcon">
             <img
               style="width: 100%; margin-top: 20%"
-              src="../CommonAsset/img/叉叉.png"
+              src="../CommonAsset/img/返回.png"
               @click="goBack"
             />
           </div>
@@ -86,7 +86,7 @@
           <div class="lyrics" ref="ul">
             <div ref="TextDiv" v-for="(item,index) in readTexts" :key="index">
                 <div class="readTexts" @click="readText(item.currentTime,index)">
-                  <span v-for="(a) in item.lang">{{a}}<br/></span> 
+                  <span v-for="(i) in item.lang">{{i}}<br/></span> 
                 </div>
               
             </div>

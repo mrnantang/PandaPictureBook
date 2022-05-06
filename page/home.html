@@ -50,6 +50,7 @@
       }
       .bottomBox {
         display: flex;
+        display: none;
         justify-content: space-around;
         align-items: center;
         height: 18vh;
@@ -88,14 +89,11 @@
         height: 15vh;
       }
       .imgBox {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
         position: relative;
-        top: 26%;
-        left: 13%;
-        width: 25vw;
-        height: 18vh;
+        top: 35%;
+        left: 24%;
+        width: 18vw;
+        height: 20vh;
       }
       .image {
         width: 50%;
@@ -107,8 +105,20 @@
         height: 38px;
         left: 92%;
         top: 5%;
-        background: url("../CommonAsset/img/退出.png") no-repeat;
+        background: url("../CommonAsset/img/返回.png") no-repeat;
         background-size: 100%;
+      }
+      .mission1 {
+        position: relative;
+        top: 40%;
+        left: 12%;
+        width: 27vw;
+      }
+      .mission_title{
+        width: 100%;
+                  font-size: 22px;
+                  font-weight: bold;
+                  text-align: center;
       }
       @keyframes move {
         0% {
@@ -138,22 +148,22 @@
         <!-- 上部分 -->
         <div class="topBox common">
           <div class="dialog" ref="dialog" v-show="dialog">
-            <div class="textBox">
-              我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。
+            <!-- 任务1页面 -->
+            <div class="mission1" @click="mission1" v-show="mission_1">
+              {{first}}
             </div>
-            <div class="imgBox">
-              <div class="image" @click="video">
-                <img src="../CommonAsset/img/听一遍课文.png" />
+            <!-- 任务2页面 -->
+            <div class="textBox" @click="first" v-show="mission_2">
+              {{first}}
+            </div>
+            <div class="imgBox" v-show="mission_3">
+              <!-- 任务内容 -->
+              <div class="mission_title">
+                {{btns[num].name}}
               </div>
-              <div class="image">
-                <img src="../CommonAsset/img/听一遍课文.png" />
+              <div style="width:50px;margin: 2% auto 0;">
+                <img :src="btns[num].img" style="width: 85%;" @click="goHref(btns[num].url)"/>
               </div>
-              <!-- <div class="image">
-                <img src="../CommonAsset/img/听一遍课文.png" />
-              </div>
-              <div class="image">
-                <img src="../CommonAsset/img/听一遍课文.png" />
-              </div> -->
             </div>
           </div>
           <div class="renwu">
@@ -187,9 +197,14 @@
             return {
               dialog: false,
               dongzuo: true,
+              mission_1: true,
+              mission_2: false,
+              mission_3: false,
+              first:
+                "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。",
               btns: [
                 {
-                  name: "读课文",
+                  name: "听一遍课文",
                   url: "./Read.html",
                   img: "../CommonAsset/img/bt_01.png",
                 },
@@ -205,20 +220,21 @@
                 },
                 {
                   name: "涂色游戏",
-                  url: "../my/my.html",
+                  url: "./drawGame.html",
                   img: "../CommonAsset/img/bt_04.png",
                 },
               ],
-              UrlSearch:""
+              num:1,
+              UrlSearch: "",
             };
           },
           mounted() {
             this.GetRequest();
-            this.UrlSearch = this.GetRequest()
+            this.UrlSearch = this.GetRequest();
           },
           methods: {
             goHref(url) {
-              window.location.href = url+"?id="+this.UrlSearch.id;
+              window.location.href = url + "?id=" + this.UrlSearch.id;
             },
             changeActions() {
               if (this.dialog) {
@@ -231,14 +247,18 @@
                 // actions[1].time = asd[1];
                 // actions[1].play();
               }
-              console.log(this.UrlSearch.id);
+            },
+            //关闭mission1
+            mission1() {
+              this.mission_3 = true;
+              this.mission_1 = false;
             },
             back() {
               window.location.href = "./content.html";
             },
-            video(){
-              window.location.href = "./video.html";
-            },
+            // video(){
+            //   window.location.href = "./video.html";
+            // },
             // 获取url参数
             GetRequest() {
               var url = location.search; //获取url中"?"符后的字串

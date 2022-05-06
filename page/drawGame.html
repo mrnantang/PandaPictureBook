@@ -18,7 +18,7 @@
     .father {
       display: flex;
       width: 95vw;
-      margin-left: 4%;
+      margin-left: 7%;
     }
 
     #sel_col li {
@@ -128,11 +128,19 @@
       border-right-color: transparent;
 
     }
+    .back{
+      width: 40px;
+      height: 40px;
+      position: fixed;
+      left: 2%;
+      background: url("../CommonAsset/img/返回.png") no-repeat;
+      background-size: 100%;
+    }
   </style>
 </head>
-
 <body style="overflow-y:hidden">
   <div class="father" style="overflow-y:hidden">
+    <div class="back" onclick="goBack()"></div>
     <canvas width="760" height="427" id="canvas1" style="overflow-y: hidden;"></canvas>
     <div class="sel_all">
       <div class="sel_btn">
@@ -392,4 +400,7 @@
     saveA.target = "_blank";
     saveA.click();
   };
+  function goBack() {
+    window.history.back();
+  }
 </script>
