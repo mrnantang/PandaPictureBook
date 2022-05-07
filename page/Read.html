@@ -129,6 +129,7 @@
         },
         mounted() {
           // 音乐结束后返回顶部
+          localStorage.setItem("status", 1);
           const readTextAudio = this.$refs.readTextAudio;
           const list = this.$refs.ul;
           readTextAudio.addEventListener("ended", () => {
@@ -138,6 +139,7 @@
         },
         methods: {
           getData() {
+
             let lang = sessionStorage.getItem("lang");
             axios.get(baseUrl+"server/api/data.php?action=getTextData&contentId=1&lang="+lang).then((res) => {
                 this.readTexts = res.data.readTexts;
