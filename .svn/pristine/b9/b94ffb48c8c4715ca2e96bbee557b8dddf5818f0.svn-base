@@ -111,7 +111,6 @@
         top: 40%;
         left: 12%;
         width: 27vw;
-        height: 22vh;
       }
       .mission4 {
         position: relative;
@@ -356,12 +355,15 @@
                 // actions[1].stop();
                 // actions[0].play();
               } else {
-                this.mission1();
+                this.mission1()
                 this.dialog = true;
-
+                
                 // actions[0].stop();
                 // actions[1].time = asd[1];
                 // actions[1].play();
+                
+                  
+                
               }
             },
             //关闭mission1
@@ -372,75 +374,39 @@
               this.mission_4 = false;
               this.mission_5 = false;
               this.mission_6 = false;
-              // if (this.dialogStatus == 1) {
-              //   this.mission_2 = true;
-              //   this.dialogStatus = 2;
-              // } else if (this.dialogStatus == 5) {
-              //   this.mission_5 = true;
-              //   this.first = "现在你想知道熊猫哪方面的秘密呢？";
-              // } else if (this.dialogStatus == 6) {
-              //   this.mission_1 = true;
-              //   this.dialogStatus = 7;
-              //   this.first = "好吧，让我来告诉你！";
-              // } else if (this.dialogStatus == 7) {
-              //   window.location.href = "./video.html";
-              // }else if (this.dialogStatus == 8) {
-              //   this.mission_1 = true;
-              //   this.dialogStatus = 9;
-              //   this.first = "太棒了，今天所有的任务都完成了!";
-              // }else if (this.dialogStatus == 9) {
-              //   this.mission_6 = true;
-              //   this.dialogStatus = 10;
-              // } else if(this.dialogStatus == 10){
-              //   this.dialogStatus = 5;
-              //   this.mission_1 = true;
-              //   this.first = "你想重看哪一个视频呢？";
-              // }
-              switch (this.dialogStatus) {
-                case 1:
-                  this.mission_2 = true;
-                  this.dialogStatus = 2;
-                  break;
-                case 5:
-                  this.mission_5 = true;
-                  this.first = "现在你想知道熊猫哪方面的秘密呢？";
-                  break;
-                case 6:
-                  this.mission_1 = true;
-                  this.dialogStatus = 7;
-                  this.first = "好吧，让我来告诉你！";
-                  break;
-                case 7:
-                  window.location.href = "./video.html";
-                  break;
-                case 8:
-                  this.mission_1 = true;
-                  this.dialogStatus = 9;
-                  this.first = "太棒了，今天所有的任务都完成了!";
-                  break;
-                case 9:
-                  this.mission_6 = true;
-                  this.dialogStatus = 10;
-                  break;
-                case 10:
-                  this.dialogStatus = 5;
-                  this.mission_1 = true;
-                  this.first = "你想重看哪一个视频呢？";
-                  break;
-                default:
-                  this.first =  "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
-                  this.mission_1 = true;
-                  break;
+              if (this.dialogStatus == 1) {
+                this.mission_2 = true;
+                this.dialogStatus = 2;
+              } else if (this.dialogStatus == 5) {
+                this.mission_5 = true;
+                this.first = "现在你想知道熊猫哪方面的秘密呢？";
+              } else if (this.dialogStatus == 6) {
+                this.mission_1 = true;
+                this.dialogStatus = 7;
+                this.first = "好吧，让我来告诉你！";
+              } else if (this.dialogStatus == 7) {
+                window.location.href = "./video.html";
+              }else if (this.dialogStatus == 8) {
+                this.mission_1 = true;
+                this.dialogStatus = 9;
+                this.first = "太棒了，今天所有的任务都完成了!";
+              }else if (this.dialogStatus == 9) {
+                this.mission_6 = true;
+                this.dialogStatus = 10;
+              } else if(this.dialogStatus == 10){
+                this.dialogStatus = 5;
+                this.mission_1 = true;
+                this.first = "你想重看哪一个视频呢？";
               }
             },
             //mission5
-            mission5(url, id) {
+            mission5(url,id) {
               this.dialogStatus = 6;
               sessionStorage.setItem("current_video_id", id);
               sessionStorage.setItem("current_video_url", url);
               this.mission1();
             },
-            mission6() {
+            mission6(){
               this.dialogStatus = 10;
               this.mission1();
             },
@@ -532,6 +498,15 @@
                   Math.random() * this.randomArray.length
                 );
                 this.num = this.randomArray[random];
+                console.log(JSON.stringify(this.randomArray));
+                console.log(
+                  this.randomArray.length +
+                    "****************" +
+                    random +
+                    "***************" +
+                    this.num
+                );
+
                 for (let i = 0; i < iamge_video_array.length; i++) {
                   if (iamge_video_array[i] == 1) {
                     video_finished_num++;
@@ -560,6 +535,7 @@
               if (status == null || status == undefined) {
                 status = 0;
               }
+              console.log(status);
               switch (status) {
                 case "0":
                   this.mission_2 = true;
@@ -568,6 +544,7 @@
                   break;
 
                 case "1":
+                  console.log("123");
                   this.mission_1 = false;
                   this.mission_2 = false;
                   this.mission_3 = true;
