@@ -131,7 +131,7 @@
 
           // 音乐结束后返回顶部          
           let current_image_id = localStorage.getItem("current_image_id");
-          localStorage.setItem("image_"+current_image_id+"_task_1",2);  // task_1表示读课文  2表示完成任务
+          localStorage.setItem("image_"+current_image_id+"task_0",2);  // task_1表示读课文  2表示完成任务
           const readTextAudio = this.$refs.readTextAudio;
           const list = this.$refs.ul;
           readTextAudio.addEventListener("ended", () => {

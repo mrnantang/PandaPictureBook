@@ -230,6 +230,7 @@
             <img
               style="width: 50%"
               ref="panda_head"
+              src="../CommonAsset/img/金色叹号.png"
             />
           </div>
           <div class="panda" @click="changeActions"></div>
@@ -334,9 +335,6 @@
               ],
             };
           },
-          created() {
-          
-          },
           mounted() {
             this.UrlSearch = this.GetRequest();
             this.missionStatus();
@@ -372,8 +370,7 @@
               this.mission_6 = false;
               switch (this.dialogStatus) {
                 case 1:
-                  this.first =
-                    "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
+                  this.first ="我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
                   this.mission_1 = true;
                   this.dialogStatus = 2;
                   break;
@@ -405,8 +402,10 @@
                   this.mission_1 = true;
                   this.dialogStatus = 7;
                   this.first = "好吧，让我来告诉你！";
+                 
                   break;
                 case 7:
+                this.dialogStatus = 1;
                   window.location.href = "./video.html";
                   break;
                 case 8:
@@ -423,6 +422,7 @@
                   this.mission_1 = true;
                   this.first = "你想重看哪一个视频呢？";
                   break;
+
               }
             },
             //任务完成后mission3
@@ -443,31 +443,52 @@
             },
             //任务状态
             missionStatus() {
+              let number = localStorage.getItem("number");
+              if (number == null) {
+                this.num = 0
+                
+              }else{
+                this.num++
+              }
               //熊猫头上的任务图标
               let panda_head = this.$refs.panda_head
               let panda_head_status = ""
               //第一课的第一个任务状态
               panda_head.src = "../CommonAsset/img/金色叹号.png";
-              let task = localStorage.getItem( "image_"+this.UrlSearch.id +"task_1");
+              let task = localStorage.getItem( "image_"+this.UrlSearch.id +"task_"+this.num);
               if (task == null) {
-                console.log("任务未完成");
-                for (let i = 0; i < this.btns.length; i++) {
-                  //首次进去 未领取和完成任何任务
-                   localStorage.setItem( "image_" + this.UrlSearch.id + "task_" + i, this.btns[i].status);
+                  for (let i = 0; i < this.btns.length; i++) {
+                      //首次进去 未领取和完成任何任务
+                      localStorage.setItem( "image_" + this.UrlSearch.id + "task_" +i, this.btns[i].status);
                    //首次进去 视频的观看状态
-                   localStorage.setItem( "image_" + this.UrlSearch.id + "video_" + i, this.btns[i].status);
-                }
-                this.dialogStatus = 1;
+                   localStorage.setItem( "image_" + this.UrlSearch.id + "video_" +i, this.btns[i].status);
+                    
+                  }
+                  this.dialogStatus = 1;
               }else{
-                for (let i = 0; i < this.btns.length; i++) {
                   //首次进去 未领取和完成任何任务
-                  this.btns[i].status = localStorage.getItem( "image_" + this.UrlSearch.id + "task_" + i);
-                   if (this.btns[i].status == 1) {
+                  this.btns[this.num].status = localStorage.getItem( "image_" + this.UrlSearch.id + "task_" + this.num);
+                  // 任务状态都为0，说明没进行任务
+                  if (this.btns[this.num].status == 0) {
+                    this.dialogStatus = 1;
+                  }
+                  // 进行了任务，但是没有完成
+                  else if (this.btns[this.num].status == 1) {
                     panda_head_status = "sliver_question";
-                   }
-                }
+                  }
+                  // 完成了任务
+                  else if (this.btns[this.num].status == 2) {
+                    panda_head_status = "gold_question";
+                    
+                  }
+               
+                // 根据熊猫头上的任务图标显示各种状态
                 if (panda_head_status == "sliver_question") {
                   panda_head.src = "../CommonAsset/img/银色问号.png";
+                  this.dialogStatus = 4;
+                }else if (panda_head_status == "gold_question") {
+                  panda_head.src = "../CommonAsset/img/金色问号.png";
+                  this.dialogStatus = 3;
                 }
               }
             },
