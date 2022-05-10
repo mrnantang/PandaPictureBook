@@ -173,21 +173,11 @@
         <div class="topBox common">
           <div class="dialog" ref="dialog" v-show="dialog">
             <!-- 任务1页面 -->
-            <div
-              name="dialog_div"
-              class="mission1"
-              @click="mission1"
-              v-show="mission_1"
-            >
+            <div class="mission1" @click="mission1" v-show="mission_1">
               {{first}}
             </div>
             <!-- 任务2页面 -->
-            <div
-              name="dialog_div"
-              class="mission2"
-              @click="first"
-              v-show="mission_2"
-            >
+            <div class="mission2" v-show="mission_2">
               <div class="mission_title">{{btns[num].name}}</div>
               <div style="width: 50px; margin: 2% auto 0">
                 <img
@@ -198,12 +188,12 @@
               </div>
             </div>
             <!-- 任务3页面(完成状态) -->
-            <div name="dialog_div" class="mission3" v-show="mission_3">
+            <div class="mission3" v-show="mission_3" @click="mission3">
               <div class="mission_text">{{success}}</div>
               <div class="mission_title">{{btns[num].name}}</div>
             </div>
             <!-- 任务4页面(未完成状态) -->
-            <div name="dialog_div" class="mission3" v-show="mission_4">
+            <div class="mission3" v-show="mission_4">
               <div class="mission_text">{{fail}}</div>
               <div class="mission_title">{{btns[num].name}}</div>
               <div style="width: 50px; margin: 2% auto 0">
@@ -215,7 +205,7 @@
               </div>
             </div>
             <!-- 任务5页面-->
-            <div name="dialog_div" class="mission4" v-show="mission_5">
+            <div class="mission4" v-show="mission_5">
               <div
                 class="mission4_video"
                 v-for="(i, index) in videos"
@@ -225,7 +215,7 @@
               </div>
             </div>
             <!-- 任务6页面-->
-            <div name="dialog_div" class="mission5" v-show="mission_6">
+            <div class="mission5" v-show="mission_6">
               <div
                 class="mission4_video"
                 v-for="(i, index) in successWord"
@@ -239,8 +229,7 @@
           <div class="renwu">
             <img
               style="width: 50%"
-              src="../CommonAsset/img/金色叹号.png"
-              id="panda_head"
+              ref="panda_head"
             />
           </div>
           <div class="panda" @click="changeActions"></div>
@@ -283,28 +272,32 @@
               fail: "你的任务还没有完成哟!",
               btns: [
                 {
+                  id: 1,
                   name: "听一遍课文",
                   url: "./Read.html",
                   img: "../CommonAsset/img/bt_01.png",
-                  stauts: 0,
+                  status: 0,
                 },
                 {
+                  id: 2,
                   name: "读生词",
                   url: "./Word.html",
                   img: "../CommonAsset/img/bt_02.png",
-                  stauts: 0,
+                  status: 0,
                 },
                 {
+                  id: 3,
                   name: "拼图游戏",
                   url: "./drawGame.html",
                   img: "../CommonAsset/img/bt_03.png",
-                  stauts: 0,
+                  status: 0,
                 },
                 {
+                  id: 4,
                   name: "涂色游戏",
                   url: "./drawGame.html",
                   img: "../CommonAsset/img/bt_04.png",
-                  stauts: 0,
+                  status: 0,
                 },
               ],
               num: 0,
@@ -341,15 +334,20 @@
               ],
             };
           },
+          created() {
+          
+          },
           mounted() {
             this.UrlSearch = this.GetRequest();
             this.missionStatus();
+            
           },
           methods: {
             goHref(url) {
               window.location.href = url + "?id=" + this.UrlSearch.id;
               localStorage.setItem("current_image_id", this.UrlSearch.id);
             },
+            //开关任务框
             changeActions() {
               if (this.dialog) {
                 this.dialog = false;
@@ -372,39 +370,37 @@
               this.mission_4 = false;
               this.mission_5 = false;
               this.mission_6 = false;
-              // if (this.dialogStatus == 1) {
-              //   this.mission_2 = true;
-              //   this.dialogStatus = 2;
-              // } else if (this.dialogStatus == 5) {
-              //   this.mission_5 = true;
-              //   this.first = "现在你想知道熊猫哪方面的秘密呢？";
-              // } else if (this.dialogStatus == 6) {
-              //   this.mission_1 = true;
-              //   this.dialogStatus = 7;
-              //   this.first = "好吧，让我来告诉你！";
-              // } else if (this.dialogStatus == 7) {
-              //   window.location.href = "./video.html";
-              // }else if (this.dialogStatus == 8) {
-              //   this.mission_1 = true;
-              //   this.dialogStatus = 9;
-              //   this.first = "太棒了，今天所有的任务都完成了!";
-              // }else if (this.dialogStatus == 9) {
-              //   this.mission_6 = true;
-              //   this.dialogStatus = 10;
-              // } else if(this.dialogStatus == 10){
-              //   this.dialogStatus = 5;
-              //   this.mission_1 = true;
-              //   this.first = "你想重看哪一个视频呢？";
-              // }
               switch (this.dialogStatus) {
                 case 1:
-                  this.mission_2 = true;
+                  this.first =
+                    "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
+                  this.mission_1 = true;
                   this.dialogStatus = 2;
                   break;
-                case 5:
-                  this.mission_5 = true;
-                  this.first = "现在你想知道熊猫哪方面的秘密呢？";
+                //听一遍课文（等任务）
+                case 2:
+                  this.mission_2 = true;
                   break;
+                //任务完成
+                case 3:
+                  this.mission_3 = true;
+                  break;
+                //任务未完成
+                case 4:
+                  this.mission_4 = true;
+                  break;
+                // 视频前过渡句
+                case 5:
+                  this.mission_1 = true;
+                  this.first = "现在你想知道熊猫哪方面的秘密呢？";
+                  this.dialogStatus = 11;
+                  break;
+                //视频页面
+                case 11:
+                  this.mission_5 = true;
+                  this.dialogStatus = 6;
+                  break;
+                //点击视频后的句子
                 case 6:
                   this.mission_1 = true;
                   this.dialogStatus = 7;
@@ -423,15 +419,16 @@
                   this.dialogStatus = 10;
                   break;
                 case 10:
-                  this.dialogStatus = 5;
+                  this.dialogStatus = 11;
                   this.mission_1 = true;
                   this.first = "你想重看哪一个视频呢？";
                   break;
-                default:
-                  this.first =  "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
-                  this.mission_1 = true;
-                  break;
               }
+            },
+            //任务完成后mission3
+            mission3() {
+              this.dialogStatus = 5;
+              this.mission1();
             },
             //mission5
             mission5(url, id) {
@@ -444,135 +441,149 @@
               this.dialogStatus = 10;
               this.mission1();
             },
+            //任务状态
             missionStatus() {
-              let image_task_array = [];
-              let iamge_video_array = [];
-              let image_task_1 = localStorage.getItem(
-                "image_" + this.UrlSearch.id + "_task_1"
-              );
-              if (image_task_1 == null || image_task_1 == undefined) {
-                //首次进去 未领取和完成任何任务
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_task_1",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_task_2",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_task_3",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_task_4",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_video_1",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_video_2",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_video_3",
-                  0
-                );
-                localStorage.setItem(
-                  "image_" + this.UrlSearch.id + "_video_4",
-                  0
-                );
-                document.getElementById("panda_head").src =
-                  "../CommonAsset/img/金色叹号.png";
+              //熊猫头上的任务图标
+              let panda_head = this.$refs.panda_head
+              let panda_head_status = ""
+              //第一课的第一个任务状态
+              panda_head.src = "../CommonAsset/img/金色叹号.png";
+              let task = localStorage.getItem( "image_"+this.UrlSearch.id +"task_1");
+              if (task == null) {
+                console.log("任务未完成");
+                for (let i = 0; i < this.btns.length; i++) {
+                  //首次进去 未领取和完成任何任务
+                   localStorage.setItem( "image_" + this.UrlSearch.id + "task_" + i, this.btns[i].status);
+                   //首次进去 视频的观看状态
+                   localStorage.setItem( "image_" + this.UrlSearch.id + "video_" + i, this.btns[i].status);
+                }
                 this.dialogStatus = 1;
-              } else {
-                image_task_array[0] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_task_1"
-                );
-                image_task_array[1] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_task_2"
-                );
-                image_task_array[2] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_task_3"
-                );
-                image_task_array[3] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_task_4"
-                );
-
-                iamge_video_array[0] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_video_1"
-                );
-                iamge_video_array[1] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_video_2"
-                );
-                iamge_video_array[2] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_video_3"
-                );
-                iamge_video_array[3] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_video_4"
-                );
-
-                let panda_head_status = "none";
-                let dialog_status = -1;
-                let task_finished_num = 0;
-                let video_finished_num = 0;
-                for (let i = 0; i < image_task_array.length; i++) {
-                  if (image_task_array[i] == 1) {
+              }else{
+                for (let i = 0; i < this.btns.length; i++) {
+                  //首次进去 未领取和完成任何任务
+                  this.btns[i].status = localStorage.getItem( "image_" + this.UrlSearch.id + "task_" + i);
+                   if (this.btns[i].status == 1) {
                     panda_head_status = "sliver_question";
-                    break;
-                  } else if (image_task_array[i] == 2) {
-                    task_finished_num++;
-                    this.randomArray.splice(i, 1);
-                  }
+                   }
                 }
-
-                let random = Math.floor(
-                  Math.random() * this.randomArray.length
-                );
-                this.num = this.randomArray[random];
-                for (let i = 0; i < iamge_video_array.length; i++) {
-                  if (iamge_video_array[i] == 1) {
-                    video_finished_num++;
-                  }
-                }
-
                 if (panda_head_status == "sliver_question") {
-                  document.getElementById("panda_head").src =
-                    "../CommonAsset/img/银色问号.png";
-                  this.dialogStatus = 4;
-                } else if (task_finished_num == 4 && video_finished_num == 4) {
-                  document.getElementById("panda_head").style.display = "none";
-                  this.dialogStatus = 8;
-                } else if (task_finished_num > video_finished_num) {
-                  document.getElementById("panda_head").src =
-                    "../CommonAsset/img/金色问号.png";
-                  this.dialogStatus = 5;
-                } else if (task_finished_num == video_finished_num) {
-                  document.getElementById("panda_head").src =
-                    "../CommonAsset/img/金色叹号.png";
-                  this.dialogStatus = 1;
+                  panda_head.src = "../CommonAsset/img/银色问号.png";
                 }
-              }
-
-              let status = localStorage.getItem("status");
-              if (status == null || status == undefined) {
-                status = 0;
-              }
-              switch (status) {
-                case "0":
-                  this.mission_2 = true;
-                  this.mission_3 = true;
-                  this.mission_1 = false;
-                  break;
-
-                case "1":
-                  this.mission_1 = false;
-                  this.mission_2 = false;
-                  this.mission_3 = true;
               }
             },
+            // missionStatus() {
+            //   let image_task_array = [];
+            //   let iamge_video_array = [];
+            //   let image_task_1 = localStorage.getItem(
+            //     "image_" + this.UrlSearch.id + "_task_1"
+            //   );
+            //   if (image_task_1 == null || image_task_1 == undefined) {
+            //     //首次进去 未领取和完成任何任务
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_task_1",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_task_2",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_task_3",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_task_4",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_video_1",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_video_2",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_video_3",
+            //       0
+            //     );
+            //     localStorage.setItem(
+            //       "image_" + this.UrlSearch.id + "_video_4",
+            //       0
+            //     );
+            //     document.getElementById("panda_head").src =
+            //       "../CommonAsset/img/金色叹号.png";
+            //     this.dialogStatus = 1;
+            //   } else {
+            //     image_task_array[0] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_task_1"
+            //     );
+            //     image_task_array[1] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_task_2"
+            //     );
+            //     image_task_array[2] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_task_3"
+            //     );
+            //     image_task_array[3] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_task_4"
+            //     );
+
+            //     iamge_video_array[0] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_video_1"
+            //     );
+            //     iamge_video_array[1] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_video_2"
+            //     );
+            //     iamge_video_array[2] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_video_3"
+            //     );
+            //     iamge_video_array[3] = localStorage.getItem(
+            //       "image_" + this.UrlSearch.id + "_video_4"
+            //     );
+
+            //     let panda_head_status = "none";
+            //     let dialog_status = -1;
+            //     let task_finished_num = 0;
+            //     let video_finished_num = 0;
+            //     for (let i = 0; i < image_task_array.length; i++) {
+            //       if (image_task_array[i] == 1) {
+            //         panda_head_status = "sliver_question";
+            //         break;
+            //       } else if (image_task_array[i] == 2) {
+            //         task_finished_num++;
+            //         this.randomArray.splice(i, 1);
+            //       }
+            //     }
+
+            //     let random = Math.floor(
+            //       Math.random() * this.randomArray.length
+            //     );
+            //     this.num = this.randomArray[random];
+            //     for (let i = 0; i < iamge_video_array.length; i++) {
+            //       if (iamge_video_array[i] == 1) {
+            //         video_finished_num++;
+            //       }
+            //     }
+
+            //     if (panda_head_status == "sliver_question") {
+            //       document.getElementById("panda_head").src =
+            //         "../CommonAsset/img/银色问号.png";
+            //       this.dialogStatus = 4;
+            //       this.mission1();
+            //     } else if (task_finished_num == 4 && video_finished_num == 4) {
+            //       document.getElementById("panda_head").style.display = "none";
+            //       this.dialogStatus = 8;
+            //     } else if (task_finished_num > video_finished_num) {
+            //       document.getElementById("panda_head").src =
+            //         "../CommonAsset/img/金色问号.png";
+            //       this.dialogStatus = 3;
+            //     } else if (task_finished_num == video_finished_num) {
+            //       document.getElementById("panda_head").src =
+            //         "../CommonAsset/img/金色叹号.png";
+            //       this.dialogStatus = 1;
+            //     }
+            //   }
+            // },
             back() {
               window.location.href = "./content.html";
             },
