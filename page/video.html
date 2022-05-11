@@ -39,8 +39,7 @@
         mounted() {          
           this.move = sessionStorage.getItem("current_video_url");
           let current_image_id = localStorage.getItem("current_image_id");
-          localStorage.setItem("image_"+current_image_id+"_video_"+sessionStorage.getItem("current_video_id"),1); //看完视频标记状态
-          localStorage.setItem("number",1);
+          // localStorage.setItem("image_"+current_image_id+"_video_"+sessionStorage.getItem("current_video_id"),1); //看完视频标记状态
         },
         methods: {
  

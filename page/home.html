@@ -226,7 +226,7 @@
               </div>
             </div>
           </div>
-          <div class="renwu">
+          <div class="renwu" v-show="pandaHead">
             <img
               style="width: 50%"
               ref="panda_head"
@@ -267,6 +267,7 @@
               mission_4: false,
               mission_5: false,
               mission_6: false,
+              pandaHead: true,
               first:
                 "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。",
               success: "太好了，你已经完成了任务!",
@@ -302,6 +303,7 @@
                 },
               ],
               num: 0,
+              nums:1,
               randomArray: [0, 1, 2, 3],
               UrlSearch: "",
               dialogStatus: 0,
@@ -338,7 +340,6 @@
           mounted() {
             this.UrlSearch = this.GetRequest();
             this.missionStatus();
-            
           },
           methods: {
             goHref(url) {
@@ -370,7 +371,8 @@
               this.mission_6 = false;
               switch (this.dialogStatus) {
                 case 1:
-                  this.first ="我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
+                  this.first =
+                    "我要告诉你一个关于熊猫的小秘密，但是你要先去完成一个任务。";
                   this.mission_1 = true;
                   this.dialogStatus = 2;
                   break;
@@ -402,10 +404,12 @@
                   this.mission_1 = true;
                   this.dialogStatus = 7;
                   this.first = "好吧，让我来告诉你！";
-                 
+
                   break;
                 case 7:
-                this.dialogStatus = 1;
+                  this.num++;
+                  localStorage.setItem("number", this.num);
+                  this.dialogStatus = 1;
                   window.location.href = "./video.html";
                   break;
                 case 8:
@@ -422,7 +426,6 @@
                   this.mission_1 = true;
                   this.first = "你想重看哪一个视频呢？";
                   break;
-
               }
             },
             //任务完成后mission3
@@ -445,166 +448,62 @@
             missionStatus() {
               let number = localStorage.getItem("number");
               if (number == null) {
-                this.num = 0
-                
-              }else{
-                this.num++
+                this.num = 0;
+              } else if (number == 4) {
+                this.num = 3;
+              } else {
+                this.num = number;
               }
               //熊猫头上的任务图标
-              let panda_head = this.$refs.panda_head
-              let panda_head_status = ""
+              let panda_head = this.$refs.panda_head;
+              let panda_head_status = "";
               //第一课的第一个任务状态
               panda_head.src = "../CommonAsset/img/金色叹号.png";
-              let task = localStorage.getItem( "image_"+this.UrlSearch.id +"task_"+this.num);
+              let task = localStorage.getItem(
+                "image_" + this.UrlSearch.id + "_task_" + this.num
+              );
               if (task == null) {
-                  for (let i = 0; i < this.btns.length; i++) {
-                      //首次进去 未领取和完成任何任务
-                      localStorage.setItem( "image_" + this.UrlSearch.id + "task_" +i, this.btns[i].status);
-                   //首次进去 视频的观看状态
-                   localStorage.setItem( "image_" + this.UrlSearch.id + "video_" +i, this.btns[i].status);
-                    
-                  }
-                  this.dialogStatus = 1;
-              }else{
+                for (let i = 0; i < this.btns.length; i++) {
                   //首次进去 未领取和完成任何任务
-                  this.btns[this.num].status = localStorage.getItem( "image_" + this.UrlSearch.id + "task_" + this.num);
-                  // 任务状态都为0，说明没进行任务
-                  if (this.btns[this.num].status == 0) {
-                    this.dialogStatus = 1;
-                  }
-                  // 进行了任务，但是没有完成
-                  else if (this.btns[this.num].status == 1) {
-                    panda_head_status = "sliver_question";
-                  }
-                  // 完成了任务
-                  else if (this.btns[this.num].status == 2) {
-                    panda_head_status = "gold_question";
-                    
-                  }
-               
+                  localStorage.setItem(
+                    "image_" + this.UrlSearch.id + "_task_" + i,
+                    this.btns[i].status
+                  );
+                }
+                this.dialogStatus = 1;
+              } else {
+                //首次进去 未领取和完成任何任务
+                this.btns[this.num].status = localStorage.getItem(
+                  "image_" + this.UrlSearch.id + "_task_" + this.num
+                );
+                // 任务状态都为0，说明没进行任务
+                if (this.btns[this.num].status == 0) {
+                  this.dialogStatus = 1;
+                }
+                // 进行了任务，但是没有完成
+                else if (this.btns[this.num].status == 1) {
+                  panda_head_status = "sliver_question";
+                }
+                // 完成了任务
+                else if (this.btns[this.num].status == 2) {
+                  panda_head_status = "gold_question";
+                }
+
                 // 根据熊猫头上的任务图标显示各种状态
                 if (panda_head_status == "sliver_question") {
                   panda_head.src = "../CommonAsset/img/银色问号.png";
                   this.dialogStatus = 4;
-                }else if (panda_head_status == "gold_question") {
+                } else if (panda_head_status == "gold_question") {
                   panda_head.src = "../CommonAsset/img/金色问号.png";
                   this.dialogStatus = 3;
+                  if (number == 4) {
+                    console.log("循环结束");
+                    this.dialogStatus = 8;
+                    this.pandaHead = false;
+                  }
                 }
               }
             },
-            // missionStatus() {
-            //   let image_task_array = [];
-            //   let iamge_video_array = [];
-            //   let image_task_1 = localStorage.getItem(
-            //     "image_" + this.UrlSearch.id + "_task_1"
-            //   );
-            //   if (image_task_1 == null || image_task_1 == undefined) {
-            //     //首次进去 未领取和完成任何任务
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_task_1",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_task_2",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_task_3",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_task_4",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_video_1",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_video_2",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_video_3",
-            //       0
-            //     );
-            //     localStorage.setItem(
-            //       "image_" + this.UrlSearch.id + "_video_4",
-            //       0
-            //     );
-            //     document.getElementById("panda_head").src =
-            //       "../CommonAsset/img/金色叹号.png";
-            //     this.dialogStatus = 1;
-            //   } else {
-            //     image_task_array[0] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_task_1"
-            //     );
-            //     image_task_array[1] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_task_2"
-            //     );
-            //     image_task_array[2] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_task_3"
-            //     );
-            //     image_task_array[3] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_task_4"
-            //     );
-
-            //     iamge_video_array[0] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_video_1"
-            //     );
-            //     iamge_video_array[1] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_video_2"
-            //     );
-            //     iamge_video_array[2] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_video_3"
-            //     );
-            //     iamge_video_array[3] = localStorage.getItem(
-            //       "image_" + this.UrlSearch.id + "_video_4"
-            //     );
-
-            //     let panda_head_status = "none";
-            //     let dialog_status = -1;
-            //     let task_finished_num = 0;
-            //     let video_finished_num = 0;
-            //     for (let i = 0; i < image_task_array.length; i++) {
-            //       if (image_task_array[i] == 1) {
-            //         panda_head_status = "sliver_question";
-            //         break;
-            //       } else if (image_task_array[i] == 2) {
-            //         task_finished_num++;
-            //         this.randomArray.splice(i, 1);
-            //       }
-            //     }
-
-            //     let random = Math.floor(
-            //       Math.random() * this.randomArray.length
-            //     );
-            //     this.num = this.randomArray[random];
-            //     for (let i = 0; i < iamge_video_array.length; i++) {
-            //       if (iamge_video_array[i] == 1) {
-            //         video_finished_num++;
-            //       }
-            //     }
-
-            //     if (panda_head_status == "sliver_question") {
-            //       document.getElementById("panda_head").src =
-            //         "../CommonAsset/img/银色问号.png";
-            //       this.dialogStatus = 4;
-            //       this.mission1();
-            //     } else if (task_finished_num == 4 && video_finished_num == 4) {
-            //       document.getElementById("panda_head").style.display = "none";
-            //       this.dialogStatus = 8;
-            //     } else if (task_finished_num > video_finished_num) {
-            //       document.getElementById("panda_head").src =
-            //         "../CommonAsset/img/金色问号.png";
-            //       this.dialogStatus = 3;
-            //     } else if (task_finished_num == video_finished_num) {
-            //       document.getElementById("panda_head").src =
-            //         "../CommonAsset/img/金色叹号.png";
-            //       this.dialogStatus = 1;
-            //     }
-            //   }
-            // },
             back() {
               window.location.href = "./content.html";
             },
