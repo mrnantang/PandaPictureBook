@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>文本阅读</title>
-    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png" />
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png">
     <link rel="stylesheet" href="./asset/css/default.css" />
     <style>
       #app {
@@ -68,11 +68,7 @@
   <body>
     <div id="app" v-cloak>
       <!-- 左边图片区 -->
-      <div
-        class="left"
-        :style="{background: `url(${readImage})`}"
-        style="background-size: 100% 100%"
-      ></div>
+      <div class="left" :style="{background: `url(${readImage})`}" style="background-size: 100% 100%;"></div>
       <!-- 右边播放区 -->
       <div class="right">
         <!-- 返回按钮 -->
@@ -89,9 +85,10 @@
         <div class="lyricsBox">
           <div class="lyrics" ref="ul">
             <div ref="TextDiv" v-for="(item,index) in readTexts" :key="index">
-              <div class="readTexts" @click="readText(item.currentTime,index)">
-                <span v-for="(i) in item.lang">{{i}}<br /></span>
-              </div>
+                <div class="readTexts" @click="readText(item.currentTime,index)">
+                  <span v-for="(i) in item.lang">{{i}}<br/></span> 
+                </div>
+              
             </div>
           </div>
           <audio ref="readTextAudio" :src="readAudio"></audio>
@@ -112,14 +109,14 @@
     <script src="./asset/js/axios.js"></script>
     <script src="./asset/js/HtmlRotate.js"></script>
     <script type="module">
-      import { baseUrl } from "./asset/js/config.js";
+    import {baseUrl} from './asset/js/config.js'; 
       const App = {
         data() {
           return {
             data: "",
             readTexts: "",
             readAudio: "",
-            readImage: "",
+            readImage:"",
             // 当前行
             lineNo: 0,
             // 开始滚动行
@@ -131,36 +128,26 @@
           this.getData();
         },
         mounted() {
-          let missionStart = localStorage.getItem("missionStart");
-          let current_image_id = localStorage.getItem("current_image_id");
-          if (missionStart == "true") {
-            localStorage.setItem("image_" + current_image_id + "_task_0", 1); // task_1表示读课文  2表示完成任务
-          }
 
+          // 音乐结束后返回顶部          
+          let current_image_id = localStorage.getItem("current_image_id");
+          localStorage.setItem("image_"+current_image_id+"_task_0",1);  // task_1表示读课文  2表示完成任务
           const readTextAudio = this.$refs.readTextAudio;
           const list = this.$refs.ul;
           readTextAudio.addEventListener("ended", () => {
-            if (missionStart == "true") {
-              localStorage.setItem("image_" + current_image_id + "_task_0", 2); // task_1表示读课文  2表示完成任务
-            }
+            localStorage.setItem("image_"+current_image_id+"_task_0",2);  // task_1表示读课文  2表示完成任务
             this.replay();
           });
         },
         methods: {
           getData() {
+
             let lang = sessionStorage.getItem("lang");
-            axios
-              .get(
-                baseUrl +
-                  "server/api/data.php?action=getTextData&contentId=1&lang=" +
-                  lang
-              )
-              .then((res) => {
+            axios.get(baseUrl+"server/api/data.php?action=getTextData&contentId=1&lang="+lang).then((res) => {
                 this.readTexts = res.data.readTexts;
                 this.readAudio = res.data.readAudio;
                 this.readImage = res.data.readImage;
-              })
-              .catch((err) => {
+              }).catch((err) => {
                 console.log(err);
               });
           },
@@ -184,9 +171,7 @@
             readTextAudio.addEventListener("timeupdate", () => {
               if (this.lineNo == this.readTexts.length) return;
               const curTime = readTextAudio.currentTime;
-              if (
-                parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime
-              ) {
+              if (parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime) {
                 this.lineHigh(); //高亮当前行
                 this.lineNo++;
               }
@@ -207,9 +192,7 @@
             readTextAudio.addEventListener("timeupdate", () => {
               if (this.lineNo == this.readTexts.length) return;
               const curTime = readTextAudio.currentTime;
-              if (
-                parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime
-              ) {
+              if (parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime) {
                 this.lineHigh(); //高亮当前行
                 this.lineNo++;
               }
@@ -228,16 +211,16 @@
           replay() {
             this.$refs.readTextAudio.load();
             this.$refs.playMusic.src = "../CommonAsset/img/播放.png";
-            let TextDiv = this.$refs.TextDiv;
+            let TextDiv =  this.$refs.TextDiv
             for (let i = 0; i < TextDiv.length; i++) {
               const allDiv = TextDiv[i];
               allDiv.style.color = "black";
             }
-            // 当前行
-            this.lineNo = 0;
+             // 当前行
+             this.lineNo= 0
             // 开始滚动行
-            this.Cpos = 1;
-          },
+            this.Cpos=1
+          }
         },
       };
       const app = Vue.createApp(App);

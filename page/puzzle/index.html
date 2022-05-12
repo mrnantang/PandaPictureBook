@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Image Puzzle</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/image-puzzle.css" rel="stylesheet" />
+    <style>
+      #screen-change {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        overflow: hidden;
+        z-index: 10;
+      }
+
+      #screen-change.w {
+        height: 100vw;
+        width: 100vh;
+        transform: translate(-50%, -50%) rotate(90deg);
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      #screen-change.h {
+        height: 100vh;
+        width: 100vw;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+      }
+    </style>
+    <script src="js/image-puzzle.js"></script>
+  </head>
+
+  <body id="screen-change" class="h">
+    <div id="collage">
+      <div id="playPanel" style="padding: 5px; display: none">
+        <div style="display: inline-block; width: 95%; vertical-align: top">
+          <ul id="sortable" class="sortable"></ul>
+        </div>
+        <div>
+          <div id="actualImageBox" style="display: none">
+            <div id="stepBox">
+              <!-- <div>Steps:</div> -->
+              <!-- <div id="stepCount" class="stepCount">0</div> -->
+            </div>
+            <div id="timeBox">
+              <!-- Time Taken: <span id="timerPanel"></span> secs -->
+            </div>
+            <img id="actualImage" style="display: none" />
+            <!-- <div>Re-arrange to create a picture like this.</div> -->
+            <p id="levelPanel" style="display: none">
+              <input
+                type="radio"
+                name="level"
+                id="easy"
+                checked="checked"
+                value="3"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+              <input
+                type="radio"
+                name="level"
+                id="medium"
+                value="4"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+              <input
+                type="radio"
+                name="level"
+                id="hard"
+                value="5"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+            </p>
+            <!-- <div>
+                        <button id="btnRule" type="button" class="btn" onclick="rules();">Rules</button>
+                        <button id="newPhoto" type="button" class="btn" onclick="restart();">Another Photo</button>
+                        <button id="btnReplay" type="button" class="btn" onclick="about();">About</button>
+                    </div> -->
+          </div>
+        </div>
+      </div>
+      <div id="gameOver" style="display: none">
+        <div
+          style="
+            background-color: #fc9e9e;
+            padding: 5px 10px 20px 10px;
+            text-align: center;
+          "
+        >
+          <h2 style="text-align: center">Game Over!!</h2>
+          Congratulations!! <br />
+          You have completed this picture. <br />
+          Steps: <span id="stepCount" class="stepCount">0</span> steps. <br />
+          Time Taken: <span class="timeCount">0</span> seconds<br />
+          <div>
+            <button type="button" onclick="window.location.reload(true);">
+              Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var images = [
+          { src: "images/london-bridge.jpg", title: "London Bridge" },
+          { src: "images/lotus-temple.jpg", title: "Lotus Temple" },
+          { src: "images/qutub-minar.jpg", title: "Qutub Minar" },
+          { src: "images/statue-of-liberty.jpg", title: "Statue Of Liberty" },
+          // { src: 'images/bhutan.jpg', title: '不丹' },
+          // { src: 'images/china.jpg', title: '长城' },
+          // { src: 'images/kohila.jpg', title: 'Kohila' },
+          // { src: 'images/vietnam.jpg', title: '越南' },
+          { src: "images/taj-mahal.jpg", title: "Taj Mahal" },
+        ];
+
+        // document.getElementById("test").ontouchstart = function (event) {
+        //     var touches = event.touches[0];
+        //     oW = touches.clientX;
+        //     oH = touches.clientY;
+        //     console.log(oW + " " + oH);
+        // }
+
+        // document.getElementById("test").ontouchmove = function (event) {
+        //     var touches = event.touches[0];
+        //     oW = touches.clientX;
+        //     oH = touches.clientY;
+        //     console.log("moving =" + oW + " " + oH);
+        // }
+
+        // document.getElementById("test").ontouchend = function (event) {
+        //     console.log();
+        // }
+
+        window.onload = function () {
+          let current_image_id = localStorage.getItem("current_image_id");
+          localStorage.setItem("image_" + current_image_id + "_task_2", 1);
+          sessionStorage.setItem("current_task_id", 2);
+          var gridSize = document
+            .querySelector('#levelPanel input[type="radio"]:checked')
+            .getAttribute("value");
+          imagePuzzle.startGame(images, gridSize);
+        };
+        function restart() {
+          var gridSize = document
+            .querySelector('#levelPanel input[type="radio"]:checked')
+            .getAttribute("value");
+          imagePuzzle.startGame(images, gridSize);
+        }
+        function rules() {
+          alert(
+            "Re arrange the image parts in a way that it correctly forms the picture. \nThe no. of steps taken will be counted."
+          );
+        }
+        function about() {
+          alert(
+            "Developed by Anurag Gandhi. \nHe can be contacted at: soft.gandhi@gmail.com"
+          );
+        }
+
+        !(function () {
+          var viewport = document.getElementById("viewport");
+          var dw = null;
+          var screenChange = document.getElementById("screen-change");
+          function a() {
+            if (document.body.clientHeight > document.body.clientWidth) {
+              dw = 750;
+              screenChange.classList.remove("h");
+              screenChange.classList.add("w");
+            } else if (document.body.clientHeight < document.body.clientWidth) {
+              dw = 1334;
+            }
+            viewport.setAttribute(
+              "content",
+              "width=" + dw + ",user-scalable=no"
+            );
+          }
+          a();
+          window.addEventListener(
+            "orientationchange",
+            function () {
+              if (window.orientation == 0) {
+                screenChange.classList.remove("h");
+                screenChange.classList.add("w");
+                dw = 750;
+                viewport.setAttribute(
+                  "content",
+                  "width=" + dw + ",user-scalable=no"
+                );
+              } else if (window.orientation == 90) {
+                screenChange.classList.remove("w");
+                screenChange.classList.add("h");
+                dw = 1334;
+                viewport.setAttribute(
+                  "content",
+                  "width=" + dw + ",user-scalable=no"
+                );
+              }
+            },
+            false
+          );
+        })(window);
+      </script>
+    </div>
+  </body>
+</html>

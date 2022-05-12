@@ -18,7 +18,6 @@
         height: 100vh;
         position: absolute;
       }
-
       #loadings {
         position: absolute;
         z-index: -99;
@@ -36,23 +35,19 @@
         background: url("https://lz06-1301325388.cos.ap-chengdu.myqcloud.com/storiesinmusic/asset/model/loading.png");
         animation: move 0.9s steps(12, end) infinite;
       }
-
       #models {
         background: url("../CommonAsset/img/界面bg.png") no-repeat;
         background-size: 100% 100%;
         position: absolute;
         z-index: -1;
       }
-
       .common {
         width: 80%;
         margin: 0 auto;
       }
-
       .topBox {
         height: 75vh;
       }
-
       .bottomBox {
         display: flex;
         justify-content: space-around;
@@ -61,7 +56,6 @@
         background: url("../CommonAsset/img/按钮底板.png") no-repeat;
         background-size: 100% 100%;
       }
-
       .dialog {
         position: absolute;
         left: 23%;
@@ -71,7 +65,6 @@
         background: url("../CommonAsset/img/对话框.png") no-repeat;
         background-size: 100%;
       }
-
       .renwu {
         position: relative;
         left: 70%;
@@ -79,7 +72,6 @@
         width: 50px;
         height: 50px;
       }
-
       .panda {
         position: relative;
         left: 60%;
@@ -88,14 +80,12 @@
         height: 170px;
         opacity: 0.5;
       }
-
       .mission2 {
         position: relative;
         top: 35%;
         left: 12%;
         width: 25vw;
       }
-
       .mission3 {
         position: relative;
         top: 30%;
@@ -103,12 +93,10 @@
         width: 25vw;
         height: 20vh;
       }
-
       .image {
         width: 50%;
         height: 50%;
       }
-
       .back {
         position: absolute;
         width: 38px;
@@ -118,7 +106,6 @@
         background: url("../CommonAsset/img/返回.png") no-repeat;
         background-size: 100%;
       }
-
       .mission1 {
         position: relative;
         top: 40%;
@@ -126,7 +113,6 @@
         width: 27vw;
         height: 22vh;
       }
-
       .mission4 {
         position: relative;
         top: 22%;
@@ -134,7 +120,6 @@
         width: 20vw;
         height: 30vh;
       }
-
       .mission5 {
         position: relative;
         top: 22%;
@@ -142,13 +127,11 @@
         width: 20vw;
         height: 30vh;
       }
-
       .mission4_video {
         margin-top: 3%;
         font-size: 20px;
         font-weight: bold;
       }
-
       .mission_title {
         width: 100%;
         margin-top: 5%;
@@ -156,7 +139,6 @@
         font-weight: bold;
         text-align: center;
       }
-
       .mission_text {
         width: 100%;
         text-align: center;
@@ -171,23 +153,11 @@
           background-position: -1152px 0;
         }
       }
-
-      a :link {
-        color: black;
-        text-decoration: none;
-      }
-
-      a:visited {
-        color: blue;
-        text-decoration: none;
-      }
-
       [v-cloak] {
         display: none;
       }
     </style>
   </head>
-
   <body>
     <div>
       <!-- 加载动画 -->
@@ -241,20 +211,7 @@
                 v-for="(i, index) in videos"
                 :key="index"
               >
-                <div
-                  @click="mission5(i.url,i.id)"
-                  v-if="i.watched==1"
-                  style="color: #cfcfcf"
-                >
-                  {{i.name}}
-                </div>
-                <div
-                  @click="mission5(i.url,i.id)"
-                  v-else-if="i.watched==0"
-                  style="color: #f2c64d"
-                >
-                  {{i.name}}
-                </div>
+                <div @click="mission5(i.url,i.id)">{{i.name}}</div>
               </div>
             </div>
             <!-- 任务6页面-->
@@ -317,28 +274,28 @@
               fail: "你的任务还没有完成哟!",
               btns: [
                 {
-                  id: 0,
+                  id: 1,
                   name: "听一遍课文",
                   url: "./Read.html",
                   img: "../CommonAsset/img/bt_01.png",
                   status: 0,
                 },
                 {
-                  id: 1,
+                  id: 2,
                   name: "读生词",
                   url: "./Word.html",
                   img: "../CommonAsset/img/bt_02.png",
                   status: 0,
                 },
                 {
-                  id: 2,
+                  id: 3,
                   name: "拼图游戏",
-                  url: "./puzzle/index.html",
+                  url: "./drawGame.html",
                   img: "../CommonAsset/img/bt_03.png",
                   status: 0,
                 },
                 {
-                  id: 3,
+                  id: 4,
                   name: "涂色游戏",
                   url: "./drawGame.html",
                   img: "../CommonAsset/img/bt_04.png",
@@ -346,33 +303,30 @@
                 },
               ],
               num: 0,
+              nums:1,
               randomArray: [0, 1, 2, 3],
               UrlSearch: "",
               dialogStatus: 0,
               videos: [
                 {
-                  id: 0,
+                  id: 1,
                   name: "吃",
                   url: "http://1301325388.vod2.myqcloud.com/aea92fccvodtranscq1301325388/ebe9eaf4387702297528132229/v.f100030.mp4",
-                  watched: 0,
-                },
-                {
-                  id: 1,
-                  name: "长相",
-                  url: "http://1301325388.vod2.myqcloud.com/aea92fccvodtranscq1301325388/ebe9eaf4387702297528132229/v.f100030.mp4",
-                  watched: 0,
                 },
                 {
                   id: 2,
-                  name: "繁殖",
+                  name: "长相",
                   url: "http://1301325388.vod2.myqcloud.com/aea92fccvodtranscq1301325388/ebe9eaf4387702297528132229/v.f100030.mp4",
-                  watched: 0,
                 },
                 {
                   id: 3,
+                  name: "繁殖",
+                  url: "http://1301325388.vod2.myqcloud.com/aea92fccvodtranscq1301325388/ebe9eaf4387702297528132229/v.f100030.mp4",
+                },
+                {
+                  id: 4,
                   name: "生活习惯",
                   url: "http://1301325388.vod2.myqcloud.com/aea92fccvodtranscq1301325388/ebe9eaf4387702297528132229/v.f100030.mp4",
-                  watched: 0,
                 },
               ],
               successWord: [
@@ -385,10 +339,7 @@
           },
           mounted() {
             this.UrlSearch = this.GetRequest();
-            let missionStart = localStorage.getItem("missionStart");
-            if (missionStart == "true") {
-              this.missionStatusRandom();
-            }
+            this.missionStatus();
           },
           methods: {
             goHref(url) {
@@ -397,16 +348,12 @@
             },
             //开关任务框
             changeActions() {
-              localStorage.setItem("missionStart", "true");
-              this.missionStatusRandom();
-              console.log(this.num);
               if (this.dialog) {
                 this.dialog = false;
                 // actions[1].stop();
                 // actions[0].play();
               } else {
                 this.mission1();
-
                 this.dialog = true;
 
                 // actions[0].stop();
@@ -432,17 +379,14 @@
                 //听一遍课文（等任务）
                 case 2:
                   this.mission_2 = true;
-                  this.getRandomNum();
                   break;
                 //任务完成
                 case 3:
                   this.mission_3 = true;
-                  this.getCurentTaskId();
                   break;
                 //任务未完成
                 case 4:
                   this.mission_4 = true;
-                  this.getCurentTaskId();
                   break;
                 // 视频前过渡句
                 case 5:
@@ -454,7 +398,6 @@
                 case 11:
                   this.mission_5 = true;
                   this.dialogStatus = 6;
-                  this.getVideoStatus();
                   break;
                 //点击视频后的句子
                 case 6:
@@ -466,24 +409,6 @@
                 case 7:
                   this.num++;
                   localStorage.setItem("number", this.num);
-                  let current_video_id =
-                    sessionStorage.getItem("current_task_id");
-                  let current_video_status = localStorage.getItem(
-                    "image_" + this.UrlSearch.id + "_video_" + current_video_id
-                  );
-                  if (current_video_status == 0) {
-                    localStorage.setItem(
-                      "image_" +
-                        this.UrlSearch.id +
-                        "_task_" +
-                        current_video_id,
-                      3
-                    );
-                  }
-                  localStorage.setItem(
-                    "image_" + this.UrlSearch.id + "_video_" + current_video_id,
-                    1
-                  );
                   this.dialogStatus = 1;
                   window.location.href = "./video.html";
                   break;
@@ -493,7 +418,6 @@
                   this.first = "太棒了，今天所有的任务都完成了!";
                   break;
                 case 9:
-                  sessionStoragelo;
                   this.mission_6 = true;
                   this.dialogStatus = 10;
                   break;
@@ -514,104 +438,11 @@
               this.dialogStatus = 6;
               sessionStorage.setItem("current_video_id", id);
               sessionStorage.setItem("current_video_url", url);
-
               this.mission1();
             },
             mission6() {
               this.dialogStatus = 10;
               this.mission1();
-            },
-            //获得视频状态
-            getVideoStatus() {
-              let videoArray = [];
-              for (let i = 0; i < 4; i++) {
-                videoArray[i] = localStorage.getItem(
-                  "image_" + this.UrlSearch.id + "_video_" + i
-                );
-              }
-              for (let i = 0; i < this.videos.length; i++) {
-                this.videos[i].watched = videoArray[i];
-              }
-            },
-            //任务状态
-            missionStatusRandom() {
-              //熊猫头上的任务图标
-              let panda_head = this.$refs.panda_head;
-              let panda_head_status = "";
-              //第一课的第一个任务状态
-              panda_head.src = "../CommonAsset/img/金色叹号.png";
-              let task = localStorage.getItem(
-                "image_" + this.UrlSearch.id + "_task_" + this.num
-              );
-              if (task == null) {
-                //首次进入
-                for (let i = 0; i < this.btns.length; i++) {
-                  //首次进去 未领取和完成任何任务
-                  localStorage.setItem(
-                    "image_" + this.UrlSearch.id + "_task_" + i,
-                    this.btns[i].status
-                  );
-                  localStorage.setItem(
-                    "image_" + this.UrlSearch.id + "_video_" + i,
-                    this.btns[i].status
-                  );
-                }
-                this.dialogStatus = 1;
-              } else {
-                let taskArray = [];
-                let num_of_0 = 0;
-                let num_of_1 = 0;
-                let num_of_2 = 0;
-                let num_of_3 = 0;
-                for (let i = 0; i < 4; i++) {
-                  taskArray[i] = localStorage.getItem(
-                    "image_" + this.UrlSearch.id + "_task_" + i
-                  );
-                  //首次进去 未领取和完成任何任务
-                  this.btns[i].status = localStorage.getItem(
-                    "image_" + this.UrlSearch.id + "_task_" + i
-                  );
-                  switch (taskArray[i]) {
-                    case "0":
-                      num_of_0++;
-                      break;
-                    case "1":
-                      num_of_1++;
-                      break;
-                    case "2":
-                      num_of_2++;
-                      this.randomArray.splice(i, 1);
-                      break;
-                    case "3":
-                      num_of_3++;
-                      break;
-                  }
-                }
-                console.log(taskArray);
-
-                if (num_of_1 > 0) {
-                  // 进行了任务，但是没有完成
-                  panda_head_status = "sliver_question";
-                } else if (num_of_0 == taskArray.length) {
-                  this.dialogStatus = 1;
-                } else if (num_of_3 == taskArray.length) {
-                  this.dialogStatus = 8;
-                  this.pandaHead = false;
-                } else if (num_of_2 + num_of_0 == taskArray.length) {
-                  panda_head_status = "gold_question";
-                } else if (num_of_2 + num_of_3 == taskArray.length) {
-                  panda_head_status = "gold_question";
-                }
-
-                // 根据熊猫头上的任务图标显示各种状态
-                if (panda_head_status == "sliver_question") {
-                  panda_head.src = "../CommonAsset/img/银色问号.png";
-                  this.dialogStatus = 4;
-                } else if (panda_head_status == "gold_question") {
-                  panda_head.src = "../CommonAsset/img/金色问号.png";
-                  this.dialogStatus = 3;
-                }
-              }
             },
             //任务状态
             missionStatus() {
@@ -656,7 +487,6 @@
                 // 完成了任务
                 else if (this.btns[this.num].status == 2) {
                   panda_head_status = "gold_question";
-                  this.randomArray.splice(this.num, 1);
                 }
 
                 // 根据熊猫头上的任务图标显示各种状态
@@ -694,14 +524,6 @@
                 }
               }
               return theRequest;
-            },
-            // 任务随机出现
-            getRandomNum() {
-              let random = Math.floor(Math.random() * this.randomArray.length);
-              this.num = this.randomArray[random];
-            },
-            getCurentTaskId() {
-              this.num = sessionStorage.getItem("current_task_id");
             },
           },
         };

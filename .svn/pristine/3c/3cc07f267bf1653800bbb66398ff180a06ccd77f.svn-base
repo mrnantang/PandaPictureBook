@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>视频</title>
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png">
+    <script src="./asset/js/Vue.js"></script>
+    <script src="./asset/js/HtmlRotate.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #next {
+        width: 80vw;
+        margin: 0 auto;
+      }
+      #next > video {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div></div>
+      <div id="next">
+        <video id="flash" :src="move" controls></video>
+      </div>
+    </div>
+    <script>
+      const App = {
+        data() {
+          return {
+            move:""            
+          }
+        },
+        mounted() {          
+          this.move = sessionStorage.getItem("current_video_url");
+          let current_image_id = localStorage.getItem("current_image_id");
+          // localStorage.setItem("image_"+current_image_id+"_video_"+sessionStorage.getItem("current_video_id"),1); //看完视频标记状态
+        },
+        methods: {
+ 
+        },
+     
+      }
+      const app = Vue.createApp(App).mount("#app")
+    </script>
+  </body>
+</html>
