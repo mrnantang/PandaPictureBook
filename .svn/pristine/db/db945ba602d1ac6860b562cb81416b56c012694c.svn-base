@@ -187,12 +187,9 @@
 <script>
           window.onload = function () {
           let current_image_id = localStorage.getItem("current_image_id");
-          let missionStart = localStorage.getItem("missionStart");
-          if (missionStart == "true") {
-            localStorage.setItem("image_" + current_image_id + "_task_3", 1); // task_1表示读课文  2表示完成任务
-          }        
+          localStorage.setItem("image_" + current_image_id + "_task_3", 2);          
         };
-       
+
   var v_canvas = document.getElementById("canvas1");
   var a1 = document.getElementById("a1");
   var a2 = document.getElementById("a2");

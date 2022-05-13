@@ -11,8 +11,8 @@
       #app {
         width: 100vw;
         height: 100vh;
-        background: url("../CommonAsset/img/background.png") no-repeat;
-        background-size: 100% 100%;
+        background: url("../CommonAsset/img/background.png");
+        background-size: 100%;
       }
       .header {
         width: 92vw;
@@ -307,13 +307,8 @@
           this.getData();
         },
         mounted() {
-            //获取课程编号ID
           let current_image_id = localStorage.getItem("current_image_id");
-            //检查任务是否开始
-          let missionStart = localStorage.getItem("missionStart");
-          if (missionStart == "true") {
-            localStorage.setItem("image_" + current_image_id + "_task_1", 1); // task_1表示读课文  2表示完成任务
-          }                
+          localStorage.setItem("image_" + current_image_id + "_task_1", 1);          
         },
         methods: {
           getData() {
@@ -357,10 +352,7 @@
           //点击文字，变化颜色。
           activeText(wordActive, index, pinyin, yiwen) {
             let current_image_id = localStorage.getItem("current_image_id");
-             let missionStart = localStorage.getItem("missionStart");
-            if (missionStart == "true") {
             localStorage.setItem("image_" + current_image_id + "_task_1", 2);
-            }
             for (let i = 0; i < this.$refs.textWordImg.length; i++) {
               this.$refs.textWordImg[i].style.background = "";
             }

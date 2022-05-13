@@ -398,6 +398,7 @@
             changeActions() {
               localStorage.setItem("missionStart", "true");
               this.missionStatusRandom();
+              console.log(this.num);
               if (this.dialog) {
                 this.dialog = false;
                 // actions[1].stop();

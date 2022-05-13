@@ -398,6 +398,7 @@
             changeActions() {
               localStorage.setItem("missionStart", "true");
               this.missionStatusRandom();
+              console.log(this.num);
               if (this.dialog) {
                 this.dialog = false;
                 // actions[1].stop();
@@ -711,10 +712,10 @@
                 }
   console.log(randomArray);
                 let random = Math.floor(
-                  Math.random() * randomArray.length
+                  Math.random() * this.randomArray.length
                 );
                 
-                this.num = randomArray[random];
+                this.num = this.randomArray[random];
                 sessionStorage.setItem("current_task_id", this.num);
               } else {
                 this.num = current_task_id;
