@@ -20,7 +20,9 @@
       [v-cloak] {
         display: none;
       }
-      #app {
+      /* 手机模式 */
+      @media screen and (max-width:1000px) {
+        #app {
         background-image: url("./CommonAsset/img/BG.png");
         background-size: 100%;
         background-repeat: no-repeat;
@@ -88,10 +90,86 @@
         line-height: 10vh;
         text-align: center;
       }
+      }
+      /* 平板模式 */
+      @media screen and (min-width:1001px) {
+        #app {
+        background-image: url("./CommonAsset/img/BG.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .header {
+        width: 100vw;
+        height: 10vh;
+      }
+      .languageChange {
+        position: absolute;
+        right: 2%;
+        top: 3%;
+      }
+      .contentBox {
+        width: 85vw;
+        height: 80vh;
+        margin: 0 auto;
+        background-image: url("./CommonAsset/img/关于本书底板.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .contentHeader {
+        width: 97%;
+        height: 13vh;
+        margin: 0 auto;
+      }
+      .contentMiddle {
+        display: flex;
+        width: 98%;
+        height: 50vh;
+        margin: 0 auto;
+      }
+      .contentTextBox {
+        width: 33%;
+        height: 100%;
+        background-color: #f8e6d0;
+      }
+      .contentText {
+        width: 85%;
+        height: 99%;
+        margin: 0 auto;
+        color: white;
+        text-indent: 24px;
+        line-height: 25px;
+        background-color: #f8e6d0;
+        overflow: hidden;
+        overflow: scroll;
+      }
+      .goContent {
+        position: relative;
+        top: 4%;
+        left: 80%;
+        width: 15vw;
+      }
+      .contentImg {
+        width: 67%;
+        height: 100%;
+        background-image: url("./CommonAsset/img/封面.png"); 
+         background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .footer {
+        width: 100vw;
+        height: 10vh;
+        line-height: 10vh;
+        text-align: center;
+      }
+      }
+    
     </style>
   </head>
   <body>
+    <div class="sousuo"></div>
     <div id="app" v-cloak>
+      <!-- 手机搜索栏 -->
+     
       <!-- 头部 -->
       <div class="header">
         <!-- 语言修改 -->
@@ -133,7 +211,7 @@
       <div class="contentBox">
         <!-- 上部头部隐藏 -->
         <div class="contentHeader">
-          <img style="margin-top:15px;margin-left: 40px;" :src="aboutImage">
+          <img style="margin-top:5vh;margin-left: 40px;" :src="aboutImage">
         </div>
         <!-- 中部展示区 -->
         <div class="contentMiddle">
