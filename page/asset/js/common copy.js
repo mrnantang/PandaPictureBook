@@ -1,6 +1,7 @@
 import * as THREE from "./three.module.js";
 import { FBXLoader } from "./FBXLoader.js";
 let camera, scene, renderer;
+// let mouse = new THREE.Vector2();
 let mixer;
 let actions = []; //所有的动画数组;
 let asd = [0, 2.2]; //动画开始播放前的等待时长单位s
@@ -11,6 +12,7 @@ let init = function init() {
   // 相机
   camera = new THREE.PerspectiveCamera(55,window.innerWidth / window.innerHeight,1,2000);
   camera.position.set(100, 200, 800);
+
   // 场景
   scene = new THREE.Scene();
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
@@ -18,12 +20,35 @@ let init = function init() {
   scene.add(hemiLight);
   // 光源
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.2);
+  // dirLight.position.set(0, 400, 100);
+  // dirLight.castShadow = true;
+  // dirLight.shadow.camera.top = 180;
+  // dirLight.shadow.camera.bottom = -100;
+  // dirLight.shadow.camera.left = -120;
+  // dirLight.shadow.camera.right = 120;
   scene.add(dirLight);
+
+  // 环境
+  // const mesh = new THREE.Mesh(
+  //   new THREE.PlaneGeometry(2000, 2000),
+  //   new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+  // );
+  // mesh.rotation.x = -Math.PI / 2;
+  // mesh.receiveShadow = true;
+  // 网格
+  // const grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
+  // grid.material.opacity = 0.2;
+  // grid.material.transparent = true;
+  // grid.material.transparent = true;
   // 渲染
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
+  // renderer.domElement.addEventListener("mousedown", (event) => {
+  //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  // });
   loadFbxInScence();
 };
 // 加载模型
@@ -78,9 +103,9 @@ function loadFbxInScence() {
       const val = Math.ceil((p.loaded / p.total) * 100);
       if (val >= 100) {
         document.getElementById("loadings").style.display = "none"; //none
-        // setTimeout(() => {
+        setTimeout(() => {
           document.getElementById("app").style.display = "block"; //block
-        // }, 2000);
+        }, 2000);
       }
     }
   );
