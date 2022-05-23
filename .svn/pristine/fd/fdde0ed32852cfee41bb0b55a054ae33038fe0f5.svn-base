@@ -10,11 +10,11 @@
     <link rel="shortcut icon" href="./CommonAsset/img/网页icon.png" />
     <link rel="stylesheet" href="./page/asset/css/default.css" />
     <!-- 导入样式 -->
-    <link rel="stylesheet" href="./page/asset/css/element.css" />
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
     <!-- 导入 Vue 3 -->
     <script src="./page/asset/js/Vue.js"></script>
     <!-- 导入组件库 -->
-    <script src="./page/asset/js/elementUI.js"></script>
+    <script src="//unpkg.com/element-plus"></script>
     <title>熊猫绘本</title>
     <style>
       [v-cloak] {
@@ -37,7 +37,7 @@
           top: 12%;
         }
         .contentBox {
-          width: 90vw;
+          width: 85vw;
           height: 80vh;
           margin: 0 auto;
           background-image: url("./CommonAsset/img/关于本书底板.png");
@@ -57,12 +57,12 @@
         }
         .contentTextBox {
           width: 33%;
-          height: 100%;
+          height: 98%;
           background-color: #f8e6d0;
         }
         .contentText {
           width: 85%;
-          height: 100%;
+          height: 99%;
           margin: 0 auto;
           color: white;
           text-indent: 24px;
@@ -234,6 +234,7 @@
     </div>
     <script src="./page/asset/js/HtmlRotate.js"></script>
     <script src="./page/asset/js/axios.js"></script>
+    <script src="./page/asset/js/vconsole.min.js"></script>
     <script type="module">
       import { baseUrl } from "./page/asset/js/config.js";
       const App = {
@@ -252,14 +253,20 @@
           };
         },
         created() {
+          const vConsole = new VConsole();
           this.getData();
+         
         },
         mounted() {
+          // this.hengshuping()
+          window.addEventListener("scroll", this.hengshuping);
         },
         methods: {
           // 获取数据
           getData() {
-            axios.get(baseUrl + "server/api/data.php?action=getIndexData").then((res) => {
+            axios
+              .get(baseUrl + "server/api/data.php?action=getIndexData")
+              .then((res) => {
                 this.language = res.data.language;
                 this.dataItem = res.data;
                 let lang = sessionStorage.getItem("lang");
@@ -281,7 +288,16 @@
           // 进入目录
           goContent() {
             window.location.href = "./page/content.html";
-          }
+          },
+          //判断手机横竖屏
+          hengshuping() {
+            // if (window.orientation == 180 || window.orientation == 0) {
+            //   alert("竖屏状态！");
+            // }
+            if (window.orientation == 90 || window.orientation == -90) {
+              this.$refs.dibu.scrollIntoView();
+            }
+          },
         },
       };
       const app = Vue.createApp(App);

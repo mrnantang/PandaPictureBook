@@ -117,6 +117,7 @@
     <script src="./asset/js/Vue.js"></script>
     <script src="./asset/js/axios.js"></script>
     <script src="./asset/js/HtmlRotate.js"></script>
+    <script src="./asset/js/vconsole.min.js"></script>
     <script type="module">
       import { baseUrl } from "./asset/js/config.js";
       const App = {
@@ -135,6 +136,7 @@
         },
         created() {
           this.getData();
+          const vConsole = new VConsole();
         },
         mounted() {
           //检查任务是否开始
@@ -183,7 +185,7 @@
             // 音频
             let readTextAudio = this.$refs.readTextAudio;
             let TextDiv = this.$refs.TextDiv;
-            readTextAudio.pause();
+            readTextAudio.load();
             readTextAudio.play();
             this.$refs.playMusic.src = "../CommonAsset/img/暂停.png";
             readTextAudio.currentTime = current;
