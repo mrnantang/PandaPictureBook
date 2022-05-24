@@ -169,6 +169,12 @@
         },
         created() {
             this.getData()
+           
+        },
+        mounted() {
+            setTimeout(() => {
+            window.scrollTo(0,10)
+           }, 200);
         },
         methods: {
             getData() {  

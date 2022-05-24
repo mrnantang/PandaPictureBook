@@ -71,7 +71,7 @@ function loadFbxInScence() {
       object.rotation.y = -Math.PI / 9;
       object.rotation.x = -Math.PI / -19;
       object.scale.setScalar(0.4);
-      object.position.set(380, 50, 0);
+      object.position.set(450, 50, -200);
       scene.add(object);
     },
     (p) => {

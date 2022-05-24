@@ -34,11 +34,11 @@
         .languageChange {
           position: absolute;
           right: 2%;
-          top: 2%;
+          top: 12%;
         }
         .contentBox {
-          width: 80vw;
-          height: 70vh;
+          width: 90vw;
+          height: 80vh;
           margin: 0 auto;
           background-image: url("./CommonAsset/img/关于本书底板.png");
           background-size: 100%;
@@ -57,7 +57,7 @@
         }
         .contentTextBox {
           width: 33%;
-          height: 93%;
+          height: 100%;
           background-color: #f8e6d0;
         }
         .contentText {
@@ -73,9 +73,9 @@
         }
         .goContent {
           position: relative;
-          top: -2%;
+          top: 2%;
           left: 80%;
-          width: 13vw;
+          width: 15vw;
         }
         .contentImg {
           width: 67%;
@@ -89,6 +89,10 @@
           height: 10vh;
           line-height: 10vh;
           text-align: center;
+        }
+        .whiteText {
+          width: 100%;
+          height: 12vh;
         }
       }
       /* 平板模式 */
@@ -166,7 +170,8 @@
   </head>
   <body>
     <div id="app" v-cloak>
-  
+      <!-- 手机搜索栏 -->
+      <div class="whiteText"></div>
       <!-- 头部 -->
       <div class="header">
         <!-- 语言修改 -->
@@ -208,7 +213,7 @@
       <div class="contentBox">
         <!-- 上部头部隐藏 -->
         <div class="contentHeader">
-          <img style="margin-top: 5vh; margin-left: 40px;" :src="aboutImage" />
+          <img style="margin-top: 5vh; margin-left: 40px" :src="aboutImage" />
         </div>
         <!-- 中部展示区 -->
         <div class="contentMiddle">
@@ -249,6 +254,10 @@
         },
         created() {
           this.getData();
+          const vConsole = new VConsole();
+        },
+        mounted() {
+          console.log(this.getbrow());
         },
         methods: {
           // 获取数据
@@ -275,6 +284,23 @@
           // 进入目录
           goContent() {
             window.location.href = "./page/content.html";
+          },
+          getbrow(){
+            let width = window.innerWidth
+            let height = window.innerHeight
+            if (typeof width != "number") {
+              if (document.compatMode == "CSS1Compat") {
+                width = document.documentElement.clientWidth
+                height = document.documentElement.clientHeight
+              }else{
+                width = document.body.clientWidth
+                height = window.body.clientHeight
+              }
+            }
+            return {
+              pageWidth:width,
+              pageHeight:height
+            }
           }
         },
       };
