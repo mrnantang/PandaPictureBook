@@ -13,7 +13,7 @@
     <script src="./asset/js/HtmlRotate.js"></script>
     <style>
         @media screen and (max-width:1000px) {
-        .header {
+            .header {
             width: 100vw;
             height: 15vh;
         }
@@ -33,11 +33,11 @@
         }
         .pandaImg{
             width: 100%;
-            height: 80%;
+            height: 42vh;
         }
         .numbers{
             width: 100%;
-            height: 20%;
+            height: 10vh;
             text-align: center;
             font-size: 30px;
         }
@@ -58,7 +58,7 @@
         .back{
             position: absolute;
             left: 4%;
-            top: 13%;
+            top: 12%;
             width: 50px;
             height: 40px;
             background: url("../CommonAsset/img/返回.png") no-repeat;
@@ -66,6 +66,7 @@
         .whiteText{
             width: 100%;
             height: 10vh;
+            /* background-color: pink; */
         }
         }
         @media screen and (min-width:1001px) {
@@ -89,11 +90,11 @@
         }
         .pandaImg{
             width: 100%;
-            height: 80%;
+            height: 30vh;
         }
         .numbers{
             width: 100%;
-            height: 20%;
+            height: 10vh;
             text-align: center;
            
         }

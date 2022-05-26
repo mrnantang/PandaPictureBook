@@ -13,7 +13,7 @@
     <script src="./asset/js/HtmlRotate.js"></script>
     <style>
         @media screen and (max-width:1000px) {
-        .header {
+            .header {
             width: 100vw;
             height: 15vh;
         }
@@ -58,7 +58,7 @@
         .back{
             position: absolute;
             left: 4%;
-            top: 13%;
+            top: 12%;
             width: 50px;
             height: 40px;
             background: url("../CommonAsset/img/返回.png") no-repeat;

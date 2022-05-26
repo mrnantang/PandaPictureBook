@@ -15,23 +15,23 @@
         background: url("../CommonAsset/img/background.png") no-repeat;
         background-size: 100% 100%;
       }
-      /* .header {
+      .header {
         width: 92vw;
         height: 12vh;
         margin: 0 auto;
-      } */
+      }
       .goback {
         width: 4vw;
         position: relative;
-        left: 91%;
+        left: 95%;
         top: 14%;
       }
       /* 内容区域 */
-      .contentBox { 
+      .contentBox {
         white-space: nowrap;
         overflow-y: scroll;
         width: 88vw;
-        height: 40vh;
+        height: 45vh;
         margin: 0 auto;
       }
       .content {
@@ -110,17 +110,14 @@
       }
       .luyin {
         width: 100px;
-        height: 100px;
-        margin: 8% auto 0;
+        height: 118px;
+        margin: 4% auto 0;
         text-align: center;
-      }
-      .luyin > img {
-        width: 80%;
       }
       .end {
         display: none;
         width: 100px;
-        height: 100px;
+        height: 105px;
         margin: 8% auto 0;
         text-align: center;
         animation: luyin 1s steps(5, end) infinite;
@@ -128,7 +125,7 @@
       .connecting {
         display: none;
         width: 100px;
-        height: 100px;
+        height: 105px;
         margin: 8% auto 0;
         text-align: center;
         animation: loading 1s steps(8, end) infinite;
@@ -257,7 +254,6 @@
       }
       .textWordImg {
         display: inline-block;
-       
       }
       /* 录音盒子 */
       .audioBox {
@@ -313,7 +309,6 @@
         margin: 23% auto 0;
         text-align: center;
         animation: luyin 1s steps(5, end) infinite;
-
       }
       .connecting {
         display: none;
@@ -387,6 +382,14 @@
       .pinyinIcoTitle_img{
         margin-top: 3%;
       }
+      .test{
+        width: 100%;
+        height: 13vh;
+      }
+    }
+    .test{
+      width: 100%;
+      height: 13vh;
     }
       [v-cloak] {
         display: none;
@@ -394,6 +397,7 @@
     </style>
   </head>
   <body>
+    <!-- <div class="test"></div> -->
     <div id="app" v-cloak>
       <!-- 头部 -->
       <div class="header">
@@ -456,14 +460,11 @@
         <!-- 录音按钮 -->
         <div class="luyinBox">
           <!-- 开始录音 -->
-          <div class="luyin" id="start">
-            <img :src="luyinjian">
-          </div>
+          <div class="luyin" id="start" :style="{background:`url(${luyinjian})`}"></div>
           <!-- 连接Loading -->
           <div class="connecting" id="connecting"></div>
           <!-- 录音中 -->
-          <div class="end" id="end" :style="{background:`url(${zhengzaily})`}">
-          </div>
+          <div class="end" id="end" :style="{background:`url(${zhengzaily})`}"></div>
         </div>
       </div>
       <!-- 底部 -->

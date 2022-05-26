@@ -61,15 +61,15 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 60px;
+        height: 16vh;
         background: url("../CommonAsset/img/按钮底板.png") no-repeat;
         background-size: 100%;
       }
 
       .dialog {
         position: absolute;
-        left: 20%;
-        top: 9%;
+        left: 23%;
+        top: 10%;
         width: 290px;
         height: 220px;
         background: url("../CommonAsset/img/对话框.png") no-repeat;
@@ -91,6 +91,7 @@
         width: 120px;
         height: 150px;
         opacity: 0.5;
+        background-color: pink;
       }
 
       .mission2 {
@@ -179,12 +180,6 @@
         }
       }
      .bottomImg{
-       width: 54px;
-       height: 54px;
-       text-align: center;
-       line-height: 54px;
-     }
-     .bottomImg > img {
        width: 80%;
      }
     }
@@ -467,12 +462,11 @@
         <!-- 下部分 -->
         <div class="bottomBox common">
           <div
-           class="bottomImg"
             v-for="(item,index) in btns"
             key="index"
             @click="goHref(item.url)"
           >
-            <img :src="item.img" />
+            <img class="bottomImg" :src="item.img" />
           </div>
         </div>
       </div>
