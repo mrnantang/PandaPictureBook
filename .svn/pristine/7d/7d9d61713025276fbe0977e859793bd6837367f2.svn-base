@@ -91,6 +91,7 @@
         width: 120px;
         height: 150px;
         opacity: 0.5;
+        background-color: pink;
       }
 
       .mission2 {

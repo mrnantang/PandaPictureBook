@@ -244,7 +244,7 @@
         })(window);
         //返回
         goback = function () {
-          window.location.href = "../home.html";
+          history.go(-1);
         };
         //关闭游戏
         function closeGame() {

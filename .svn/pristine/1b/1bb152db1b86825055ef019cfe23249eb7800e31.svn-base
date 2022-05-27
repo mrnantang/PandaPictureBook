@@ -24,7 +24,7 @@
       @media screen and (max-width: 1000px) {
         #app {
           width: 100%;
-          height: 100vh;
+          height: 99vh;
           background-image: url("./CommonAsset/img/BG.png");
           background-size: 100% 100%;
           background-repeat: no-repeat;

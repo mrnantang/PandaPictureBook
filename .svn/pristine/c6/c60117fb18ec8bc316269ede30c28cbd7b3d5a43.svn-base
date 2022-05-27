@@ -28,22 +28,14 @@
         width: 60vw;
         background-color: black;
       }
-      .back{
-            position: absolute;
-            left: 5%;
-            top: 4%;
-            width: 50px;
-            height: 40px;
-            background: url("../CommonAsset/img/返回.png") no-repeat;
-        }
       #next > video {
         width: 100%;
+        
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <div class="back" @click="goBack"></div>
       <div id="next">
         <video id="flash" :src="move" controls></video>
       </div>
@@ -60,12 +52,6 @@
           let current_image_id = localStorage.getItem("current_image_id");
           // localStorage.setItem("image_"+current_image_id+"_video_"+sessionStorage.getItem("current_video_id"),1); //看完视频标记状态
         },
-        methods: {
-          goBack() {
-            // 返回上一页
-            window.location.href = "./home.html";
-          },
-        }
      
       }
       const app = Vue.createApp(App).mount("#app")
