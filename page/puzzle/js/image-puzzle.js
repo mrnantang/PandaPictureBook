@@ -39,11 +39,9 @@ var imagePuzzle = {
       li.style.height = 560 / gridSize + "px";
 
       li.onclick = (event) => {
-        // li.style.backgroundImage = "url(../../../CommonAsset/img/0.png)";
         li.style.border = "2px solid white";
         li.style.width = 560 / gridSize - 2 + "px";
         li.style.height = 560 / gridSize - 2 + "px";
-        li.style.backgroundColor = "pink"
         li.style.opacity = 0.1;
         let clickChoose = sessionStorage.getItem("clickChoose");
         if (
@@ -109,14 +107,17 @@ var imagePuzzle = {
                 helper.doc("gameOver").innerHTML;
               helper.doc("stepCount").textContent = imagePuzzle.stepCount;
               let current_image_id = localStorage.getItem("current_image_id");
+              let current_task_id = sessionStorage.getItem("current_task_id");
               let image_id =  localStorage.getItem("image_" + current_image_id + "_task_2")
               let missionStart = localStorage.getItem("missionStart");
+             if (current_task_id == 2) {
               if (missionStart == "true" && image_id != 3) {
                 localStorage.setItem(
                   "image_" + current_image_id + "_task_2",
                   2
                 );
               }
+             }
             }
           }
         }

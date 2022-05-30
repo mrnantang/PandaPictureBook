@@ -39,7 +39,7 @@
         width: 56px;
         height: 56px;
         position: absolute;
-        top: 20%;
+        top: 10%;
         left: 80%;
         background: url("../../CommonAsset/img/返回.png") no-repeat;
         background-size: 100%;
@@ -150,14 +150,33 @@
       <script>
          let current_image_id = localStorage.getItem("current_image_id");
          let missionStart = localStorage.getItem("missionStart");
-         let image_id =  localStorage.getItem("image_" + current_image_id + "_task_2");
-         let current_task_id = sessionStorage.getItem("current_task_id");
-          if ( current_task_id == 2 &&missionStart == "true" && image_id != 3) {
+         let image_id =  localStorage.getItem("image_" + current_image_id + "_task_2")
+         console.log(image_id);
+          if (missionStart == "true" && image_id != 3) {
             localStorage.setItem("image_" + current_image_id + "_task_2", 1); // task_1表示读课文  2表示完成任务
           }
         var images = [
           { src: "images/拼图"+ current_image_id+'.png', title: "London Bridge" },
         ];
+
+        // document.getElementById("test").ontouchstart = function (event) {
+        //     var touches = event.touches[0];
+        //     oW = touches.clientX;
+        //     oH = touches.clientY;
+        //     console.log(oW + " " + oH);
+        // }
+
+        // document.getElementById("test").ontouchmove = function (event) {
+        //     var touches = event.touches[0];
+        //     oW = touches.clientX;
+        //     oH = touches.clientY;
+        //     console.log("moving =" + oW + " " + oH);
+        // }
+
+        // document.getElementById("test").ontouchend = function (event) {
+        //     console.log();
+        // }
+
         window.onload = function () {
           var gridSize = document
             .querySelector('#levelPanel input[type="radio"]:checked')

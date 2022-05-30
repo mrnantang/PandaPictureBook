@@ -510,9 +510,10 @@
             //检查任务是否开始
           let missionStart = localStorage.getItem("missionStart");
           let image_id =  localStorage.getItem("image_" + current_image_id + "_task_1")
-          if (missionStart == "true"&& image_id != 3) {
+          let current_task_id = sessionStorage.getItem("current_task_id");
+          if (current_task_id == 1 && missionStart == "true"&& image_id != 3) {
             localStorage.setItem("image_" + current_image_id + "_task_1", 1); // task_1表示读课文  2表示完成任务
-          }                
+          }  
         },
         methods: {
           getData() {
@@ -560,7 +561,8 @@
           activeText(wordActive, index, pinyin, yiwen) {
             let current_image_id = localStorage.getItem("current_image_id");
              let missionStart = localStorage.getItem("missionStart");
-            if (missionStart == "true") {
+             let current_task_id = sessionStorage.getItem("current_task_id");
+            if (missionStart == "true" && current_task_id == 1) {
             localStorage.setItem("image_" + current_image_id + "_task_1", 2);
             }
             for (let i = 0; i < this.$refs.textWordImg.length; i++) {

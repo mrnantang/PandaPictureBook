@@ -13,12 +13,12 @@
       }
       .left {
         width: 50vw;
-        height: 95vh;
+        height: 99vh;
       }
 
       .right {
         width: 50vw;
-        height: 95vh;
+        height: 99vh;
         background: url("../CommonAsset/img/字幕板.png") no-repeat;
         background-size: 100% 100%;
       }
@@ -136,15 +136,15 @@
         mounted() {
           //检查任务是否开始
           let missionStart = localStorage.getItem("missionStart");
+          let current_task_id = sessionStorage.getItem("current_task_id");
+          const readTextAudio = this.$refs.readTextAudio;
+          const list = this.$refs.ul;
           //获取课程编号ID
           let current_image_id = localStorage.getItem("current_image_id");
           let image_id =  localStorage.getItem("image_" + current_image_id + "_task_0")
-          if (missionStart == "true" && image_id != 3) {
+          if (current_task_id == 0 && missionStart == "true" && image_id != 3) {
             localStorage.setItem("image_" + current_image_id + "_task_0", 1); // task_1表示读课文  2表示完成任务
           }
-
-          const readTextAudio = this.$refs.readTextAudio;
-          const list = this.$refs.ul;
           readTextAudio.addEventListener("ended", () => {
             if (missionStart == "true"&& image_id != 3) {
               localStorage.setItem("image_" + current_image_id + "_task_0", 2); // task_1表示读课文  2表示完成任务
