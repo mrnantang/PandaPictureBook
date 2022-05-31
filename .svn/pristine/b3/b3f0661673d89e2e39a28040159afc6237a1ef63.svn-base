@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Image Puzzle</title>
+    <link rel="shortcut icon" href="../../CommonAsset/img/网页icon.png" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/image-puzzle.css" rel="stylesheet" />
+    <style>
+        #screen-change {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        overflow: hidden;
+        z-index: 10;
+        background: url("../../CommonAsset/img/background.png");
+      }
+
+      #screen-change.w {
+        height: 100vw;
+        width: 100vh;
+        transform: translate(-50%, -50%) rotate(90deg);
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      #screen-change.h {
+        height: 100vh;
+        width: 100vw;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+      }
+      .goBack{
+        width: 56px;
+        height: 56px;
+        position: absolute;
+        top: 20%;
+        left: 80%;
+        background: url("../../CommonAsset/img/返回.png") no-repeat;
+        background-size: 100%;
+      }
+      .gameover{
+        /* display: none; */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30vw;
+        height: 10vw;
+        background-color: white;
+        border-radius: 50px;
+        border: 1px solid black;
+      }
+      .gameovertitle{
+        height: 100%;
+        line-height: 20vh;
+       text-align: center;
+        font-size: 37px;
+      }
+      .gameoverBackground{
+        display: none;
+        position: absolute;
+        top: 2%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50vw;
+        height: 96vh;
+      }
+    </style>
+     <script src="../asset/js/HtmlRotate.js"></script>
+    <script src="js/image-puzzle.js"></script>
+  </head>
+
+  <body id="screen-change" class="h">
+    <div id="collage">
+      <div id="playPanel" style="padding: 5px; display: none">
+        <div style="display: inline-block; width: 95%; vertical-align: top">
+          <ul id="sortable" class="sortable"></ul>
+        </div>
+        <div>
+          <div id="actualImageBox" style="display: none">
+            <div id="stepBox">
+              <!-- <div>Steps:</div> -->
+              <!-- <div id="stepCount" class="stepCount">0</div> -->
+            </div>
+            <div id="timeBox">
+              <!-- Time Taken: <span id="timerPanel"></span> secs -->
+            </div>
+            <img id="actualImage" style="display: none" />
+            <!-- <div>Re-arrange to create a picture like this.</div> -->
+            <p id="levelPanel" style="display: none">
+              <input
+                type="radio"
+                name="level"
+                id="easy"
+                checked="checked"
+                value="3"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+              <input
+                type="radio"
+                name="level"
+                id="medium"
+                value="4"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+              <input
+                type="radio"
+                name="level"
+                id="hard"
+                value="5"
+                onchange="imagePuzzle.startGame(images, this.value);"
+              />
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="gameOver" style="display: none">
+        <div
+          style="
+            background-color: #fc9e9e;
+            padding: 5px 10px 20px 10px;
+            text-align: center;
+          "
+        >
+          <h2 style="text-align: center">Game Over!!</h2>
+          Congratulations!! <br />
+          You have completed this picture. <br />
+          Steps: <span id="stepCount" class="stepCount">0</span> steps. <br />
+          Time Taken: <span class="timeCount">0</span> seconds<br />
+          <div>
+            <button type="button" onclick="window.location.reload(true);">
+              Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 返回按钮 -->
+      <div class="goBack" onclick="goback()"></div>
+     <div id="gameoverBackground" class="gameoverBackground">
+      <div id="gameover" class="gameover" onclick="closeGame()">
+        <div id="gameover_div" class="gameovertitle" ></div>
+      </div>
+     </div>
+      <script>
+         let current_image_id = localStorage.getItem("current_image_id");
+         let missionStart = localStorage.getItem("missionStart");
+         let image_id =  localStorage.getItem("image_" + current_image_id + "_task_2");
+         let current_task_id = sessionStorage.getItem("current_task_id");
+          if ( current_task_id == 2 &&missionStart == "true" && image_id != 3) {
+            localStorage.setItem("image_" + current_image_id + "_task_2", 1); // task_1表示读课文  2表示完成任务
+          }
+        var images = [
+          { src: "images/拼图"+ current_image_id+'.png', title: "London Bridge" },
+        ];
+        window.onload = function () {
+          var gridSize = document
+            .querySelector('#levelPanel input[type="radio"]:checked')
+            .getAttribute("value");
+          imagePuzzle.startGame(images, gridSize);
+        };
+        function restart() {
+          var gridSize = document
+            .querySelector('#levelPanel input[type="radio"]:checked')
+            .getAttribute("value");
+          imagePuzzle.startGame(images, gridSize);
+        }
+        function rules() {
+          alert(
+            "Re arrange the image parts in a way that it correctly forms the picture. \nThe no. of steps taken will be counted."
+          );
+        }
+        function about() {
+          alert(
+            "Developed by Anurag Gandhi. \nHe can be contacted at: soft.gandhi@gmail.com"
+          );
+        }
+
+        !(function () {
+          var viewport = document.getElementById("viewport");
+          var dw = null;
+          var screenChange = document.getElementById("screen-change");
+          function a() {
+            if (document.body.clientHeight > document.body.clientWidth) {
+              dw = 750;
+              screenChange.classList.remove("h");
+              screenChange.classList.add("w");
+            } else if (document.body.clientHeight < document.body.clientWidth) {
+              dw = 1334;
+            }
+            viewport.setAttribute(
+              "content",
+              "width=" + dw + ",user-scalable=no"
+            );
+          }
+          a();
+          window.addEventListener(
+            "orientationchange",
+            function () {
+              if (window.orientation == 0) {
+                screenChange.classList.remove("h");
+                screenChange.classList.add("w");
+                dw = 750;
+                viewport.setAttribute(
+                  "content",
+                  "width=" + dw + ",user-scalable=no"
+                );
+              } else if (window.orientation == 90) {
+                screenChange.classList.remove("w");
+                screenChange.classList.add("h");
+                dw = 1334;
+                viewport.setAttribute(
+                  "content",
+                  "width=" + dw + ",user-scalable=no"
+                );
+              }
+            },
+            false
+          );
+        })(window);
+        //返回
+        goback = function () {
+          window.location.href = "../home.html";
+        };
+        //关闭游戏
+        function closeGame() {
+          document.getElementById("gameover").style.display = "none";
+        }
+      </script>
+    </div>
+  </body>
+</html>

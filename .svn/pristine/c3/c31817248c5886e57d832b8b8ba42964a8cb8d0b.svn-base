@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文本阅读</title>
+    <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png" />
+    <link rel="stylesheet" href="./asset/css/default.css" />
+    <style>
+      #app {
+        display: flex;
+      }
+      .left {
+        width: 50vw;
+        height: 99vh;
+      }
+
+      .right {
+        width: 50vw;
+        height: 99vh;
+        background: url("../CommonAsset/img/字幕板.png") no-repeat;
+        background-size: 100% 100%;
+      }
+      .goContentBox {
+        width: 43vw;
+        margin: 0 auto;
+        height: 15vh;
+      }
+      .backIcon {
+        position: relative;
+        left: 90%;
+        width: 4vw;
+        height: 100%;
+      }
+      .playBtn {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5vw;
+        height: 100%;
+      }
+      .lyricsBox {
+        width: 43vw;
+        margin: 0 auto;
+        height: 73vh;
+        border: 1px solid #eae9e6;
+      }
+      .playBox {
+        position: absolute;
+        width: 50vw;
+        margin: 0 auto;
+        height: 14vh;
+      }
+      .lyrics {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        overflow-y: scroll;
+      }
+      .readTexts {
+        margin-top: 5vh;
+      }
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+     
+      <!-- 左边图片区 -->
+      <div
+        class="left"
+        :style="{background: `url(${readImage})`}"
+        style="background-size: 100% 100%"
+      ></div>
+      <!-- 右边播放区 -->
+      <div class="right">
+        <!-- 播放按钮 -->
+        <div class="playBox">
+          <div class="playBtn" @click="playMusic">
+            <img
+              ref="playMusic"
+              style="width: 90%; margin-top: 20%"
+              src="../CommonAsset/img/播放.png"
+            />
+          </div>
+        </div>
+        <!-- 返回按钮 -->
+        <div class="goContentBox">
+          <div class="backIcon">
+            <img
+              style="width: 90%; margin-top: 20%"
+              src="../CommonAsset/img/返回.png"
+              @click="goBack"
+            />
+          </div>
+        </div>
+        <!-- 歌词框 -->
+        <div class="lyricsBox">
+          <div class="lyrics" ref="ul">
+            <div ref="TextDiv" v-for="(item,index) in readTexts" :key="index">
+              <div class="readTexts" @click="readText(item.currentTime,index)">
+                <span v-for="(i) in item.lang">{{i}}<br /></span>
+              </div>
+            </div>
+          </div>
+          <audio ref="readTextAudio" :src="readAudio"></audio>
+        </div>
+        
+      </div>
+    </div>
+    <script src="./asset/js/Vue.js"></script>
+    <script src="./asset/js/axios.js"></script>
+    <script src="./asset/js/HtmlRotate.js"></script>
+    <script type="module">
+      import { baseUrl } from "./asset/js/config.js";
+      const App = {
+        data() {
+          return {
+            data: "",
+            readTexts: "",
+            readAudio: "",
+            readImage: "",
+            // 当前行
+            lineNo: 0,
+            // 开始滚动行
+            Cpos: 1,
+            offset: 40,
+          };
+        },
+        created() {
+          this.getData();
+        },
+        mounted() {
+          //检查任务是否开始
+          let missionStart = localStorage.getItem("missionStart");
+          let current_task_id = sessionStorage.getItem("current_task_id");
+          const readTextAudio = this.$refs.readTextAudio;
+          const list = this.$refs.ul;
+          //获取课程编号ID
+          let current_image_id = localStorage.getItem("current_image_id");
+          let image_id =  localStorage.getItem("image_" + current_image_id + "_task_0")
+          if (current_task_id == 0 && missionStart == "true" && image_id != 3) {
+            localStorage.setItem("image_" + current_image_id + "_task_0", 1); // task_1表示读课文  2表示完成任务
+          }
+          readTextAudio.addEventListener("ended", () => {
+            if (missionStart == "true"&& image_id != 3) {
+              localStorage.setItem("image_" + current_image_id + "_task_0", 2); // task_1表示读课文  2表示完成任务
+            }
+            this.replay();
+          });
+        },
+        methods: {
+          getData() {
+            let lang = sessionStorage.getItem("lang");
+            axios
+              .get(
+                baseUrl +
+                  "server/api/data.php?action=getTextData&contentId=1&lang=" +
+                  lang
+              )
+              .then((res) => {
+                this.readTexts = res.data.readTexts;
+                this.readAudio = res.data.readAudio;
+                this.readImage = res.data.readImage;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+              
+          },
+          goBack() {
+            // 返回上一页
+            window.location.href = "./home.html";
+          },
+          // 读文本
+          readText(current, index) {
+            // 音频
+            let readTextAudio = this.$refs.readTextAudio;
+            let TextDiv = this.$refs.TextDiv;
+            readTextAudio.pause();
+            readTextAudio.play();
+            this.$refs.playMusic.src = "../CommonAsset/img/暂停.png";
+            readTextAudio.currentTime = current;
+            for (let i = 0; i < TextDiv.length; i++) {
+              const allDiv = TextDiv[i];
+              allDiv.style.color = "black";
+            }
+            readTextAudio.addEventListener("timeupdate", () => {
+              if (this.lineNo == this.readTexts.length) return;
+              const curTime = readTextAudio.currentTime;
+              if (
+                parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime
+              ) {
+                this.lineHigh(); //高亮当前行
+                this.lineNo++;
+              }
+            });
+            this.lineNo = index;
+          },
+          // 播放音乐
+          playMusic() {
+            let readTextAudio = this.$refs.readTextAudio;
+            if (readTextAudio.paused) {
+              readTextAudio.play();
+              this.$refs.playMusic.src = "../CommonAsset/img/暂停.png";
+            } else {
+              readTextAudio.pause();
+              this.$refs.playMusic.src = "../CommonAsset/img/播放.png";
+            }
+
+            readTextAudio.addEventListener("timeupdate", () => {
+              if (this.lineNo == this.readTexts.length) return;
+              const curTime = readTextAudio.currentTime;
+              if (
+                parseFloat(this.readTexts[this.lineNo].currentTime) <= curTime
+              ) {
+                this.lineHigh(); //高亮当前行
+                this.lineNo++;
+              }
+            });
+          },
+          // 高亮歌词滚动
+          lineHigh() {
+            const list = this.$refs.ul;
+            const TextDiv = this.$refs.TextDiv;
+            if (this.lineNo > 0) {
+              TextDiv[this.lineNo - 1].style.color = "black";
+            }
+            TextDiv[this.lineNo].style.color = "red";
+          },
+          //重新播放
+          replay() {
+            this.$refs.readTextAudio.load();
+            this.$refs.playMusic.src = "../CommonAsset/img/播放.png";
+            let TextDiv = this.$refs.TextDiv;
+            for (let i = 0; i < TextDiv.length; i++) {
+              const allDiv = TextDiv[i];
+              allDiv.style.color = "black";
+            }
+            // 当前行
+            this.lineNo = 0;
+            // 开始滚动行
+            this.Cpos = 1;
+          },
+        },
+      };
+      const app = Vue.createApp(App);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
