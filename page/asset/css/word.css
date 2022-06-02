@@ -2,7 +2,7 @@
       @media screen  and (max-height: 430px) {
         #app {
           width: 100vw;
-          background: url("../../../CommonAsset/img/background.png") no-repeat;
+          background: url("../../../CommonAsset/img/生词background.png") no-repeat;
           background-size: 100% 100%;
         }
         /* .header {
@@ -191,7 +191,7 @@
       @media screen  and (max-height: 389px) {
         #app {
           width: 100vw;
-          background: url("../../../CommonAsset/img/background.png") no-repeat;
+          background: url("../../../CommonAsset/img/生词background.png") no-repeat;
           background-size: 100% 100%;
         }
         /* .header {
@@ -359,17 +359,15 @@
           position: absolute;
           top: 29%;
           left: 2%;
-          width: 40px;
-          height: 45px;
+          width: 30px;
           background: url("../../../CommonAsset/img/左三角.png") no-repeat;
           background-size: 80%;
         }
         .rightArrow {
           position: absolute;
-          top: 29%;
+          top: 28%;
           left: 94%;
-          width: 40px;
-          height: 45px;
+          width: 30px;
           background: url("../../../CommonAsset/img/右三角.png") no-repeat;
           background-size: 80%;
         }
@@ -382,7 +380,7 @@
         #app {
           width: 100vw;
           height: 100vh;
-          background: url("../../../CommonAsset/img/background.png") no-repeat;
+          background: url("../../../CommonAsset/img/生词background.png") no-repeat;
           background-size: 100% 100%;
         }
         .header {
