@@ -1,382 +1,5 @@
-      /* 中屏幕手机 */
-      @media screen  and (max-height: 430px) {
-        #app {
-          width: 100vw;
-          background: url("../../../CommonAsset/img/生词background.png") no-repeat;
-          background-size: 100% 100%;
-        }
-        /* .header {
-          width: 92vw;
-          height: 12vh;
-          margin: 0 auto;
-        } */
-        .goback {
-          width: 4vw;
-          position: relative;
-          left: 91%;
-          top: 14%;
-        }
-        /* 内容区域 */
-        .contentBox { 
-          white-space: nowrap;
-          overflow-y: scroll;
-          width: 88vw;
-          height: 40vh;
-          margin: 0 auto;
-        }
-        .content {
-          display: inline-block;
-          width: 25%;
-          height: 100%;
-        }
-        .fayinbutton {
-          width: 33px;
-          height: 33px;
-          margin: 0 auto;
-          background: url("../../../CommonAsset/img/读音动画.png") no-repeat;
-        }
-        @keyframes fayin {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -100px 0;
-          }
-        }
-        .textWord {
-          width: 23vw;
-          height: 25vh;
-          text-align: center;
-        }
-        .activeImg {
-          display: inline-block;
-          position: relative;
-          top: 0%;
-          left: 0%;
-        }
-        .textWordImg {
-          display: inline-block;
-        }
-        /* 录音盒子 */
-        .audioBox {
-          display: flex;
-          width: 60vw;
-          height: 35vh;
-          margin: 0 auto;
-          margin-top: 1%;
-          background-color: #fffffe;
-          border-radius: 10px;
-          box-shadow: 0 1px 1px #ccc;
-        }
-        .pinyinBox {
-          width: 50%;
-          height: 100%;
-        }
-        .pinyin {
-          width: 90%;
-          height: 100%;
-          margin: 0 auto;
-        }
-        .pinyinIco {
-          width: 100%;
-          height: 50%;
-        }
-        .pinyinIcoTitle {
-          width: 100%;
-          height: 40%;
-        }
-        .pinyinContent {
-          width: 100%;
-          height: 50%;
-          font-size: 20px;
-          text-align: center;
-          line-height: 33px;
-          background-color: #f8f8f8;
-          border-top: 1px solid #ccc;
-        }
-        .luyinBox {
-          width: 50%;
-          height: 100%;
-        }
-        .luyin {
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-        }
-        .luyin > img {
-          width: 80%;
-        }
-        .end {
-          display: none;
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-          animation: luyin 1s steps(5, end) infinite;
-        }
-        .connecting {
-          display: none;
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-          animation: loading 1s steps(8, end) infinite;
-          background: url("../../../CommonAsset/img/加载动画.png") no-repeat;
-        }
-        @keyframes luyin {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -500px 0;
-          }
-        }
-        @keyframes loading {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -800px 0;
-          }
-        }
-        /* 底部 */
-        .footer {
-          display: flex;
-          width: 88vw;
-          height: 10vh;
-          margin: 1% auto 0;
-          background-color: #fffffe;
-          border: #f4f8e3 solid 1px;
-          border-radius: 10px;
-        }
-        .leftIco {
-          width: 3.5vw;
-          padding-top: 0.5%;
-          margin-left: 1%;
-        }
-        .textContent {
-          width: 75vw;
-          height: 10vh;
-          margin-left: 4%;
-          line-height: 10vh;
-          font-size: 20px;
-        }
-        .display-none {
-          display: none;
-        }
-        .leftArrow {
-          display: none;
-          position: absolute;
-          top: 29%;
-          left: 2%;
-          width: 40px;
-          height: 45px;
-          background: url("../../../CommonAsset/img/左三角.png") no-repeat;
-          background-size: 80%;
-        }
-        .rightArrow {
-          position: absolute;
-          top: 29%;
-          left: 94%;
-          width: 40px;
-          height: 45px;
-          background: url("../../../CommonAsset/img/右三角.png") no-repeat;
-          background-size: 80%;
-        }
-        .pinyinIcoTitle_img{
-          width: 25%;
-        }
-      }
+
       @media screen  and (max-height: 389px) {
-        #app {
-          width: 100vw;
-          background: url("../../../CommonAsset/img/生词background.png") no-repeat;
-          background-size: 100% 100%;
-        }
-        /* .header {
-          width: 92vw;
-          height: 12vh;
-          margin: 0 auto;
-        } */
-        .goback {
-          width: 4vw;
-          position: relative;
-          left: 91%;
-          top: 14%;
-        }
-        /* 内容区域 */
-        .contentBox { 
-          white-space: nowrap;
-          overflow-y: scroll;
-          width: 88vw;
-          height: 40vh;
-          margin: 0 auto;
-        }
-        .content {
-          display: inline-block;
-          width: 25%;
-          height: 100%;
-        }
-        .fayinbutton {
-          width: 33px;
-          height: 33px;
-          margin: 0 auto;
-          background: url("../../../CommonAsset/img/读音动画.png") no-repeat;
-        }
-        @keyframes fayin {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -100px 0;
-          }
-        }
-        .textWord {
-          width: 23vw;
-          height: 25vh;
-          text-align: center;
-        }
-        .activeImg {
-          display: inline-block;
-          position: relative;
-          top: 0%;
-          left: 0%;
-        }
-        .textWordImg {
-          display: inline-block;
-        }
-        /* 录音盒子 */
-        .audioBox {
-          display: flex;
-          width: 60vw;
-          height: 35vh;
-          margin: 0 auto;
-          margin-top: 1%;
-          background-color: #fffffe;
-          border-radius: 10px;
-          box-shadow: 0 1px 1px #ccc;
-        }
-        .pinyinBox {
-          width: 50%;
-          height: 100%;
-        }
-        .pinyin {
-          width: 90%;
-          height: 100%;
-          margin: 0 auto;
-        }
-        .pinyinIco {
-          width: 100%;
-          height: 50%;
-        }
-        .pinyinIcoTitle {
-          width: 100%;
-          height: 40%;
-        }
-        .pinyinContent {
-          width: 100%;
-          height: 50%;
-          font-size: 20px;
-          text-align: center;
-          line-height: 33px;
-          background-color: #f8f8f8;
-          border-top: 1px solid #ccc;
-        }
-        .luyinBox {
-          width: 50%;
-          height: 100%;
-        }
-        .luyin {
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-        }
-        .luyin > img {
-          width: 80%;
-        }
-        .end {
-          display: none;
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-          animation: luyin 1s steps(5, end) infinite;
-        }
-        .connecting {
-          display: none;
-          width: 100px;
-          height: 100px;
-          margin: 8% auto 0;
-          text-align: center;
-          animation: loading 1s steps(8, end) infinite;
-          background: url("../../../CommonAsset/img/加载动画.png") no-repeat;
-        }
-        @keyframes luyin {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -500px 0;
-          }
-        }
-        @keyframes loading {
-          0% {
-            background-position: 0 0;
-          }
-          100% {
-            background-position: -800px 0;
-          }
-        }
-        /* 底部 */
-        .footer {
-          display: flex;
-          width: 88vw;
-          height: 10vh;
-          margin: 1% auto 0;
-          background-color: #fffffe;
-          border: #f4f8e3 solid 1px;
-          border-radius: 10px;
-        }
-        .leftIco {
-          width: 3.5vw;
-          padding-top: 0.5%;
-          margin-left: 1%;
-        }
-        .textContent {
-          width: 75vw;
-          height: 10vh;
-          margin-left: 4%;
-          line-height: 10vh;
-          font-size: 20px;
-        }
-        .display-none {
-          display: none;
-        }
-        .leftArrow {
-          display: none;
-          position: absolute;
-          top: 29%;
-          left: 2%;
-          width: 30px;
-          background: url("../../../CommonAsset/img/左三角.png") no-repeat;
-          background-size: 80%;
-        }
-        .rightArrow {
-          position: absolute;
-          top: 28%;
-          left: 94%;
-          width: 30px;
-          background: url("../../../CommonAsset/img/右三角.png") no-repeat;
-          background-size: 80%;
-        }
-        .pinyinIcoTitle_img{
-          width: 25%;
-        }
-      }
-      /* 平板 */
-        @media screen  and (min-width: 1001px) {
         #app {
           width: 100vw;
           height: 100vh;
@@ -385,33 +8,33 @@
         }
         .header {
           width: 92vw;
-          height: 12vh;
+          height: 5vh;
           margin: 0 auto;
         }
         .goback {
           width: 4vw;
           position: relative;
-          left: 95%;
-          top: 14%;
+          left: 99%;
+          top: 100%;
         }
         /* 内容区域 */
-        .contentBox {
+        .contentBox { 
           white-space: nowrap;
           overflow-y: scroll;
           width: 88vw;
-          height: 27vh;
-          margin: 3% auto 0;
+          height: 40vh;
+          margin: 0 auto;
         }
         .content {
           display: inline-block;
           width: 25%;
-          height: 70%;
+          height: 100%;
         }
         .fayinbutton {
           width: 33px;
           height: 33px;
           margin: 0 auto;
-          background: url("../CommonAsset/img/读音动画.png") no-repeat;
+          background: url("../../../CommonAsset/img/读音动画.png") no-repeat;
         }
         @keyframes fayin {
           0% {
@@ -423,7 +46,7 @@
         }
         .textWord {
           width: 23vw;
-          height: 20vh;
+          height: 25vh;
           text-align: center;
         }
         .activeImg {
@@ -434,13 +57,12 @@
         }
         .textWordImg {
           display: inline-block;
-         
         }
         /* 录音盒子 */
         .audioBox {
           display: flex;
-          width: 60vw;
-          height: 35vh;
+          width: 42vw;
+          height: 42vh;
           margin: 0 auto;
           margin-top: 1%;
           background-color: #fffffe;
@@ -448,7 +70,7 @@
           box-shadow: 0 1px 1px #ccc;
         }
         .pinyinBox {
-          width: 50%;
+          width: 70%;
           height: 100%;
         }
         .pinyin {
@@ -462,44 +84,38 @@
         }
         .pinyinIcoTitle {
           width: 100%;
-          height: 40%;
+          height: 30%;
         }
-        .pinyinContent {
-          width: 100%;
-          height: 50%;
-          font-size: 40px;
-          text-align: center;
-          line-height: 70px;
-          background-color: #f8f8f8;
-          border-top: 1px solid #ccc;
-        }
+ 
         .luyinBox {
           width: 50%;
           height: 100%;
         }
         .luyin {
           width: 100px;
-          height: 118px;
-          margin: 23% auto 0;
+          height: 100px;
+          margin: 8% auto 0;
           text-align: center;
+        }
+        .luyin > img {
+          width: 80%;
         }
         .end {
           display: none;
           width: 100px;
-          height: 105px;
-          margin: 23% auto 0;
+          height: 100px;
+          margin: 8% auto 0;
           text-align: center;
           animation: luyin 1s steps(5, end) infinite;
-  
         }
         .connecting {
           display: none;
           width: 100px;
-          height: 105px;
-          margin: 23% auto 0;
+          height: 100px;
+          margin: 8% auto 0;
           text-align: center;
           animation: loading 1s steps(8, end) infinite;
-          background: url("../CommonAsset/img/加载动画.png") no-repeat;
+          background: url("../../../CommonAsset/img/加载动画.png") no-repeat;
         }
         @keyframes luyin {
           0% {
@@ -517,19 +133,25 @@
             background-position: -800px 0;
           }
         }
+        .TextAndAudio{
+          display: flex;
+          width: 88%;
+          height: 40vh;
+          margin: 0 auto;
+        }
         /* 底部 */
         .footer {
           display: flex;
           width: 88vw;
           height: 10vh;
-          margin: 4% auto 0;
+          margin: 1% auto 0;
           background-color: #fffffe;
           border: #f4f8e3 solid 1px;
           border-radius: 10px;
         }
         .leftIco {
           width: 3.5vw;
-          padding-top: 1.5%;
+          padding-top: 0.5%;
           margin-left: 1%;
         }
         .textContent {
@@ -537,7 +159,7 @@
           height: 10vh;
           margin-left: 4%;
           line-height: 10vh;
-          font-size: 35px;
+          font-size: 20px;
         }
         .display-none {
           display: none;
@@ -545,23 +167,53 @@
         .leftArrow {
           display: none;
           position: absolute;
-          top: 25%;
+          top: 24%;
           left: 2%;
-          width: 40px;
-          height: 45px;
+          width: 30px;
           background: url("../../../CommonAsset/img/左三角.png") no-repeat;
           background-size: 80%;
         }
         .rightArrow {
           position: absolute;
-          top: 25%;
-          left: 94%;
-          width: 40px;
-          height: 45px;
+          top: 24%;
+          left: 95%;
+          width: 30px;
           background: url("../../../CommonAsset/img/右三角.png") no-repeat;
           background-size: 80%;
         }
         .pinyinIcoTitle_img{
-          margin-top: 3%;
+          width: 15%;
+        }
+        /* 2022-6-2新增 */
+        .talk{
+          width: 92%;
+          height: 100%;
+          margin: 0 auto;
+          /* background-color: pink; */
+        }
+        .pingyinBox{
+          width: 100%;
+          height: 20px;
+          margin: 1% auto;
+        }
+        .pinyinContent {
+          width: 100%;
+          height: 20%;
+          font-size: 18px;
+          text-align: center;
+          line-height: 27px;
+          background-color: #f8f8f8;
+          border-top: 1px solid #ccc;
+        }
+        .yiwenContent {
+          width: 100%;
+          height: 40%;
+          font-size: 18px;
+          text-align: center;
+          line-height: 27px;
+          background-color: #f8f8f8;
+          border-top: 1px solid #ccc;
+          word-break:break-all;
+          overflow:hidden;
         }
       }

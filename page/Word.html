@@ -7,17 +7,22 @@
     <title>生词识读</title>
     <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png" />
     <link rel="stylesheet" href="./asset/css/default.css" />
-    <link rel="stylesheet" href="./asset/css/word.css">
+    <link rel="stylesheet" href="./asset/css/word.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="app" v-cloak>
       <!-- 头部 -->
       <div class="header">
         <div class="goback" @click="goBack">
-          <img style="width: 100%" src="../CommonAsset/img/返回.png" />
+          <img style="width: 90%" src="../CommonAsset/img/方形返回.png" />
         </div>
       </div>
-      <!-- 文字框 -->
+      <!-- 文字上部分 -->
       <div class="contentBox" ref="contentBox">
         <div class="leftArrow" ref="leftArrow"></div>
         <div class="rightArrow" ref="rightArrow"></div>
@@ -41,52 +46,41 @@
           </div>
         </div>
       </div>
-      <!-- 语音框 -->
-      <div class="audioBox">
-        <!--拼音盒子  -->
-        <div class="pinyinBox">
-          <!-- 拼音 -->
-          <div class="pinyin">
-            <!-- 拼音ico -->
-            <div class="pinyinIco">
-              <div class="pinyinIcoTitle">
-                <img class="pinyinIcoTitle_img" src="../CommonAsset/img/拼音icon.png"/>
-              </div>
-              <!-- 拼音内容 -->
-              <div class="pinyinContent">
-                <span>{{pinyin}}</span>
-              </div>
+      <!-- 文字下部分 -->
+      <div class="TextAndAudio">
+        <!-- 语音框 -->
+        <div class="audioBox">
+          <div class="talk">
+            <!-- 拼音 -->
+            <div class="pingyinBox">
+              <img class="pinyinIcoTitle_img" src="../CommonAsset/img/拼音icon.png">
             </div>
-            <!-- 拼音ico -->
-            <div class="pinyinIco">
-              <div class="pinyinIcoTitle">
-                <img class="pinyinIcoTitle_img" src="../CommonAsset/img/译文icon.png" />
-              </div>
-              <!-- 拼音内容 -->
-              <div class="pinyinContent">
-                <span> {{yiwen}} </span>
-              </div>
+            <div class="pinyinContent"> {{pinyin}} </div>
+             <!-- 拼音 -->
+             <div class="pingyinBox">
+              <img class="pinyinIcoTitle_img" src="../CommonAsset/img/译文icon.png">
             </div>
+            <div class="yiwenContent">{{yiwen}}</div>
           </div>
         </div>
         <!-- 录音按钮 -->
-        <div class="luyinBox">
+        <div class="audioBox">
           <!-- 开始录音 -->
           <div class="luyin" id="start">
-            <img :src="luyinjian">
+            <img :src="luyinjian" />
           </div>
           <!-- 连接Loading -->
           <div class="connecting" id="connecting"></div>
           <!-- 录音中 -->
-          <div class="end" id="end" :style="{background:`url(${zhengzaily})`}">
-          </div>
+          <div
+            class="end"
+            id="end"
+            :style="{background:`url(${zhengzaily})`}"
+          ></div>
         </div>
       </div>
       <!-- 底部 -->
       <div class="footer">
-        <div class="leftIco">
-          <img style="width: 100%" src="../CommonAsset/img/录音icon.png" />
-        </div>
         <div class="textContent" id="recognizeText"></div>
       </div>
     </div>
@@ -110,8 +104,8 @@
             pinyin: "",
             yiwen: "",
             UrlSearch: "",
-            luyinjian:"",
-            zhengzaily:""
+            luyinjian: "",
+            zhengzaily: "",
           };
         },
         created() {
@@ -121,15 +115,17 @@
           this.getData();
         },
         mounted() {
-            //获取课程编号ID
+          //获取课程编号ID
           let current_image_id = localStorage.getItem("current_image_id");
-            //检查任务是否开始
+          //检查任务是否开始
           let missionStart = localStorage.getItem("missionStart");
-          let image_id =  localStorage.getItem("image_" + current_image_id + "_task_1")
+          let image_id = localStorage.getItem(
+            "image_" + current_image_id + "_task_1"
+          );
           let current_task_id = sessionStorage.getItem("current_task_id");
-          if (current_task_id == 1 && missionStart == "true"&& image_id != 3) {
+          if (current_task_id == 1 && missionStart == "true" && image_id != 3) {
             localStorage.setItem("image_" + current_image_id + "_task_1", 1); // task_1表示读课文  2表示完成任务
-          }  
+          }
         },
         methods: {
           getData() {
@@ -138,7 +134,9 @@
               .get(
                 baseUrl +
                   "server/api/data.php?action=getWordData&contentId=" +
-                  this.UrlSearch+"&lang="+lang
+                  this.UrlSearch +
+                  "&lang=" +
+                  lang
               )
               .then((res) => {
                 this.Data = res.data.word;
@@ -176,10 +174,10 @@
           //点击文字，变化颜色。
           activeText(wordActive, index, pinyin, yiwen) {
             let current_image_id = localStorage.getItem("current_image_id");
-             let missionStart = localStorage.getItem("missionStart");
-             let current_task_id = sessionStorage.getItem("current_task_id");
+            let missionStart = localStorage.getItem("missionStart");
+            let current_task_id = sessionStorage.getItem("current_task_id");
             if (missionStart == "true" && current_task_id == 1) {
-            localStorage.setItem("image_" + current_image_id + "_task_1", 2);
+              localStorage.setItem("image_" + current_image_id + "_task_1", 2);
             }
             for (let i = 0; i < this.$refs.textWordImg.length; i++) {
               this.$refs.textWordImg[i].style.background = "";
