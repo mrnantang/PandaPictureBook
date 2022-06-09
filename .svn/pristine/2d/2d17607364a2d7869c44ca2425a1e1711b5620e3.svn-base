@@ -54,12 +54,11 @@ $(function () {
     };
     // 识别错误
     webAudioSpeechRecognizer.OnError = (res) => {
-      console.log('识别失败============', res)
-      alert("浏览器不支持录音，或未开启录音权限")
+      console.log('识别失败', res)
       $('#end').hide();
       $('#start').show();
       $('#connecting').hide();
-      
+      alert("浏览器不支持录音，或未开启录音权限")
     };
     webAudioSpeechRecognizer.start();
   });
