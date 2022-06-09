@@ -105,7 +105,6 @@
             </div>
           </div>
         </div>
-        
         <audio ref="readTextAudio" :src="readAudio"></audio>
       </div>
 
@@ -128,7 +127,6 @@
           // 开始滚动行
           Cpos: 1,
           offset: 40,
-          btns:[]
         };
       },
       created() {
@@ -171,6 +169,7 @@
             .catch((err) => {
               console.log(err);
             });
+
         },
         goBack() {
           // 返回上一页

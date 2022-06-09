@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="../CommonAsset/img/网页icon.png" />
     <link rel="stylesheet" href="./asset/css/default.css" />
     <link rel="stylesheet" href="./asset/css/word.css" />
-    <script src="./asset/js/vconsole.min.js"></script>
     <style>
       [v-cloak] {
         display: none;
@@ -109,7 +108,7 @@
         created() {
           window.addEventListener("scroll", this.getScrollTop, true);
           this.UrlSearch = localStorage.getItem("contentId");
-          const vConsole = new VConsole();
+          console.log(this.UrlSearch);
           this.getData();
         },
         mounted() {

@@ -12,7 +12,6 @@
     <script src="./asset/js/Vue.js"></script>
     <script src="./asset/js/axios.js"></script>
     <script src="./asset/js/HtmlRotate.js"></script>
-    <script src="./asset/js/vconsole.min.js"></script>
   </head>
 
   <body>
@@ -36,10 +35,9 @@
             </div>
             <!-- 任务2页面 -->
             <div class="mission2" v-show="mission_2">
-              <div class="mission_title" v-if="btns[num]">{{btns[num].name}}</div>
+              <div class="mission_title">{{btns[num].name}}</div>
               <div style="width: 50px; margin: 2% auto 0">
                 <img
-                v-if="btns[num]"
                   :src="btns[num].img"
                   style="width: 85%"
                   @click="goHref(btns[num].url)"
@@ -49,21 +47,20 @@
             <!-- 任务3页面(完成状态) -->
             <div class="mission3" v-show="mission_3" @click="mission3">
               <div class="mission_text">{{textArray.GREAT_TASK_DONE}}</div>
-              <div class="mission_title" v-if="btns[num]">{{btns[num].name}}</div>
+              <div class="mission_title">{{btns[num].name}}</div>
             </div>
             <!-- 任务4页面(未完成状态) -->
-             <div class="mission3" v-show="mission_4">
+            <div class="mission3" v-show="mission_4">
               <div class="mission_text">{{textArray.TASK_NOT_FINISH}}</div>
-              <div class="mission_title" v-if="btns[num]">{{btns[num].name}}</div>
+              <div class="mission_title">{{btns[num].name}}</div>
               <div style="width: 50px; margin: 2% auto 0">
                 <img
-                  v-if="btns[num]"
                   :src="btns[num].img"
                   style="width: 85%"
                   @click="goHref(btns[num].url)"
                 />
               </div>
-            </div> 
+            </div>
             <!-- 任务5页面-->
             <div class="mission4" v-show="mission_5">
               <div
@@ -156,12 +153,11 @@
               dialogStatus: 0,
               videos: [],
               successWord: '',
-              textArray:'',
+              textArray:''
             };
           },
           created() {
             this.getData();
-          const vConsole = new VConsole();
           },
           mounted() {
             this.UrlSearch = localStorage.getItem("contentId");
@@ -355,14 +351,9 @@
                     "image_" + this.UrlSearch + "_task_" + i
                   );
                   //首次进去 未领取和完成任何任务
-                  
-                  if (this.btns != "") {
-                    this.btns[i].status = localStorage.getItem(
+                  this.btns[i].status = localStorage.getItem(
                     "image_" + this.UrlSearch + "_task_" + i
                   );
-                  }
-                 
-              
                   switch (taskArray[i]) {
                     case "0":
                       num_of_0++;

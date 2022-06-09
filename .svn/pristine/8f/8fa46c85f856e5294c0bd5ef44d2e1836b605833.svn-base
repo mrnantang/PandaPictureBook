@@ -119,7 +119,7 @@
 
     .mission4 {
       position: relative;
-      top: 2%;
+      top: 25%;
       left: 30%;
       width: 20vw;
       height: 30vh;
@@ -175,7 +175,7 @@
    }
   }
   /* 小屏幕手机 */
-  @media screen and (max-height:369px)  {
+  @media screen and (max-height:389px)  {
         
       
     #app {

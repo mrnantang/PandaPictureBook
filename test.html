@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: pink;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .a{
+            margin: 0 auto;
+            width: 34px;
+            height: 46px;
+            background: url("CommonAsset/img/clickanimate.png") no-repeat;
+            animation: test 1s steps(6,end) infinite;
+        }
+        @keyframes test {
+            0% {
+                background-position: 0 0;
+            }
+            100%{
+                background-position: -200px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+    </div>
+</body>
+</html>
